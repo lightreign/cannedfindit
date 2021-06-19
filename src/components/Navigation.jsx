@@ -8,9 +8,6 @@ export const Navigation = () => (
             <li>
                 <Link to="/">Dashboard</Link>
             </li>
-            <li>
-                <Link to="/btngame">Button Game</Link>
-            </li>
         </ul>
     </nav>
 );

@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import connectDatabase from './database';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import App from '../components/App';
+import { Item } from "./schema";
 
 const server = express();
 server.use(
@@ -12,16 +10,14 @@ server.use(
     express.static('dist')
 );
 
-server.get('/', (req, res) => {
-    const initialMarkup = ReactDOMServer.renderToString(<App />);
-
+server.get('/*', (req, res) => {
     res.send(`
     <html>
       <head>
         <title>Inventory</title>
       </head>
       <body>
-        <div class="container" id="mountNode">${initialMarkup}</div>
+        <div class="container" id="mountNode"></div>
         <script src="/bundle.js"></script>
       </body>
     </html>
@@ -29,12 +25,22 @@ server.get('/', (req, res) => {
 });
 
 server.post('/item/new', async (req, res) => {
-    let mongoose = await connectDatabase();
+    await connectDatabase();
 
-    const Item = mongoose.model('Item', { type: { name: String, location: String }, expiry: Date });
-    const newItem = new Item(req.body.item);
+    const created = new Item(req.body.item);
     console.log('saved item');
-    res.status(500).send();
+
+    res.append('Content-Type', 'application/json; charset=UTF-8');
+
+    let error = created.validateSync();
+    if (error) {
+        res.status(422).send(error.errors);
+        return;
+    }
+
+    // await created.save();
+
+    res.status(201).send(created);
 
     // newItem.save().then(() => {
     //     console.log('saved item');

@@ -1,24 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "../store";
+import { ConnectedNavigation } from "./Navigation";
+import { ConnectedDashboard } from "./Dashboard";
+import { ConnectedItemDetail } from "./ItemDetail";
+import bootstrap from 'bootstrap';
 
-import { inventory } from '../inventory';
-
-export default function App() {
-    console.log(inventory.getState());
-
-    const [count, setCount] = useState(0);
-    return (
-        <div>
-            <p>
-                This is a sample stateful and server-side
-                rendered React application.
-            </p>
-            <br/>
-            <p>
-                Here is a button that will track
-                how many times you click it:
-            </p>
-            <button onClick={() => setCount(count + 1)}>{count}</button>
-        </div>
-    );
-}
+export const App = () => (
+    <Router>
+        <Provider store={store}>
+            <ConnectedNavigation/>
+            <Route exact path="/" component={ConnectedDashboard}/>
+            <Route exact path="/item/:id" render={({match}) => (<ConnectedItemDetail match={match}/>)}/>
+        </Provider>
+    </Router>
+);
 

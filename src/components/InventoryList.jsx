@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { addItem } from '../inventory/client';
 import { Link } from "react-router-dom";
+import { addItem } from "../store/actions";
 
 export const InventoryList = ({user, items, types, createItem, setItemType, setExpiry, setLocation}) => (
     <div>
@@ -16,8 +16,8 @@ export const InventoryList = ({user, items, types, createItem, setItemType, setE
             </thead>
             <tbody>
                 {items.map(item => (
-                    <tr key={item.id}>
-                        <td><Link to={`/item/${item.id}`}>{item.type.name}</Link></td>
+                    <tr key={item._id}>
+                        <td><Link to={`/item/${item._id}`}>{item.type.name}</Link></td>
                         <td>{item.location.name}</td>
                         <td>{item.expiry}</td>
                     </tr>
@@ -74,7 +74,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             // TODO: add proper validation
             if (ownProps.itemType && ownProps.expiry) {
                 const item = {
-                    id: null,
                     type: {
                         name: ownProps.itemType
                     },

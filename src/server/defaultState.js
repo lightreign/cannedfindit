@@ -4,19 +4,19 @@ export const defaultState = {
     },
     types: [
         {
-            id: 1,
+            _id: 1,
             name: 'Baked Beans',
             brand: 'Heinz',
         },
         {
-            id: 2,
+            _id: 2,
             brand: 'Maggi',
             name: 'noodles'
         }
     ],
     items: [
         {
-            id: 1,
+            _id: 1,
             expiry: '16/4/2022',
             type: {
                 name: 'Baked Beans',
@@ -27,7 +27,7 @@ export const defaultState = {
             }
         },
         {
-            id: 2,
+            _id: 2,
             expiry: '16/4/2022',
             type: {
                 brand: 'Maggi',
