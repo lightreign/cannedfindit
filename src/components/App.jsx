@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "../store";
 import { ConnectedNavigation } from "./Navigation";
 import { ConnectedDashboard } from "./Dashboard";
-import { ConnectedItemDetail } from "./ItemDetail";
+import { ConnectedItemDetail } from "./Item/ItemDetail";
 import bootstrap from 'bootstrap';
 
 export const App = () => (

@@ -6,14 +6,75 @@ export function itemReducer(items = defaultState.items, action) {
         case actions.ADD_ITEM:
             alert('Added item successfully');
             return [...items, action.item];
-        case actions.ERROR:
-            alert('Added item failed');
+        case actions.ITEM_ERROR:
+            console.error(action.error);
+            alert('Add item failed');
             break;
     }
 
     return items;
 }
 
-export function typeReducer(types = defaultState.types) {
+export function typeReducer(types = defaultState.types, action) {
+    switch (action.type) {
+        case actions.LIST_TYPES:
+            return action.productTypes;
+        case actions.ADD_TYPE:
+            alert('Type added successfully');
+            return [...types, action.productType];
+        case actions.TYPE_ERROR:
+            console.error(action.error);
+            alert('Added type failed');
+            break;
+    }
+
     return types;
+}
+
+export function locationReducer(locations = defaultState.locations, action) {
+    switch (action.type) {
+        case actions.LIST_LOCATIONS:
+            return action.locations;
+        case actions.ADD_LOCATION:
+            alert('Location added successfully');
+            return [...locations, action.location];
+        case actions.LOCATION_ERROR:
+            console.error(action.error);
+            alert('Added location failed');
+            break;
+    }
+
+    return locations;
+}
+
+export function brandReducer(brands = defaultState.brands, action) {
+    switch (action.type) {
+        case actions.LIST_BRANDS:
+            return action.brands;
+        case actions.ADD_BRAND:
+            alert('Brand added successfully');
+            return [...brands, action.brand];
+        case actions.BRAND_ERROR:
+            console.error(action);
+            alert('Added brand failed');
+            break;
+    }
+
+    return brands;
+}
+
+export function productReducer(products = defaultState.products, action) {
+    switch (action.type) {
+        case actions.LIST_PRODUCTS:
+            return action.products;
+        case actions.ADD_PRODUCT:
+            alert('Product added successfully');
+            return [...products, action.product];
+        case actions.PRODUCT_ERROR:
+            console.error(action.error);
+            alert('Added product failed');
+            break;
+    }
+
+    return products;
 }

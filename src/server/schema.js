@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+// Schema
 const userSchema = new Schema({
     firstname: {
         type: String,
@@ -20,7 +21,6 @@ const userSchema = new Schema({
     lastLogin: Date,
 });
 
-// Schema
 const locationSchema = new Schema({
     name: {
         type: String,
@@ -35,8 +35,22 @@ const typeSchema = new Schema({
     }
 });
 
-const itemSchema = new Schema({
+const brandSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    }
+});
+
+const productSchema = new Schema({
     type: typeSchema,
+    brand: brandSchema,
+    weight: Number,
+    volume: Number,
+});
+
+const itemSchema = new Schema({
+    product: productSchema,
     location: locationSchema,
     expiry: {
         type: Date,
@@ -47,5 +61,7 @@ const itemSchema = new Schema({
 // Models
 export const User = mongoose.model('User', userSchema);
 export const Type = mongoose.model('Type', typeSchema);
+export const Brand = mongoose.model('Brand', brandSchema);
+export const Product = mongoose.model('Product', productSchema);
 export const Location = mongoose.model('Location', locationSchema);
 export const Item = mongoose.model('Item', itemSchema);
