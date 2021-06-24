@@ -3,12 +3,22 @@ import { defaultState } from "../server/defaultState";
 
 export function itemReducer(items = defaultState.items, action) {
     switch (action.type) {
+        case actions.LIST_ITEMS:
+            action.items = action.items.map(item => {
+                item.expiry = new Date(item.expiry);
+                return item;
+            });
+
+            return action.items;
+
         case actions.ADD_ITEM:
+            action.item.expiry = new Date(action.item.expiry);
+
             alert('Added item successfully');
             return [...items, action.item];
         case actions.ITEM_ERROR:
             console.error(action.error);
-            alert('Add item failed');
+            alert('Add/Update or list item failed');
             break;
     }
 
@@ -24,7 +34,7 @@ export function typeReducer(types = defaultState.types, action) {
             return [...types, action.productType];
         case actions.TYPE_ERROR:
             console.error(action.error);
-            alert('Added type failed');
+            alert('Add/Update or list type failed');
             break;
     }
 
@@ -40,7 +50,7 @@ export function locationReducer(locations = defaultState.locations, action) {
             return [...locations, action.location];
         case actions.LOCATION_ERROR:
             console.error(action.error);
-            alert('Added location failed');
+            alert('Add/Update or list location failed');
             break;
     }
 
@@ -56,7 +66,7 @@ export function brandReducer(brands = defaultState.brands, action) {
             return [...brands, action.brand];
         case actions.BRAND_ERROR:
             console.error(action);
-            alert('Added brand failed');
+            alert('Add/Update or list brand failed');
             break;
     }
 
@@ -72,7 +82,7 @@ export function productReducer(products = defaultState.products, action) {
             return [...products, action.product];
         case actions.PRODUCT_ERROR:
             console.error(action.error);
-            alert('Added product failed');
+            alert('Add/Update or list product failed');
             break;
     }
 

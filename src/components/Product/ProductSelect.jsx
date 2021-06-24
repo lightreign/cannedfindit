@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { listProducts } from "../../store/actions";
+import { Form } from "react-bootstrap-v5";
 
 export const ProductSelect = ({products, listProducts, setProduct}) => {
     useEffect(() => {
@@ -8,17 +9,17 @@ export const ProductSelect = ({products, listProducts, setProduct}) => {
     }, []);
 
     return (
-        <label>
-            Product:
-            <select onChange={setProduct} name="product" className="form-control">
+        <Form.Group controlId="form.product">
+            <Form.Label>Product:</Form.Label>
+            <Form.Control as="select" onChange={setProduct} name="product">
                 <option key="" value="">-- Select --</option>
                 {products.map(product => (
-                    <option key={product._id} value={product._id}>
+                    <option key={product._id} value={JSON.stringify(product)}>
                         {product.brand.name} {product.type.name} TODO: weight/volume FIX product
                     </option>
                 ))}
-            </select>
-        </label>
+            </Form.Control>
+        </Form.Group>
     );
 };
 
@@ -28,7 +29,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         listProducts() {
             dispatch(listProducts());

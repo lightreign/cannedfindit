@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 export const TypeCreate = ({createType, setType}) => (
     <form id="typeCreateForm" onSubmit={createType}>
+        <legend>Create a Product Type</legend>
         <div className="row">
             <label>
                 Enter New Type:

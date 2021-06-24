@@ -14,6 +14,7 @@ export const LIST_LOCATIONS = 'LIST_LOCATIONS';
 export const ADD_LOCATION = 'ADD_LOCATION';
 export const LOCATION_ERROR = 'LOCATION_ERROR';
 
+export const LIST_ITEMS = 'LIST_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const ITEM_ERROR = 'ERROR';
 

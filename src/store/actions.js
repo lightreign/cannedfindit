@@ -1,47 +1,7 @@
 import axios from 'axios';
 import * as actions from './types';
 
-const url = process.env.NODE_ENV === 'production' ? `` : `http://localhost:4242`;
-
-export const addItem = (item) => {
-    return (dispatch) => {
-        return axios.post(url + `/item/new`, {
-            item: item
-        }).then(response => {
-            return response.data
-        }).then(data => {
-            dispatch({
-                type: actions.ADD_ITEM,
-                item: data
-            });
-        }).catch(error => {
-            dispatch({
-                type: actions.ITEM_ERROR,
-                data: error.data
-            });
-        });
-    };
-};
-
-export const addLocation = (location) => {
-    return (dispatch) => {
-        return axios.post(url + `/location/new`, {
-            location: location
-        }).then(response => {
-            return response.data
-        }).then(data => {
-            dispatch({
-                type: actions.ADD_LOCATION,
-                item: data
-            });
-        }).catch(error => {
-            dispatch({
-                type: actions.LOCATION_ERROR,
-                error: error
-            });
-        });
-    };
-};
+const url = process.env.NODE_ENV === 'production' ? `/api` : `http://localhost:4242/api`;
 
 export const listBrands = () => {
     return (dispatch) => {
@@ -115,6 +75,24 @@ export const listProducts = () => {
     };
 };
 
+export const listItems = () => {
+    return (dispatch) => {
+        return axios.get(url + `/item`).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.LIST_ITEMS,
+                items: data
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.ITEM_ERROR,
+                error: error
+            });
+        });
+    };
+};
+
 export const addBrand = (brand) => {
     return (dispatch) => {
         return axios.post(url + `/brand/new`, {
@@ -170,6 +148,46 @@ export const addProduct = (product) => {
             dispatch({
                 type: actions.PRODUCT_ERROR,
                 error: error
+            });
+        });
+    };
+};
+
+export const addLocation = (location) => {
+    return (dispatch) => {
+        return axios.post(url + `/location/new`, {
+            location: location
+        }).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.ADD_LOCATION,
+                item: data
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.LOCATION_ERROR,
+                error: error
+            });
+        });
+    };
+};
+
+export const addItem = (item) => {
+    return (dispatch) => {
+        return axios.post(url + `/item/new`, {
+            item: item
+        }).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.ADD_ITEM,
+                item: data
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.ITEM_ERROR,
+                data: error.data
             });
         });
     };

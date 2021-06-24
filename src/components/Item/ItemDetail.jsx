@@ -1,23 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const ItemDetail = ({
-    id,
-    item
-}) => (
+const ItemDetail = ({item}) => (
     <div>
-        <h4>Item: {item.type.name}</h4>
+        <h4>Item: {item.product.brand.name} {item.product.type.name}</h4>
         <p>Location: {item.location.name}</p>
-        <p>Expiry: {item.expiry}</p>
+        <p>Expiry: {item.expiry.toLocaleString()}</p>
     </div>
 );
 
 const mapStateToProps = (state, ownProps) => {
-   let id = parseInt(ownProps.match.params.id);
-   let item = state.items.find(item => item.id === id);
+   let id = ownProps.match.params.id;
+   let item = state.items.find(item => item._id === id);
+
+   // TODO: handle if no item
 
    return {
-      id: id,
       item: item
    };
 }

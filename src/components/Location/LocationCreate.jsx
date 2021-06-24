@@ -1,18 +1,19 @@
 import React from "react";
 import { addLocation } from "../../store/actions";
 import { connect } from "react-redux";
+import {Button, Form} from "react-bootstrap-v5";
 
 export const LocationCreate = ({createLocation, setLocation}) => (
-    <form id="locationForm" onSubmit={createLocation}>
-        <div className="row">
-            <label>
-                Enter New Location:
-                <input name="location" onChange={setLocation} required/>
-            </label>
-        </div>
+    <Form id="locationForm" onSubmit={createLocation}>
+        <legend>Create an Item Location</legend>
 
-        <button type="submit" className="btn btn-danger">Add Location</button>
-    </form>
+        <Form.Group controlId="location">
+            <Form.Label>Enter New Location:</Form.Label>
+            <Form.Control name="location" onChange={setLocation} required />
+        </Form.Group>
+
+        <Button variant="danger" type="submit">Add Location</Button>
+    </Form>
 );
 
 const mapStateToProps = (state) => {

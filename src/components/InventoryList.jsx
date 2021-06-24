@@ -1,32 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { ConnectedItemCreate } from "./Item/ItemCreate";
+import { listItems } from "../store/actions";
+import { Table } from "react-bootstrap-v5";
 
-export const InventoryList = ({user, items}) => (
+export const InventoryList = ({items, listItems}) => {
+    useEffect(() => {
+        listItems();
+    }, []);
+
+    return (
     <div>
         <legend>Item Inventory</legend>
-        <table>
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Location</th>
-                    <th>Expiry</th>
+                    <th>Expires</th>
                 </tr>
             </thead>
             <tbody>
                 {items.map(item => (
                     <tr key={item._id}>
-                        <td><Link to={`/item/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
+                        <td><Link to={`/item/id/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
                         <td>{item.location.name}</td>
-                        <td>{item.expiry}</td>
+                        <td>{item.expiry.toLocaleDateString()}</td>
                     </tr>
                 ))}
             </tbody>
-        </table>
-        <ConnectedItemCreate/>
+        </Table>
     </div>
-);
+)};
 
 const mapStateToProps = (state) => {
     return {
@@ -35,4 +40,12 @@ const mapStateToProps = (state) => {
     };
 }
 
-export const ConnectedInventoryList = connect(mapStateToProps)(InventoryList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        listItems() {
+            dispatch(listItems());
+        }
+    }
+};
+
+export const ConnectedInventoryList = connect(mapStateToProps, mapDispatchToProps)(InventoryList);

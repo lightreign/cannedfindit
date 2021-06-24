@@ -1,18 +1,19 @@
 import React from "react";
 import { addBrand } from "../../store/actions";
 import { connect } from "react-redux";
+import { Button, Form } from "react-bootstrap-v5";
 
 export const BrandCreate = ({createBrand, setBrand}) => (
-    <form id="brandCreateForm" onSubmit={createBrand}>
-        <div className="row">
-            <label>
-                Enter New Brand:
-                <input name="brand" onChange={setBrand} required/>
-            </label>
-        </div>
+    <Form id="brandCreateForm" onSubmit={createBrand}>
+        <legend>Create a Product Brand</legend>
 
-        <button type="submit" className="btn btn-warning">Create Brand</button>
-    </form>
+        <Form.Group controlId="brand">
+            <Form.Label>New Brand:</Form.Label>
+            <Form.Control name="brand" onChange={setBrand} required />
+        </Form.Group>
+
+        <Button type="submit" className="btn btn-warning">Create Brand</Button>
+    </Form>
 );
 
 const mapStateToProps = (state) => {

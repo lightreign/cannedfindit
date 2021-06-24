@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { listLocations } from "../../store/actions";
+import {Form} from "react-bootstrap-v5";
 
 export const LocationSelect = ({locations, listLocations, setLocation}) => {
     useEffect(() => {
@@ -8,17 +9,17 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
     }, []);
 
     return (
-        <label>
-            Location:
-            <select onChange={setLocation} name="location" className="form-control">
+        <Form.Group controlId="form.location">
+            <Form.Label>Location:</Form.Label>
+            <Form.Control as="select" onChange={setLocation} name="location">
                 <option key="" value="">-- Select --</option>
                 {locations.map(location => (
                     <option key={location._id} value={location.name}>
                         {location.name}
                     </option>
                 ))}
-            </select>
-        </label>
+            </Form.Control>
+        </Form.Group>
     );
 };
 

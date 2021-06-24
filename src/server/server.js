@@ -10,7 +10,7 @@ server.use(
     express.static('dist')
 );
 
-server.get('/', (req, res) => {
+server.get(/^(?!\/?api).+/, (req, res) => {
     res.send(`
     <html>
       <head>
@@ -24,7 +24,17 @@ server.get('/', (req, res) => {
   `)
 });
 
-server.get('/brand', async (req, res) => {
+server.get('/api/item', async (req, res) => {
+    await connectDatabase();
+
+    res.append('Content-Type', 'application/json; charset=UTF-8');
+
+    const items = await Item.find();
+
+    res.status(200).send(items);
+});
+
+server.get('/api/brand', async (req, res) => {
     await connectDatabase();
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
@@ -34,7 +44,7 @@ server.get('/brand', async (req, res) => {
     res.status(200).send(brands);
 });
 
-server.get('/type', async (req, res) => {
+server.get('/api/type', async (req, res) => {
     await connectDatabase();
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
@@ -44,7 +54,7 @@ server.get('/type', async (req, res) => {
     res.status(200).send(types);
 });
 
-server.get('/location', async (req, res) => {
+server.get('/api/location', async (req, res) => {
     await connectDatabase();
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
@@ -54,7 +64,7 @@ server.get('/location', async (req, res) => {
     res.status(200).send(locations);
 });
 
-server.get('/product', async (req, res) => {
+server.get('/api/product', async (req, res) => {
     await connectDatabase();
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
@@ -64,7 +74,7 @@ server.get('/product', async (req, res) => {
     res.status(200).send(products);
 });
 
-server.post('/item/new', async (req, res) => {
+server.post('/api/item/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Item(req.body.item);
@@ -78,12 +88,16 @@ server.post('/item/new', async (req, res) => {
         return;
     }
 
-    // await created.save();
+    await created.save().catch(() => {
+        res
+            .status(422)
+            .send({ error: "Could not add item due to database error" });
+    });
 
     res.status(201).send(created);
 });
 
-server.post('/location/new', async (req, res) => {
+server.post('/api/location/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Location(req.body.location);
@@ -107,7 +121,7 @@ server.post('/location/new', async (req, res) => {
     res.status(201).send(created);
 });
 
-server.post('/brand/new', async (req, res) => {
+server.post('/api/brand/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Brand(req.body.brand);
@@ -131,7 +145,7 @@ server.post('/brand/new', async (req, res) => {
     res.status(201).send(created);
 });
 
-server.post('/type/new', async (req, res) => {
+server.post('/api/type/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Type(req.body.type);
@@ -155,7 +169,7 @@ server.post('/type/new', async (req, res) => {
     res.status(201).send(created);
 });
 
-server.post('/product/new', async (req, res) => {
+server.post('/api/product/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Product(req.body.product);

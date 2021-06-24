@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { listTypes } from "../../store/actions";
+import { Form } from "react-bootstrap-v5";
 
 export const TypeSelect = ({types, listTypes, setProductType}) => {
     useEffect(() => {
@@ -8,17 +9,17 @@ export const TypeSelect = ({types, listTypes, setProductType}) => {
     }, []);
 
     return (
-        <label>
-            Product Type:
-            <select onChange={setProductType} name="type" className="form-control">
+        <Form.Group controlId="form.type">
+            <Form.Label>Product Type:</Form.Label>
+            <Form.Control as="select" onChange={setProductType} name="type">
                 <option key="" value="">-- Select --</option>
                 {types.map(type => (
                     <option key={type._id} value={type.name}>
                         {type.name}
                     </option>
                 ))}
-            </select>
-        </label>
+            </Form.Control>
+        </Form.Group>
     );
 };
 

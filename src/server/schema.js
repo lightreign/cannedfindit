@@ -24,21 +24,24 @@ const userSchema = new Schema({
 const locationSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
 const typeSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
 const brandSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
@@ -47,6 +50,15 @@ const productSchema = new Schema({
     brand: brandSchema,
     weight: Number,
     volume: Number,
+});
+
+productSchema.index({
+    type: 1,
+    brand: 1,
+    weight: 1,
+    volume: 1,
+}, {
+    unique: true
 });
 
 const itemSchema = new Schema({

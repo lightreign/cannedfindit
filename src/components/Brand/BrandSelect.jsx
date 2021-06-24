@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { listBrands } from "../../store/actions";
+import {Form} from "react-bootstrap-v5";
 
 export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     useEffect(() => {
@@ -8,17 +9,17 @@ export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     }, []);
 
     return (
-        <label>
-            Brand:
-            <select onChange={setProductBrand} name="brand" className="form-control">
+        <Form.Group controlId="form.brand">
+            <Form.Label>Brand:</Form.Label>
+            <Form.Control as="select" onChange={setProductBrand} name="brand">
                 <option key="" value="">-- Select --</option>
                 {brands.map(brand => (
                     <option key={brand._id} value={brand.name}>
                         {brand.name}
                     </option>
                 ))}
-            </select>
-        </label>
+            </Form.Control>
+        </Form.Group>
     )
 };
 

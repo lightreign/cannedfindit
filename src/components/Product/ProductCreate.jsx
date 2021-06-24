@@ -1,30 +1,37 @@
 import React from "react";
 import { addProduct } from "../../store/actions";
 import { connect } from "react-redux";
-import {ConnectedTypeSelect} from "../Type/TypeSelect";
-import {ConnectedBrandSelect} from "../Brand/BrandSelect";
+import { ConnectedTypeSelect } from "../Type/TypeSelect";
+import { ConnectedBrandSelect } from "../Brand/BrandSelect";
+import { Button, Col, Form, Row } from "react-bootstrap-v5";
 
 export const ProductCreate = ({createProduct, setType, setBrand, setMass, setUnit}) => (
-    <form id="productCreateForm" onSubmit={createProduct}>
-        <div className="row">
-            <ConnectedBrandSelect setProductBrand={setBrand}/>
-        </div>
-        <div className="row">
-            <ConnectedTypeSelect setProductType={setType}/>
-        </div>
-        <div className="row">
-            <label>
-                Weight / Volume:
-                <input name="mass" onChange={setMass} required/>
-                <select name="unit" onChange={setUnit} defaultValue='g'>
-                    <option value="g">grams</option>
-                    <option value="ml">millilitres</option>
-                </select>
-            </label>
-        </div>
+    <Form id="productCreateForm" onSubmit={createProduct}>
+        <legend>Create a Product</legend>
 
-        <button type="submit" className="btn btn-primary">Add Product</button>
-    </form>
+        <ConnectedBrandSelect setProductBrand={setBrand}/>
+        <ConnectedTypeSelect setProductType={setType}/>
+
+        <Row>
+            <Col>
+                <Form.Group controlId="weightVolume">
+                    <Form.Label>Weight / Volume:</Form.Label>
+                    <Form.Control name="mass" onChange={setMass} required />
+                </Form.Group>
+            </Col>
+            <Col>
+                <Form.Group controlId="unit">
+                    <Form.Label>Unit:</Form.Label>
+                    <Form.Control as="select" name="unit" onChange={setUnit} defaultValue='g'>
+                        <option value="g">grams</option>
+                        <option value="ml">millilitres</option>
+                    </Form.Control>
+                </Form.Group>
+            </Col>
+        </Row>
+
+        <Button type="submit" className="btn btn-primary">Add Product</Button>
+    </Form>
 );
 
 const mapStateToProps = (state, ownProps) => {

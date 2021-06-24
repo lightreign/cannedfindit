@@ -4,24 +4,23 @@ import { addItem } from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedLocationSelect } from "../Location/LocationSelect";
 import { ConnectedProductSelect } from "../Product/ProductSelect";
+import { Button, Form } from "react-bootstrap-v5";
 
-export const ItemCreate = ({types, createItem, setProduct, setExpiry, setLocation}) => (
-    <form id="itemCreateForm" onSubmit={createItem}>
-        <div className="row">
-            <ConnectedProductSelect setProduct={setProduct}/>
-        </div>
-        <div className="row">
-            <label>
-                Expiry:
-                <Datetime dateFormat="DD/MM/YYYY" onChange={setExpiry} timeFormat={false} closeOnSelect={true}/>
-            </label>
-        </div>
-        <div className="row">
-            <ConnectedLocationSelect setLocation={setLocation}/>
-        </div>
+export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation}) => (
+    <Form id="itemCreateForm" onSubmit={createItem}>
+        <legend>Create an Item</legend>
 
-        <button type="submit" className="btn btn-primary">Add Item</button>
-    </form>
+        <ConnectedProductSelect setProduct={setProduct}/>
+
+        <Form.Group controlId="expiry">
+            <Form.Label>Expiry:</Form.Label>
+            <Datetime dateFormat="DD/MM/YYYY" onChange={setExpiry} timeFormat={false} closeOnSelect={true}/>
+        </Form.Group>
+
+        <ConnectedLocationSelect setLocation={setLocation}/>
+
+        <Button variant="primary" type="submit">Add Item</Button>
+    </Form>
 );
 
 const mapStateToProps = (state, ownProps) => {
@@ -51,7 +50,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
         },
         setProduct(e) {
-            ownProps.product = e.target.value;
+            ownProps.product = JSON.parse(e.target.value);
         },
         setExpiry(date) {
             ownProps.expiry = date.toDate();
