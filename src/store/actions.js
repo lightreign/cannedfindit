@@ -1,11 +1,27 @@
 import axios from 'axios';
 import * as actions from './types';
 
-const url = process.env.NODE_ENV === 'production' ? `/api` : `http://localhost:4242/api`;
+const qs = require('qs');
+
+const api = axios.create({
+    baseURL: '/api',
+    timeout: 5000,
+});
+
+//// Add a response interceptor
+// axios.interceptors.response.use(function (response) {
+//     // Any status code that lie within the range of 2xx cause this function to trigger
+//     // Do something with response data
+//     return response;
+//   }, function (error) {
+//     // Any status codes that falls outside the range of 2xx cause this function to trigger
+//     // Do something with response error
+//     return Promise.reject(error);
+//   });
 
 export const listBrands = () => {
     return (dispatch) => {
-        return axios.get(url + `/brand`).then(response => {
+        return api.get('/brand').then(response => {
             return response.data
         }).then(data => {
             dispatch({
@@ -23,7 +39,7 @@ export const listBrands = () => {
 
 export const listTypes = () => {
     return (dispatch) => {
-        return axios.get(url + `/type`).then(response => {
+        return api.get('/type').then(response => {
             return response.data
         }).then(data => {
             dispatch({
@@ -41,7 +57,7 @@ export const listTypes = () => {
 
 export const listLocations = () => {
     return (dispatch) => {
-        return axios.get(url + `/location`).then(response => {
+        return api.get('/location').then(response => {
             return response.data
         }).then(data => {
             dispatch({
@@ -59,7 +75,7 @@ export const listLocations = () => {
 
 export const listProducts = () => {
     return (dispatch) => {
-        return axios.get(url + `/product`).then(response => {
+        return api.get('/product').then(response => {
             return response.data
         }).then(data => {
             dispatch({
@@ -75,9 +91,9 @@ export const listProducts = () => {
     };
 };
 
-export const listItems = () => {
+export const listItems = (perPage, page) => {
     return (dispatch) => {
-        return axios.get(url + `/item`).then(response => {
+        return api.get('/item?'+ qs.stringify({page: page, perPage: perPage})).then(response => {
             return response.data
         }).then(data => {
             dispatch({
@@ -93,9 +109,45 @@ export const listItems = () => {
     };
 };
 
+export const getItem = (id) => {
+    return (dispatch) => {
+        return api.get('/item/' + id).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.GET_ITEM,
+                item: data
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.ITEM_ERROR,
+                error: error
+            });
+        });
+    };
+};
+
+export const getItemsCount = () => {
+    return (dispatch) => {
+        return api.get('/count/item').then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.GET_ITEM_COUNT,
+                count: data.items
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.ITEM_ERROR,
+                error: error
+            });
+        });
+    };
+};
+
 export const addBrand = (brand) => {
     return (dispatch) => {
-        return axios.post(url + `/brand/new`, {
+        return api.post('/brand/new', {
             brand: brand
         }).then(response => {
             return response.data
@@ -115,7 +167,7 @@ export const addBrand = (brand) => {
 
 export const addType = (type) => {
     return (dispatch) => {
-        return axios.post(url + `/type/new`, {
+        return api.post('/type/new', {
             type: type
         }).then(response => {
             return response.data
@@ -135,7 +187,7 @@ export const addType = (type) => {
 
 export const addProduct = (product) => {
     return (dispatch) => {
-        return axios.post(url + `/product/new`, {
+        return api.post('/product/new', {
             product: product
         }).then(response => {
             return response.data
@@ -155,7 +207,7 @@ export const addProduct = (product) => {
 
 export const addLocation = (location) => {
     return (dispatch) => {
-        return axios.post(url + `/location/new`, {
+        return api.post('/location/new', {
             location: location
         }).then(response => {
             return response.data
@@ -175,7 +227,7 @@ export const addLocation = (location) => {
 
 export const addItem = (item) => {
     return (dispatch) => {
-        return axios.post(url + `/item/new`, {
+        return api.post('/item/new', {
             item: item
         }).then(response => {
             return response.data

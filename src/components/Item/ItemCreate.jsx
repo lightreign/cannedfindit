@@ -6,7 +6,7 @@ import { ConnectedLocationSelect } from "../Location/LocationSelect";
 import { ConnectedProductSelect } from "../Product/ProductSelect";
 import { Button, Form } from "react-bootstrap-v5";
 
-export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation}) => (
+export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation, setQty}) => (
     <Form id="itemCreateForm" onSubmit={createItem}>
         <legend>Create an Item</legend>
 
@@ -18,6 +18,11 @@ export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation}) => 
         </Form.Group>
 
         <ConnectedLocationSelect setLocation={setLocation}/>
+
+        <Form.Group controlId="qty">
+            <Form.Label>Quantity:</Form.Label>
+            <Form.Control name="qty" type="number" onChange={setQty} defaultValue="1" step="1" min="1" max="10" />
+        </Form.Group>
 
         <Button variant="primary" type="submit">Add Item</Button>
     </Form>
@@ -43,7 +48,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     expiry: ownProps.expiry
                 };
 
-                dispatch(addItem(item));
+                ownProps.qty = ownProps.qty || 1;
+
+                // Create as many items as qty has said
+                for (let i = 1; i <= ownProps.qty; i++) {
+                    dispatch(addItem(item));
+                }
+
                 e.target.reset();
             } else {
                 // TODO: error message
@@ -57,6 +68,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         setLocation(e) {
             ownProps.location = e.target.value;
+        },
+        setQty(e) {
+            const qty = parseInt(e.target.value);
+
+            // safety!!
+            if (qty <= 10) {
+                ownProps.qty = qty;
+            }
         }
     };
 };

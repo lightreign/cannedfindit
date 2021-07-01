@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { listItems } from "../store/actions";
 import { Table } from "react-bootstrap-v5";
+import { ConnectedPager } from "./Pager";
 
 export const InventoryList = ({items, listItems}) => {
+    let page = 1;
+    let perPage = 20;
+
     useEffect(() => {
-        listItems();
+        listItems(perPage, page);
     }, []);
 
     return (
@@ -30,6 +34,7 @@ export const InventoryList = ({items, listItems}) => {
                 ))}
             </tbody>
         </Table>
+        <ConnectedPager page={page} fetchData={listItems}/>
     </div>
 )};
 
@@ -42,8 +47,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        listItems() {
-            dispatch(listItems());
+        listItems(perPage, page) {
+            dispatch(listItems(perPage, page));
         }
     }
 };

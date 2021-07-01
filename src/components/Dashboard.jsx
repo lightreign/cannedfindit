@@ -4,7 +4,7 @@ import { ConnectedInventoryList } from "./InventoryList";
 
 export const Dashboard = ({user}) => (
     <div>
-        <h2>Hello {user.name}</h2>
+        <h2 className="welcome">Hello {user.name}</h2>
         <ConnectedInventoryList/>
     </div>
 );

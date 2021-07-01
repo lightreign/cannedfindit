@@ -1,8 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk';
+import { createLogger } from "redux-logger";
 import { defaultState } from "../server/defaultState";
 import * as reducer from "./reducers";
+
+const logger = createLogger();
 
 export const store = createStore(
     combineReducers({
@@ -14,6 +17,7 @@ export const store = createStore(
         locations: reducer.locationReducer,
         brands: reducer.brandReducer,
         products: reducer.productReducer,
+        pager: reducer.pagerReducer,
     }),
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk, logger))
 );

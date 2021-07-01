@@ -7,7 +7,7 @@ import { Button, Col, Form, Row } from "react-bootstrap-v5";
 
 export const ProductCreate = ({createProduct, setType, setBrand, setMass, setUnit}) => (
     <Form id="productCreateForm" onSubmit={createProduct}>
-        <legend>Create a Product</legend>
+        <legend>Add a Product</legend>
 
         <ConnectedBrandSelect setProductBrand={setBrand}/>
         <ConnectedTypeSelect setProductType={setType}/>

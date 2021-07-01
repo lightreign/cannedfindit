@@ -88,3 +88,12 @@ export function productReducer(products = defaultState.products, action) {
 
     return products;
 }
+
+export function pagerReducer(pager = defaultState.pager, action) {
+    switch (action.type) {
+        case actions.GET_ITEM_COUNT:
+            pager.itemCount = action.count;
+    }
+
+    return pager;
+}

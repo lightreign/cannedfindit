@@ -5,7 +5,13 @@ let db = null;
 export default async function connectDatabase() {
     if (db) return db;
 
-    await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    const options = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    }
+
+    await mongoose.connect(url, options);
     db = mongoose.connection;
 
     db.once('open', _ => {

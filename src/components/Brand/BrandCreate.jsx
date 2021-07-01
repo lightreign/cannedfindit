@@ -12,7 +12,7 @@ export const BrandCreate = ({createBrand, setBrand}) => (
             <Form.Control name="brand" onChange={setBrand} required />
         </Form.Group>
 
-        <Button type="submit" className="btn btn-warning">Create Brand</Button>
+        <Button type="submit" className="btn btn-warning">Add Brand</Button>
     </Form>
 );
 

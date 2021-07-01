@@ -8,7 +8,7 @@ export const LocationCreate = ({createLocation, setLocation}) => (
         <legend>Create an Item Location</legend>
 
         <Form.Group controlId="location">
-            <Form.Label>Enter New Location:</Form.Label>
+            <Form.Label>Add a New Location:</Form.Label>
             <Form.Control name="location" onChange={setLocation} required />
         </Form.Group>
 

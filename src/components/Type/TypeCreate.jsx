@@ -1,19 +1,19 @@
 import React from "react";
 import { addType } from "../../store/actions";
 import { connect } from "react-redux";
+import { Button, Form } from "react-bootstrap-v5";
 
 export const TypeCreate = ({createType, setType}) => (
-    <form id="typeCreateForm" onSubmit={createType}>
-        <legend>Create a Product Type</legend>
-        <div className="row">
-            <label>
-                Enter New Type:
-                <input name="type" onChange={setType} required/>
-            </label>
-        </div>
+    <Form id="typeCreateForm" onSubmit={createType}>
+        <legend>Add a Product Type</legend>
 
-        <button type="submit" className="btn btn-dark">Create Type</button>
-    </form>
+        <Form.Group controlId="location">
+            <Form.Label>Enter New Type:</Form.Label>
+            <Form.Control name="type" onChange={setType} required />
+        </Form.Group>
+
+        <Button variant="dark" type="submit">Add Type</Button>
+    </Form>
 );
 
 const mapStateToProps = (state) => {

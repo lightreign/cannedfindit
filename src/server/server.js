@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import connectDatabase from './database';
-import {Item, Location, Brand, Type, Product} from "./schema";
+import { Item, Location, Brand, Type, Product } from "./schema";
 
 const server = express();
 server.use(
@@ -10,14 +10,15 @@ server.use(
     express.static('dist')
 );
 
-server.get(/^(?!\/?api).+/, (req, res) => {
+server.get(/^(?!\/?api).+$/, (req, res) => {
     res.send(`
     <html>
       <head>
-        <title>Inventory</title>
+        <title>CannedFindIt!</title>
+        <link rel="stylesheet" href="/bundle.css">
       </head>
       <body>
-        <div class="container" id="mountNode"></div>
+        <div id="mountNode"></div>
         <script src="/bundle.js"></script>
       </body>
     </html>
@@ -27,11 +28,35 @@ server.get(/^(?!\/?api).+/, (req, res) => {
 server.get('/api/item', async (req, res) => {
     await connectDatabase();
 
+    const limit = parseInt(req.query.perPage);
+    const skip = req.query.page > 1 ? limit * (req.query.page - 1) : 0;
+
     res.append('Content-Type', 'application/json; charset=UTF-8');
 
-    const items = await Item.find();
+    const items = await Item.find({}, null, { skip: skip, limit: limit });
 
     res.status(200).send(items);
+});
+
+server.get('/api/item/:id', async (req, res) => {
+    await connectDatabase();
+
+    res.append('Content-Type', 'application/json; charset=UTF-8');
+
+    const item = await Item.find({'_id' :req.params.id });
+
+    res.status(200).send(item);
+});
+
+server.get('/api/count/item', async (req, res) => {
+    await connectDatabase();
+
+    res.append('Content-Type', 'application/json; charset=UTF-8');
+    const items = await Item.estimatedDocumentCount({});
+
+    res.status(200).send({
+        items: items
+    });
 });
 
 server.get('/api/brand', async (req, res) => {
@@ -78,7 +103,6 @@ server.post('/api/item/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Item(req.body.item);
-    console.log('saved item');
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
 
@@ -88,12 +112,17 @@ server.post('/api/item/new', async (req, res) => {
         return;
     }
 
-    await created.save().catch(() => {
-        res
-            .status(422)
-            .send({ error: "Could not add item due to database error" });
-    });
+    try {
+        await created.save();
 
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({ error: "Could not add item due to database error" });
+        return;
+    }
+
+    console.log('saved item');
     res.status(201).send(created);
 });
 

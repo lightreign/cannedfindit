@@ -21,13 +21,15 @@ const userSchema = new Schema({
     lastLogin: Date,
 });
 
-const locationSchema = new Schema({
+const locationSchemaDef = {
     name: {
         type: String,
         required: true,
         unique: true
     }
-});
+};
+
+const locationSchema = new Schema(locationSchemaDef);
 
 const typeSchema = new Schema({
     name: {
@@ -45,12 +47,14 @@ const brandSchema = new Schema({
     }
 });
 
-const productSchema = new Schema({
-    type: typeSchema,
-    brand: brandSchema,
+const productSchemaDef = {
+    type: { typeSchema },
+    brand: { brandSchema },
     weight: Number,
     volume: Number,
-});
+};
+
+const productSchema = new Schema(productSchemaDef);
 
 productSchema.index({
     type: 1,
@@ -62,8 +66,8 @@ productSchema.index({
 });
 
 const itemSchema = new Schema({
-    product: productSchema,
-    location: locationSchema,
+    product: productSchemaDef,
+    location: locationSchemaDef,
     expiry: {
         type: Date,
         required: true

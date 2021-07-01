@@ -1,11 +1,15 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   plugins: [
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
   ],
   resolve: {
-    extensions: ['.js','.jsx']
+    extensions: ['.js','.jsx', '.scss']
   },
   output: {
     filename: 'bundle.js',
@@ -21,8 +25,23 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: isDevelopment,
+              implementation: require("sass"),
+            },
+          }
+        ]
       }
     ],
   },
+  devtool: isDevelopment ? 'eval' : false,
 };

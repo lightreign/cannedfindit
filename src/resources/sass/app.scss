@@ -1,0 +1,15 @@
+/**
+  CannedFindIt styles
+*/
+
+@import 'vars';
+@import "~bootstrap/scss/bootstrap";
+@import 'layout.scss';
+
+body {
+  background-color: $bodybg;
+}
+
+table {
+  background-color: $tablebg;
+}

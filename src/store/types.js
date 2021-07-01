@@ -15,6 +15,8 @@ export const ADD_LOCATION = 'ADD_LOCATION';
 export const LOCATION_ERROR = 'LOCATION_ERROR';
 
 export const LIST_ITEMS = 'LIST_ITEMS';
+export const GET_ITEM_COUNT = 'GET_ITEM_COUNT';
+export const GET_ITEM = 'GET_ITEM';
 export const ADD_ITEM = 'ADD_ITEM';
 export const ITEM_ERROR = 'ERROR';
 
