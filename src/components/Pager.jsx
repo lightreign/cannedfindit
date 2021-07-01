@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Pagination } from "react-bootstrap-v5";
 import { getItemsCount } from "../store/actions";
 
-export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount }) => {
-    const [items, setItems] = useState([]);
+export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount}) => {
+    const [pages, setPages] = useState([]);
     const [active, setActive] = useState(page);
 
     useEffect(() => {
@@ -13,22 +13,18 @@ export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount })
 
     useEffect(() => {
         let items = [];
-        const pages = Math.ceil(itemCount / perPage);
+        const numPages = Math.ceil(itemCount / perPage);
 
         // Dont show pagination if only one page
-        if (pages === 1) {
+        if (numPages === 1) {
             return;
         }
 
-        for (let number = 1; number <= pages; number++) {
-            items.push(
-                <Pagination.Item key={number} active={number === active} activeLabel="" onClick={() => setPage(number) }>
-                    {number}
-                </Pagination.Item>,
-            );
+        for (let number = 1; number <= numPages; number++) {
+            items.push(number);
         }
 
-        setItems(items);
+        setPages(items);
     }, [itemCount]);
 
     const setPage = (number) => {
@@ -40,7 +36,13 @@ export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount })
 
     return (
         <div>
-            <Pagination>{items}</Pagination>
+            <Pagination>
+                {pages.map(number => (
+                    <Pagination.Item key={number} active={number === active} activeLabel="" onClick={() => setPage(number) }>
+                        {number}
+                    </Pagination.Item>
+                ))}
+            </Pagination>
         </div>
     );
 };

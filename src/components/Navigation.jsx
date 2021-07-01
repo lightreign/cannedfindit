@@ -7,7 +7,7 @@ export const Navigation = () => (
     <Nav activeKey="/" className="sticky-top navbar-dark bg-dark justify-content-center">
         <Nav.Item>
             <LinkContainer to="/">
-                <Nav.Link className="navbar-brand">CannedFindIt!</Nav.Link>
+                <Nav.Link className="navbar-brand logo">C<span className="material-icons">home</span>nnedFindIt!</Nav.Link>
             </LinkContainer>
         </Nav.Item>
         <Nav.Item>

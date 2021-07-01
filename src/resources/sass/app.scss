@@ -3,9 +3,12 @@
 */
 
 @import 'vars';
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
+@import 'fonts';
+@import 'icons';
 @import 'layout';
 @import 'desktop';
+@import 'nav';
 
 body {
   background-color: $bodybg;
@@ -14,4 +17,13 @@ body {
 table {
   background-color: $tablebg;
   font-size: 0.8rem;
+}
+
+legend {
+  font-family: SigmarOne, Helvetica, serif;
+  letter-spacing: 1px;
+}
+
+.btn {
+  font-weight: bold;
 }

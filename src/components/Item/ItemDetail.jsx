@@ -8,13 +8,15 @@ const ItemDetail = ({item}) => {
         <div>
             {item ?
             <div>
-                <h4>Item: {item.product.brand.name} {item.product.type.name}</h4>
+                <legend>Item</legend>
+                <h4>{item.product.brand.name} {item.product.type.name}</h4>
                 <p>Location: {item.location.name}</p>
                 <p>Expiry: {item.expiry.toDateString()}</p>
             </div>
                 : <Alert variant="warning">
-                    Item could not be found, please go to <Link to="/">Dashboard</Link>
+                    Item could not be found.
                 </Alert> }
+            <Link to="/" className="btn btn-primary">Dashboard</Link>
         </div>
     );
 };

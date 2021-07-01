@@ -48,8 +48,8 @@ const brandSchema = new Schema({
 });
 
 const productSchemaDef = {
-    type: { typeSchema },
-    brand: { brandSchema },
+    type: typeSchema,
+    brand: brandSchema,
     weight: Number,
     volume: Number,
 };
@@ -66,7 +66,7 @@ productSchema.index({
 });
 
 const itemSchema = new Schema({
-    product: productSchemaDef,
+    product: productSchema,
     location: locationSchemaDef,
     expiry: {
         type: Date,

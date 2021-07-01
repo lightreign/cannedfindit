@@ -12,7 +12,7 @@ module.exports = {
     extensions: ['.js','.jsx', '.scss']
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -40,8 +40,13 @@ module.exports = {
             },
           }
         ]
-      }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        loader: 'url-loader?limit=100000'
+      },
     ],
   },
-  devtool: isDevelopment ? 'eval' : false,
+  devtool: false,
 };

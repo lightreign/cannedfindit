@@ -9,6 +9,7 @@ server.use(
     bodyParser.json(),
     express.static('dist')
 );
+server.use(express.static('fonts'));
 
 server.get(/^(?!\/?api).+$/, (req, res) => {
     res.send(`

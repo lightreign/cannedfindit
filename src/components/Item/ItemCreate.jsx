@@ -14,7 +14,12 @@ export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation, setQ
 
         <Form.Group controlId="expiry">
             <Form.Label>Expiry:</Form.Label>
-            <Datetime dateFormat="DD/MM/YYYY" onChange={setExpiry} timeFormat={false} closeOnSelect={true}/>
+            <Datetime
+                dateFormat="DD/MM/YYYY"
+                onChange={setExpiry}
+                timeFormat={false}
+                closeOnSelect={true}
+            />
         </Form.Group>
 
         <ConnectedLocationSelect setLocation={setLocation}/>

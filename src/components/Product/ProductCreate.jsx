@@ -62,8 +62,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     product.weight = ownProps.mass;
                 }
 
-                console.debug(ownProps, product);
-
                 dispatch(addProduct(product));
                 e.target.reset();
             } else {

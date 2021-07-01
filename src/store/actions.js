@@ -214,7 +214,7 @@ export const addLocation = (location) => {
         }).then(data => {
             dispatch({
                 type: actions.ADD_LOCATION,
-                item: data
+                location: data
             });
         }).catch(error => {
             dispatch({

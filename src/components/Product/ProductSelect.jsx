@@ -15,7 +15,7 @@ export const ProductSelect = ({products, listProducts, setProduct}) => {
                 <option key="" value="">-- Select --</option>
                 {products.map(product => (
                     <option key={product._id} value={JSON.stringify(product)}>
-                        {product.brand.name} {product.type.name} TODO: weight/volume FIX product
+                        {product.brand.name} {product.type.name} {product.volume ? product.volume + 'ml' : product.weight + 'g' }
                     </option>
                 ))}
             </Form.Control>
