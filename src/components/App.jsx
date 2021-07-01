@@ -17,7 +17,7 @@ export const App = () => (
     <Router>
         <Provider store={store}>
             <ConnectedNavigation/>
-            <div className="container">
+            <div className="container-fluid content">
                 <Route exact path="/" component={ConnectedDashboard}/>
                 <Route exact path="/item/create" component={ConnectedItemCreate}/>
                 <Route exact path="/item/id/:id" render={({match}) => (<ConnectedItemDetail match={match}/>)}/>

@@ -1,0 +1,14 @@
+/**
+  Desktop css overrides
+ */
+
+@media screen and (min-device-width: $breakpoint-lg) {
+
+  html {
+    font-size: 16px;
+  }
+
+  .content {
+    padding: 0 5rem;
+  }
+}

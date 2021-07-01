@@ -1,9 +1,13 @@
 /**
- Layout
+ Mobile first layout
 */
 
+html {
+  font-size: 40px;
+}
+
 div.nav {
-  margin-bottom: 20px;
+  margin-bottom: 1.2rem;
 }
 
 .welcome {
@@ -11,9 +15,9 @@ div.nav {
 }
 
 button.btn {
-  margin-top: 20px;
+  margin-top: 1.2rem;
 }
 
 legend {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }

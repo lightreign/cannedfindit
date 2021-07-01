@@ -4,7 +4,8 @@
 
 @import 'vars';
 @import "~bootstrap/scss/bootstrap";
-@import 'layout.scss';
+@import 'layout';
+@import 'desktop';
 
 body {
   background-color: $bodybg;
@@ -12,4 +13,5 @@ body {
 
 table {
   background-color: $tablebg;
+  font-size: 0.8rem;
 }
