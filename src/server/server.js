@@ -34,7 +34,7 @@ server.get('/api/item', async (req, res) => {
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
 
-    const items = await Item.find({}, null, { skip: skip, limit: limit });
+    const items = await Item.find({}, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
 
     res.status(200).send(items);
 });

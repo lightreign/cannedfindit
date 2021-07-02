@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { listItems } from "../store/actions";
 import { Table } from "react-bootstrap-v5";
 import { ConnectedPager } from "./Pager";
+import {ItemExpiry} from "./Item/ItemExpiry";
 
 export const InventoryList = ({items, listItems}) => {
     let page = 1;
@@ -29,7 +30,7 @@ export const InventoryList = ({items, listItems}) => {
                     <tr key={item._id}>
                         <td><Link to={`/item/id/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
                         <td>{item.location.name}</td>
-                        <td>{item.expiry.toLocaleDateString()}</td>
+                        <td><ItemExpiry item={item}/></td>
                     </tr>
                 ))}
             </tbody>
