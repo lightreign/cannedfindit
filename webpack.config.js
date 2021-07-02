@@ -44,7 +44,6 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
-        loader: 'url-loader?limit=100000'
       },
     ],
   },

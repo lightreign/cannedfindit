@@ -1,11 +1,12 @@
 {
   "name": "cannedfindit",
-  "version": "0.6.0",
+  "version": "0.6.5",
   "description": "Home inventory management app",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "test": "jest",
     "dev:server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "prod:server": "babel-node src/server/server.js",
     "dev:bundler": "webpack -w --mode=development",
     "prod:bundler": "webpack --mode=production"
   },
