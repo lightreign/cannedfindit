@@ -30,10 +30,20 @@ server.get('/api/item', async (req, res) => {
 
     const limit = parseInt(req.query.perPage);
     const skip = req.query.page > 1 ? limit * (req.query.page - 1) : 0;
+    const filter = req.query.search || null;
+
+    if (filter) {
+        Object.keys(filter).map(key => {
+           filter[key] = new RegExp(filter[key], 'i');
+        });
+    }
+
+    const count = await Item.countDocuments(filter);
+    res.header('X-Total-Count', count);
 
     res.append('Content-Type', 'application/json; charset=UTF-8');
 
-    const items = await Item.find({}, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
+    const items = await Item.find(filter, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
 
     res.status(200).send(items);
 });

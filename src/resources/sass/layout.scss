@@ -16,6 +16,10 @@ div.nav {
 
 button.btn {
   margin-top: 1.2rem;
+
+  & + & {
+    margin-left: 0.6rem;
+  }
 }
 
 legend {

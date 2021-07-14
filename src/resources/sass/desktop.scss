@@ -3,12 +3,25 @@
  */
 
 @media screen and (min-device-width: $breakpoint-lg) {
-
   html {
     font-size: 16px;
   }
 
   .content {
     padding: 0 5rem;
+  }
+
+  form {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: $breakpoint-xl) {
+  .content {
+    padding: 0 10rem;
+  }
+
+  form {
+    width: 70%;
   }
 }

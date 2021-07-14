@@ -1,21 +1,20 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { listItems } from "../store/actions";
 import { Table } from "react-bootstrap-v5";
 import { ConnectedPager } from "./Pager";
-import {ItemExpiry} from "./Item/ItemExpiry";
+import { ItemExpiry } from "./Item/ItemExpiry";
+import { ItemSearch } from "./Item/ItemSearch";
 
 export const InventoryList = ({items, listItems}) => {
-    let page = 1;
-    let perPage = 20;
-
     useEffect(() => {
-        listItems(perPage, page);
+        listItems();
     }, []);
 
     return (
     <div>
+        <ItemSearch />
         <legend>Item Inventory</legend>
         <Table striped bordered hover>
             <thead>
@@ -35,7 +34,7 @@ export const InventoryList = ({items, listItems}) => {
                 ))}
             </tbody>
         </Table>
-        <ConnectedPager page={page} fetchData={listItems}/>
+        <ConnectedPager fetchData={listItems}/>
     </div>
 )};
 
@@ -43,13 +42,14 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         items: state.items,
+        pager: state.pager,
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        listItems(perPage, page) {
-            dispatch(listItems(perPage, page));
+        listItems(search, page, perPage) {
+            dispatch(listItems(search, page, perPage));
         }
     }
 };

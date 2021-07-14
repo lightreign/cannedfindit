@@ -1,5 +1,5 @@
 import * as actions from "./types";
-import { defaultState } from "../server/defaultState";
+import { defaultState } from "./defaultState";
 
 export function itemReducer(items = defaultState.items, action) {
     switch (action.type) {
@@ -91,8 +91,13 @@ export function productReducer(products = defaultState.products, action) {
 
 export function pagerReducer(pager = defaultState.pager, action) {
     switch (action.type) {
-        case actions.GET_ITEM_COUNT:
-            pager.itemCount = action.count;
+        case actions.UPDATE_PAGER:
+            pager = {
+                filter: action.filter,
+                page: action.page,
+                perPage: action.perPage,
+                itemCount: parseInt(action.itemCount)
+            };
     }
 
     return pager;

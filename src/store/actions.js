@@ -91,14 +91,30 @@ export const listProducts = () => {
     };
 };
 
-export const listItems = (perPage, page) => {
-    return (dispatch) => {
-        return api.get('/item?'+ qs.stringify({page: page, perPage: perPage})).then(response => {
-            return response.data
-        }).then(data => {
+export const listItems = (search = '', page = null, perPage = null) => {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        search = search || state.pager.filter;
+        page = page ||  state.pager.page;
+        perPage = perPage || state.pager.perPage;
+
+        const params = {search: search, page: page, perPage: perPage};
+
+        return api.get('/item?'+ qs.stringify(params)).then(response => {
+            return response
+        }).then(response => {
             dispatch({
                 type: actions.LIST_ITEMS,
-                items: data
+                items: response.data,
+            });
+
+            dispatch({
+                type: actions.UPDATE_PAGER,
+                filter: search,
+                page: page,
+                perPage: perPage,
+                itemCount: response.headers['x-total-count'],
             });
         }).catch(error => {
             dispatch({
@@ -117,24 +133,6 @@ export const getItem = (id) => {
             dispatch({
                 type: actions.GET_ITEM,
                 item: data
-            });
-        }).catch(error => {
-            dispatch({
-                type: actions.ITEM_ERROR,
-                error: error
-            });
-        });
-    };
-};
-
-export const getItemsCount = () => {
-    return (dispatch) => {
-        return api.get('/count/item').then(response => {
-            return response.data
-        }).then(data => {
-            dispatch({
-                type: actions.GET_ITEM_COUNT,
-                count: data.items
             });
         }).catch(error => {
             dispatch({

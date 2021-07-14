@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Pagination } from "react-bootstrap-v5";
-import { getItemsCount } from "../store/actions";
 
-export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount}) => {
+export const Pager = ({page, perPage, itemCount, fetchData}) => {
     const [pages, setPages] = useState([]);
     const [active, setActive] = useState(page);
-
-    useEffect(() => {
-        getItemsCount();
-    }, []);
 
     useEffect(() => {
         let items = [];
@@ -17,6 +12,7 @@ export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount}) 
 
         // Dont show pagination if only one page
         if (numPages === 1) {
+            setPages([]);
             return;
         }
 
@@ -29,7 +25,7 @@ export const Pager = ({page = 1, perPage, itemCount, fetchData, getItemsCount}) 
 
     const setPage = (number) => {
         if (number !== active) {
-            fetchData(perPage, number);
+            fetchData(null, number);
             setActive(number);
         }
     };
@@ -55,12 +51,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getItemsCount() {
-            dispatch(getItemsCount());
-        }
-    }
-};
-
-export const ConnectedPager = connect(mapStateToProps, mapDispatchToProps)(Pager);
+export const ConnectedPager = connect(mapStateToProps)(Pager);

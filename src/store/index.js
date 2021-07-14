@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk';
 import { createLogger } from "redux-logger";
-import { defaultState } from "../server/defaultState";
+import { defaultState } from "./defaultState";
 import * as reducer from "./reducers";
 
 const logger = createLogger();

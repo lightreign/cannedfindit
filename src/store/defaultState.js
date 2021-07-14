@@ -3,6 +3,7 @@ export const defaultState = {
         name: "Family"
     },
     pager: {
+        filter: {},
         page: 1,
         perPage: 20,
         itemCount: 0,
