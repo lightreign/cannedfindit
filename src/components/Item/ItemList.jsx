@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { listItems } from "../store/actions";
+import { listItems } from "../../store/actions";
 import { Table } from "react-bootstrap-v5";
-import { ConnectedPager } from "./Pager";
-import { ItemExpiry } from "./Item/ItemExpiry";
-import { ItemSearch } from "./Item/ItemSearch";
+import { ConnectedPager } from "../Pager";
+import { ItemExpiry } from "./ItemExpiry";
+import { ItemSearch } from "./ItemSearch";
 
-export const InventoryList = ({items, listItems}) => {
+export const ItemList = ({items, listItems}) => {
     useEffect(() => {
         listItems();
     }, []);
@@ -54,4 +54,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export const ConnectedInventoryList = connect(mapStateToProps, mapDispatchToProps)(InventoryList);
+export const ConnectedItemList = connect(mapStateToProps, mapDispatchToProps)(ItemList);

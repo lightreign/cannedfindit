@@ -13,4 +13,9 @@ export const defaultState = {
     products: [],
     items: [],
     locations: [],
+    notification: {
+        notification: '',
+        type: null,
+        variant: null
+    },
 };

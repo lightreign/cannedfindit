@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { ConnectedInventoryList } from "./InventoryList";
+import { ConnectedItemList } from "./Item/ItemList";
 
 export const Dashboard = ({user}) => (
     <div>
         <h2 className="welcome">Hello {user.name}</h2>
-        <ConnectedInventoryList/>
+        <ConnectedItemList/>
     </div>
 );
 

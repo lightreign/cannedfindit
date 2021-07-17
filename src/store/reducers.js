@@ -1,5 +1,6 @@
 import * as actions from "./types";
 import { defaultState } from "./defaultState";
+import {CLEAR_NOTIFICATIONS} from "./types";
 
 export function itemReducer(items = defaultState.items, action) {
     switch (action.type) {
@@ -14,12 +15,7 @@ export function itemReducer(items = defaultState.items, action) {
         case actions.ADD_ITEM:
             action.item.expiry = new Date(action.item.expiry);
 
-            alert('Added item successfully');
             return [...items, action.item];
-        case actions.ITEM_ERROR:
-            console.error(action.error);
-            alert('Add/Update or list item failed');
-            break;
     }
 
     return items;
@@ -30,12 +26,7 @@ export function typeReducer(types = defaultState.types, action) {
         case actions.LIST_TYPES:
             return action.productTypes;
         case actions.ADD_TYPE:
-            alert('Type added successfully');
             return [...types, action.productType];
-        case actions.TYPE_ERROR:
-            console.error(action.error);
-            alert('Add/Update or list type failed');
-            break;
     }
 
     return types;
@@ -46,12 +37,7 @@ export function locationReducer(locations = defaultState.locations, action) {
         case actions.LIST_LOCATIONS:
             return action.locations;
         case actions.ADD_LOCATION:
-            alert('Location added successfully');
             return [...locations, action.location];
-        case actions.LOCATION_ERROR:
-            console.error(action.error);
-            alert('Add/Update or list location failed');
-            break;
     }
 
     return locations;
@@ -62,12 +48,7 @@ export function brandReducer(brands = defaultState.brands, action) {
         case actions.LIST_BRANDS:
             return action.brands;
         case actions.ADD_BRAND:
-            alert('Brand added successfully');
             return [...brands, action.brand];
-        case actions.BRAND_ERROR:
-            console.error(action);
-            alert('Add/Update or list brand failed');
-            break;
     }
 
     return brands;
@@ -78,12 +59,7 @@ export function productReducer(products = defaultState.products, action) {
         case actions.LIST_PRODUCTS:
             return action.products;
         case actions.ADD_PRODUCT:
-            alert('Product added successfully');
             return [...products, action.product];
-        case actions.PRODUCT_ERROR:
-            console.error(action.error);
-            alert('Add/Update or list product failed');
-            break;
     }
 
     return products;
@@ -101,4 +77,33 @@ export function pagerReducer(pager = defaultState.pager, action) {
     }
 
     return pager;
+}
+
+export function notificationReducer(notification = defaultState.notification, action) {
+    switch (action.type) {
+        case actions.API_ERROR:
+            notification = {
+                type: "error",
+                variant: "danger",
+                notification: action.userMessage || action.error.message,
+            };
+
+            console.error(action.error);
+            break;
+        case actions.NOTIFY_SUCCESS:
+            notification = {
+                type: "success",
+                variant: "success",
+                notification: action.message,
+            };
+            break;
+        case actions.CLEAR_NOTIFICATIONS:
+            notification = {
+                notification: '',
+                type: null,
+                variant: null
+            };
+    }
+
+    return notification;
 }

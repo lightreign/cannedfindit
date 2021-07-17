@@ -30,8 +30,9 @@ export const listBrands = () => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.BRAND_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list brands due to server error',
             });
         });
     };
@@ -48,8 +49,9 @@ export const listTypes = () => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.TYPE_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list product types due to server error',
             });
         });
     };
@@ -66,8 +68,9 @@ export const listLocations = () => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.LOCATION_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list locations due to server error',
             });
         });
     };
@@ -84,8 +87,9 @@ export const listProducts = () => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.PRODUCT_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list products',
             });
         });
     };
@@ -118,8 +122,9 @@ export const listItems = (search = '', page = null, perPage = null) => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.ITEM_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list inventory items due to server error',
             });
         });
     };
@@ -136,8 +141,9 @@ export const getItem = (id) => {
             });
         }).catch(error => {
             dispatch({
-                type: actions.ITEM_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot display inventory item due to server error',
             });
         });
     };
@@ -154,10 +160,16 @@ export const addBrand = (brand) => {
                 type: actions.ADD_BRAND,
                 brand: data
             });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Brand created successfully',
+            });
         }).catch(error => {
             dispatch({
-                type: actions.BRAND_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot add product brand, does it already exist?',
             });
         });
     };
@@ -174,10 +186,16 @@ export const addType = (type) => {
                 type: actions.ADD_TYPE,
                 productType: data
             });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Product type created successfully',
+            });
         }).catch(error => {
             dispatch({
-                type: actions.TYPE_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot add product type, does it already exist?',
             });
         });
     };
@@ -194,10 +212,17 @@ export const addProduct = (product) => {
                 type: actions.ADD_PRODUCT,
                 product: data
             });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Product created successfully',
+            });
+
         }).catch(error => {
             dispatch({
-                type: actions.PRODUCT_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot add product, either it already exists or there was a server error',
             });
         });
     };
@@ -214,10 +239,16 @@ export const addLocation = (location) => {
                 type: actions.ADD_LOCATION,
                 location: data
             });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Location created successfully',
+            });
         }).catch(error => {
             dispatch({
-                type: actions.LOCATION_ERROR,
-                error: error
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot add item location, does it already exist?',
             });
         });
     };
@@ -234,9 +265,14 @@ export const addItem = (item) => {
                 type: actions.ADD_ITEM,
                 item: data
             });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Item added successfully',
+            });
         }).catch(error => {
             dispatch({
-                type: actions.ITEM_ERROR,
+                type: actions.API_ERROR,
                 data: error.data
             });
         });

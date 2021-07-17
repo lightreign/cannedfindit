@@ -4,11 +4,21 @@ import connectDatabase from './database';
 import { Item, Location, Brand, Type, Product } from "./schema";
 
 const server = express();
+
 server.use(
     bodyParser.urlencoded({ extended: true }),
     bodyParser.json(),
-    express.static('dist')
+    express.static('dist'),
+    apiMiddleware
 );
+
+function apiMiddleware(req, res, next) {
+    if (req.url.match(/^\/?api/)) {
+        res.append('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    next();
+}
 
 server.get(/^(?!\/?api).+$/, (req, res) => {
     res.send(`
@@ -41,8 +51,6 @@ server.get('/api/item', async (req, res) => {
     const count = await Item.countDocuments(filter);
     res.header('X-Total-Count', count);
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     const items = await Item.find(filter, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
 
     res.status(200).send(items);
@@ -51,28 +59,13 @@ server.get('/api/item', async (req, res) => {
 server.get('/api/item/:id', async (req, res) => {
     await connectDatabase();
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     const item = await Item.find({'_id' :req.params.id });
 
     res.status(200).send(item);
 });
 
-server.get('/api/count/item', async (req, res) => {
-    await connectDatabase();
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-    const items = await Item.estimatedDocumentCount({});
-
-    res.status(200).send({
-        items: items
-    });
-});
-
 server.get('/api/brand', async (req, res) => {
     await connectDatabase();
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
 
     const brands = await Brand.find();
 
@@ -82,8 +75,6 @@ server.get('/api/brand', async (req, res) => {
 server.get('/api/type', async (req, res) => {
     await connectDatabase();
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     const types = await Type.find(); // TODO: add error handling
 
     res.status(200).send(types);
@@ -92,8 +83,6 @@ server.get('/api/type', async (req, res) => {
 server.get('/api/location', async (req, res) => {
     await connectDatabase();
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     const locations = await Location.find(); // TODO: add error handling
 
     res.status(200).send(locations);
@@ -101,8 +90,6 @@ server.get('/api/location', async (req, res) => {
 
 server.get('/api/product', async (req, res) => {
     await connectDatabase();
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
 
     const products = await Product.find(); // TODO: add error handling
 
@@ -113,8 +100,6 @@ server.post('/api/item/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Item(req.body.item);
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
 
     let error = created.validateSync();
     if (error) {
@@ -141,8 +126,6 @@ server.post('/api/location/new', async (req, res) => {
 
     const created = new Location(req.body.location);
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     let error = created.validateSync();
     if (error) {
         res.status(422).send(error.errors);
@@ -164,8 +147,6 @@ server.post('/api/brand/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Brand(req.body.brand);
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
 
     let error = created.validateSync();
     if (error) {
@@ -189,8 +170,6 @@ server.post('/api/type/new', async (req, res) => {
 
     const created = new Type(req.body.type);
 
-    res.append('Content-Type', 'application/json; charset=UTF-8');
-
     let error = created.validateSync();
     if (error) {
         res.status(422).send(error.errors);
@@ -212,8 +191,6 @@ server.post('/api/product/new', async (req, res) => {
     await connectDatabase();
 
     const created = new Product(req.body.product);
-
-    res.append('Content-Type', 'application/json; charset=UTF-8');
 
     let error = created.validateSync();
     if (error) {

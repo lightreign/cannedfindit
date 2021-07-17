@@ -11,6 +11,7 @@ import { ConnectedTypeCreate } from "./Type/TypeCreate";
 import { ConnectedBrandCreate } from "./Brand/BrandCreate";
 import { ConnectedProductCreate } from "./Product/ProductCreate";
 import { ConnectedLocationCreate } from "./Location/LocationCreate";
+import { ConnectedNotificationBar } from "./Notification/Notifications";
 import { Error } from "./Error";
 
 export const App = () => (
@@ -18,6 +19,7 @@ export const App = () => (
         <Provider store={store}>
             <ConnectedNavigation/>
             <div className="container-fluid content">
+                <ConnectedNotificationBar/>
                 <Route exact path="/" component={ConnectedDashboard}/>
                 <Route exact path="/item/create" component={ConnectedItemCreate}/>
                 <Route exact path="/item/id/:id" render={({match}) => (<ConnectedItemDetail match={match}/>)}/>
