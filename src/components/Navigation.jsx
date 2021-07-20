@@ -21,6 +21,11 @@ export const Navigation = () => (
             </LinkContainer>
         </Nav.Item>
         <Nav.Item>
+            <LinkContainer to="/product/create">
+                <Nav.Link>Add Product</Nav.Link>
+            </LinkContainer>
+        </Nav.Item>
+        <Nav.Item>
             <LinkContainer to="/type/create">
                 <Nav.Link>Add Product Type</Nav.Link>
             </LinkContainer>
@@ -28,11 +33,6 @@ export const Navigation = () => (
         <Nav.Item>
             <LinkContainer to="/brand/create">
                 <Nav.Link>Add Brand</Nav.Link>
-            </LinkContainer>
-        </Nav.Item>
-        <Nav.Item>
-            <LinkContainer to="/product/create">
-                <Nav.Link>Add Product</Nav.Link>
             </LinkContainer>
         </Nav.Item>
         <Nav.Item>

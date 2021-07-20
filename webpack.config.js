@@ -1,12 +1,14 @@
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   plugins: [
-    // new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new MomentLocalesPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
   resolve: {
     extensions: ['.js','.jsx', '.scss']

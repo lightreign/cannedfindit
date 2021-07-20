@@ -1,88 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import Datetime from 'react-datetime';
-import { addItem } from "../../store/actions";
+import { addErrorNotification, addItem } from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedLocationSelect } from "../Location/LocationSelect";
 import { ConnectedProductSelect } from "../Product/ProductSelect";
 import { Button, Form } from "react-bootstrap-v5";
 
-export const ItemCreate = ({createItem, setProduct, setExpiry, setLocation, setQty}) => (
-    <Form id="itemCreateForm" onSubmit={createItem}>
-        <legend>Create an Item</legend>
+export const ItemCreate = ({dispatch}) => {
+    const [product, setProduct] = useState();
+    const [expiry, setExpiry] = useState();
+    const [location, setLocation] = useState('');
+    const [qty, setQty] = useState(1);
+    const [submitting, setSubmitting] = useState(false);
 
-        <ConnectedProductSelect setProduct={setProduct}/>
+    const maxQty = 10;
 
-        <Form.Group controlId="expiry">
-            <Form.Label>Expiry:</Form.Label>
-            <Datetime
-                dateFormat="DD/MM/YYYY"
-                onChange={setExpiry}
-                timeFormat={false}
-                closeOnSelect={true}
-            />
-        </Form.Group>
+    const createItem = (e) => {
+        e.preventDefault();
 
-        <ConnectedLocationSelect setLocation={setLocation}/>
+        setQty(parseInt(qty));
 
-        <Form.Group controlId="qty">
-            <Form.Label>Quantity:</Form.Label>
-            <Form.Control name="qty" type="number" onChange={setQty} defaultValue="1" step="1" min="1" max="10" />
-        </Form.Group>
+        if (qty > maxQty) {
+            dispatch(addErrorNotification(`Max quantity of ${maxQty}`));
+            return;
+        }
 
-        <Button variant="primary" type="submit">Add Item</Button>
-    </Form>
-);
+        setSubmitting(true);
 
-const mapStateToProps = (state, ownProps) => {
+        if (product && location && expiry) {
+            const item = {
+                product: product,
+                location: {
+                    name: location
+                },
+                expiry: expiry.toDate()
+            };
+
+            // Create as many items as qty has said
+            for (let i = 1; i <= qty; i++) {
+                dispatch(addItem(item));
+            }
+
+            e.target.reset();
+        } else {
+            dispatch(addErrorNotification('Item details are missing, please complete form.'));
+        }
+
+        setSubmitting(false);
+    };
+
+    return (
+        <Form id="itemCreateForm" onSubmit={createItem}>
+            <legend>Create an Item</legend>
+
+            <ConnectedProductSelect setProduct={e => setProduct(JSON.parse(e.target.value))}/>
+
+            <Form.Group controlId="expiry">
+                <Form.Label>Expiry:</Form.Label>
+                <Datetime
+                    dateFormat="DD/MM/YYYY"
+                    onChange={setExpiry}
+                    timeFormat={false}
+                    closeOnSelect={true}
+                />
+            </Form.Group>
+
+            <ConnectedLocationSelect setLocation={e => setLocation(e.target.value)}/>
+
+            <Form.Group controlId="qty">
+                <Form.Label>Quantity:</Form.Label>
+                <Form.Control name="qty" type="number" onChange={e => setQty(e.target.value)} defaultValue="1" step="1" min="1" max="10" />
+            </Form.Group>
+
+            <Button variant="primary" disabled={submitting} type="submit">Add Item</Button>
+        </Form>
+    );
+}
+
+const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
     };
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        createItem(e) {
-            e.preventDefault();
-
-            if (ownProps.product && ownProps.location && ownProps.expiry) {
-                const item = {
-                    product: ownProps.product,
-                    location: {
-                        name: ownProps.location
-                    },
-                    expiry: ownProps.expiry
-                };
-
-                ownProps.qty = ownProps.qty || 1;
-
-                // Create as many items as qty has said
-                for (let i = 1; i <= ownProps.qty; i++) {
-                    dispatch(addItem(item));
-                }
-
-                e.target.reset();
-            } else {
-                // TODO: error message
-            }
-        },
-        setProduct(e) {
-            ownProps.product = JSON.parse(e.target.value);
-        },
-        setExpiry(date) {
-            ownProps.expiry = date.toDate();
-        },
-        setLocation(e) {
-            ownProps.location = e.target.value;
-        },
-        setQty(e) {
-            const qty = parseInt(e.target.value);
-
-            // safety!!
-            if (qty <= 10) {
-                ownProps.qty = qty;
-            }
-        }
-    };
-};
-
-export const ConnectedItemCreate = connect(mapStateToProps, mapDispatchToProps)(ItemCreate);
+export const ConnectedItemCreate = connect(mapStateToProps)(ItemCreate);

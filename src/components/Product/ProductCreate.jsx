@@ -1,86 +1,81 @@
-import React from "react";
-import { addProduct } from "../../store/actions";
+import React, {useState} from "react";
+import {addErrorNotification, addProduct, addType} from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedTypeSelect } from "../Type/TypeSelect";
 import { ConnectedBrandSelect } from "../Brand/BrandSelect";
 import { Button, Col, Form, Row } from "react-bootstrap-v5";
 
-export const ProductCreate = ({createProduct, setType, setBrand, setMass, setUnit}) => (
-    <Form id="productCreateForm" onSubmit={createProduct}>
-        <legend>Add a Product</legend>
+export const ProductCreate = ({dispatch}) => {
+    const [type, setType] = useState('');
+    const [brand, setBrand] = useState('');
+    const [mass, setMass] = useState('');
+    const [unit, setUnit] = useState('g');
+    const [submitting, setSubmitting] = useState(false);
 
-        <ConnectedBrandSelect setProductBrand={setBrand}/>
-        <ConnectedTypeSelect setProductType={setType}/>
+    const createProduct = (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        setMass(parseInt(mass));
 
-        <Row>
-            <Col>
-                <Form.Group controlId="weightVolume">
-                    <Form.Label>Weight / Volume:</Form.Label>
-                    <Form.Control name="mass" onChange={setMass} required />
-                </Form.Group>
-            </Col>
-            <Col>
-                <Form.Group controlId="unit">
-                    <Form.Label>Unit:</Form.Label>
-                    <Form.Control as="select" name="unit" onChange={setUnit} defaultValue='g'>
-                        <option value="g">grams</option>
-                        <option value="ml">millilitres</option>
-                    </Form.Control>
-                </Form.Group>
-            </Col>
-        </Row>
+        if (type && brand && mass && !isNaN(mass)) {
+            const product = {
+                type: {
+                    name: type
+                },
+                brand: {
+                    name: brand
+                },
+            };
 
-        <Button type="submit" className="btn btn-primary">Add Product</Button>
-    </Form>
-);
+            if (unit === 'ml') {
+                product.volume = mass;
+            } else {
+                product.weight = mass;
+            }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        user: state.user,
-        types: state.types,
+            dispatch(addProduct(product));
+            e.target.reset();
+        } else {
+            dispatch(addErrorNotification('Product information is missing, please enter details'));
+        }
+
+        setSubmitting(false);
     };
+
+    return (
+        <Form id="productCreateForm" onSubmit={createProduct}>
+            <legend>Add a Product</legend>
+
+            <ConnectedBrandSelect setProductBrand={e => setBrand(e.target.value)}/>
+            <ConnectedTypeSelect setProductType={e => setType(e.target.value)}/>
+
+            <Row>
+                <Col>
+                    <Form.Group controlId="weightVolume">
+                        <Form.Label>Weight / Volume:</Form.Label>
+                        <Form.Control name="mass" onChange={e => setMass(e.target.value)}/>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group controlId="unit">
+                        <Form.Label>Unit:</Form.Label>
+                        <Form.Control as="select" name="unit" onChange={e => setUnit(e.target.value)} defaultValue='g'>
+                            <option value="g">grams</option>
+                            <option value="ml">millilitres</option>
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+            </Row>
+
+            <Button type="submit" disabled={submitting} className="btn btn-primary">Add Product</Button>
+        </Form>
+    );
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapStateToProps = (state) => {
     return {
-        createProduct(e) {
-            e.preventDefault();
-
-            if (ownProps.type && ownProps.brand) {
-                const product = {
-                    type: {
-                        name: ownProps.type
-                    },
-                    brand: {
-                        name: ownProps.brand
-                    },
-                };
-
-                if (ownProps.unit === 'ml') {
-                    product.volume = ownProps.mass;
-                } else {
-                    product.weight = ownProps.mass;
-                }
-
-                dispatch(addProduct(product));
-                e.target.reset();
-            } else {
-                // TODO: error message
-            }
-        },
-        setType(e) {
-            ownProps.type = e.target.value;
-        },
-        setBrand(e) {
-            ownProps.brand = e.target.value;
-        },
-        setMass(e) {
-            ownProps.mass = e.target.value;
-        },
-        setUnit(e) {
-            ownProps.unit = e.target.value;
-        }
+        user: state.user
     };
 };
 
-export const ConnectedProductCreate = connect(mapStateToProps, mapDispatchToProps)(ProductCreate);
+export const ConnectedProductCreate = connect(mapStateToProps)(ProductCreate);

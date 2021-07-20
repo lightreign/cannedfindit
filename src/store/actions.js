@@ -278,3 +278,20 @@ export const addItem = (item) => {
         });
     };
 };
+
+export const addErrorNotification = (errMessage) => {
+    return (dispatch) => {
+        dispatch({
+            type: actions.NOTIFY_ERROR,
+            userMessage: errMessage
+        });
+    }
+};
+
+export const clearNotifications = () => {
+    return (dispatch) => {
+        dispatch({
+            type: actions.CLEAR_NOTIFICATIONS
+        });
+    };
+};

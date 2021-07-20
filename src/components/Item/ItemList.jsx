@@ -25,13 +25,21 @@ export const ItemList = ({items, listItems}) => {
                 </tr>
             </thead>
             <tbody>
-                {items.map(item => (
-                    <tr key={item._id}>
-                        <td><Link to={`/item/id/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
-                        <td>{item.location.name}</td>
-                        <td><ItemExpiry item={item}/></td>
-                    </tr>
-                ))}
+                {items.map(item => {
+                    let expiryClass = '';
+
+                    if (item.isExpired()) {
+                        expiryClass = 'table-danger';
+                    }
+
+                    return (
+                        <tr key={item._id} className={expiryClass}>
+                            <td><Link to={`/item/id/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
+                            <td>{item.location.name}</td>
+                            <td><ItemExpiry item={item}/></td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </Table>
         <ConnectedPager fetchData={listItems}/>

@@ -1,12 +1,12 @@
 import * as actions from "./types";
 import { defaultState } from "./defaultState";
-import {CLEAR_NOTIFICATIONS} from "./types";
+import Item from "../models/Item";
 
 export function itemReducer(items = defaultState.items, action) {
     switch (action.type) {
         case actions.LIST_ITEMS:
             action.items = action.items.map(item => {
-                item.expiry = new Date(item.expiry);
+                item = new Item(item);
                 return item;
             });
 
@@ -81,10 +81,18 @@ export function pagerReducer(pager = defaultState.pager, action) {
 
 export function notificationReducer(notification = defaultState.notification, action) {
     switch (action.type) {
+        case actions.NOTIFY_ERROR:
+            notification = {
+                type: 'error',
+                variant: 'danger',
+                notification: action.userMessage,
+            };
+
+            break;
         case actions.API_ERROR:
             notification = {
-                type: "error",
-                variant: "danger",
+                type: 'error',
+                variant: 'danger',
                 notification: action.userMessage || action.error.message,
             };
 
@@ -92,8 +100,8 @@ export function notificationReducer(notification = defaultState.notification, ac
             break;
         case actions.NOTIFY_SUCCESS:
             notification = {
-                type: "success",
-                variant: "success",
+                type: 'success',
+                variant: 'success',
                 notification: action.message,
             };
             break;

@@ -1,39 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { addBrand } from "../../store/actions";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap-v5";
 
-export const BrandCreate = ({createBrand, setBrand}) => (
-    <Form id="brandCreateForm" onSubmit={createBrand}>
-        <legend>Create a Product Brand</legend>
+export const BrandCreate = ({dispatch}) => {
+    const [brand, setBrand] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
-        <Form.Group controlId="brand">
-            <Form.Label>New Brand:</Form.Label>
-            <Form.Control name="brand" onChange={setBrand} required />
-        </Form.Group>
+    const createBrand = (e) => {
+        e.preventDefault();
+        setSubmitting(true);
 
-        <Button type="submit" className="btn btn-warning">Add Brand</Button>
-    </Form>
-);
+        if (brand) {
+            dispatch(addBrand({ name: brand }));
+            e.target.reset();
+        }
+
+        setSubmitting(false);
+    };
+
+    return (
+        <Form id="brandCreateForm" onSubmit={createBrand}>
+            <legend>Create a Product Brand</legend>
+
+            <Form.Group controlId="brand">
+                <Form.Label>New Brand:</Form.Label>
+                <Form.Control name="brand" onChange={e => setBrand(e.target.value)} required />
+            </Form.Group>
+
+            <Button type="submit" disabled={submitting} className="btn btn-warning">Add Brand</Button>
+        </Form>
+    );
+}
 
 const mapStateToProps = (state) => {
     return {
         user: state.user
     };
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        createBrand(e) {
-            e.preventDefault();
-
-            dispatch(addBrand({name: ownProps.name}));
-            e.target.reset();
-        },
-        setBrand(e) {
-            ownProps.name = e.target.value;
-        }
-    };
 };
 
-export const ConnectedBrandCreate = connect(mapStateToProps, mapDispatchToProps)(BrandCreate);
+export const ConnectedBrandCreate = connect(mapStateToProps)(BrandCreate);

@@ -18,5 +18,6 @@ export const ADD_USER = 'ADD_USER';
 export const UPDATE_PAGER = 'UPDATE_PAGER';
 
 export const NOTIFY_SUCCESS = 'NOTIFY_SUCCESS';
+export const NOTIFY_ERROR = 'NOTIFY_ERROR';
 export const API_ERROR = 'API_ERROR';
 export const CLEAR_NOTIFICATIONS = 'CLEAR_NOTIFICATIONS';
