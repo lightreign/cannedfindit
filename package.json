@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "material-design-icons": "^3.0.1",
     "mini-css-extract-plugin": "^1.6.0",
-    "momentjs": "^2.0.0",
+    "moment": "^2.29.1",
     "moment-locales-webpack-plugin": "^1.2.0",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.2",
