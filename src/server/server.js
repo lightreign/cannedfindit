@@ -87,26 +87,30 @@ server.get('/api/product', async (req, res) => {
 });
 
 server.post('/api/item/new', async (req, res) => {
-    const created = new Item(req.body.item);
-
-    let error = created.validateSync();
-    if (error) {
-        res.status(422).send(error.errors);
-        return;
-    }
+    const qty = req.body.qty || 1;
+    const items = [];
 
     try {
-        await created.save();
+        for (let i = 1; i <= qty; i++) {
+            let newItem = await new Item(req.body.item);
+
+            let error = newItem.validateSync();
+            if (error) {
+                throw new Error('Item has invalid data');
+            }
+
+            await newItem.save();
+            items.push(newItem);
+        }
+
+        console.log('saved item');
+        res.status(201).send(items);
 
     } catch (error) {
         console.error(error);
         res.status(422)
-            .send({ error: "Could not add item due to database error" });
-        return;
+            .send({ error: "Could not add item(s) due to database error" });
     }
-
-    console.log('saved item');
-    res.status(201).send(created);
 });
 
 server.post('/api/location/new', async (req, res) => {

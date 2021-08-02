@@ -12,10 +12,13 @@ export function itemReducer(items = defaultState.items, action) {
 
             return action.items;
 
-        case actions.ADD_ITEM:
-            action.item.expiry = new Date(action.item.expiry);
+        case actions.ADD_ITEMS:
+            action.items = action.items.map(item => {
+                item.expiry = new Date(item.expiry);
+                return new Item(item);
+            });
 
-            return [...items, action.item];
+            return [...items, ...action.items];
     }
 
     return items;

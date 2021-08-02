@@ -254,26 +254,27 @@ export const addLocation = (location) => {
     };
 };
 
-export const addItem = (item) => {
+export const addItem = (item, qty) => {
     return (dispatch) => {
         return api.post('/item/new', {
-            item: item
+            item: item,
+            qty: qty,
         }).then(response => {
             return response.data
         }).then(data => {
             dispatch({
-                type: actions.ADD_ITEM,
-                item: data
+                type: actions.ADD_ITEMS,
+                items: data
             });
 
             dispatch({
                 type: actions.NOTIFY_SUCCESS,
-                message: 'Item added successfully',
+                message: (data.length > 1 ? 'Items' : 'Item' ) + ' added successfully',
             });
         }).catch(error => {
             dispatch({
                 type: actions.API_ERROR,
-                data: error.data
+                error: error,
             });
         });
     };

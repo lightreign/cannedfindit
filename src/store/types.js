@@ -12,7 +12,7 @@ export const ADD_LOCATION = 'ADD_LOCATION';
 
 export const LIST_ITEMS = 'LIST_ITEMS';
 export const GET_ITEM = 'GET_ITEM';
-export const ADD_ITEM = 'ADD_ITEM';
+export const ADD_ITEMS = 'ADD_ITEMS';
 
 export const ADD_USER = 'ADD_USER';
 export const UPDATE_PAGER = 'UPDATE_PAGER';

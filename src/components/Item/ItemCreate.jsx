@@ -18,8 +18,6 @@ export const ItemCreate = ({dispatch}) => {
     const createItem = (e) => {
         e.preventDefault();
 
-        setQty(parseInt(qty));
-
         if (qty > maxQty) {
             dispatch(addErrorNotification(`Max quantity of ${maxQty}`));
             return;
@@ -36,10 +34,7 @@ export const ItemCreate = ({dispatch}) => {
                 expiry: expiry.toDate()
             };
 
-            // Create as many items as qty has said
-            for (let i = 1; i <= qty; i++) {
-                dispatch(addItem(item));
-            }
+            dispatch(addItem(item, qty));
 
             e.target.reset();
         } else {
@@ -69,7 +64,7 @@ export const ItemCreate = ({dispatch}) => {
 
             <Form.Group controlId="qty">
                 <Form.Label>Quantity:</Form.Label>
-                <Form.Control name="qty" type="number" onChange={e => setQty(e.target.value)} defaultValue="1" step="1" min="1" max="10" />
+                <Form.Control name="qty" type="number" onChange={e => setQty(parseInt(e.target.value))} defaultValue="1" step="1" min="1" max="10" />
             </Form.Group>
 
             <Button variant="primary" disabled={submitting} type="submit">Add Item</Button>
