@@ -48,42 +48,73 @@ server.get('/api/item', async (req, res) => {
         });
     }
 
-    const count = await Item.countDocuments(filter);
-    res.header('X-Total-Count', count);
+    try {
+        const count = await Item.countDocuments(filter);
+        res.header('X-Total-Count', count);
 
-    const items = await Item.find(filter, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
+        const items = await Item.find(filter, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
 
-    res.status(200).send(items);
+        res.status(200).send(items);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({error: "cannot list items"});
+    }
 });
 
 server.get('/api/item/:id', async (req, res) => {
-    const item = await Item.find({'_id' :req.params.id });
-
-    res.status(200).send(item);
+    try {
+        const item = await Item.find({'_id' :req.params.id });
+        res.status(200).send(item);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({error: "cannot show item"});
+    }
 });
 
 server.get('/api/brand', async (req, res) => {
-    const brands = await Brand.find();
-
-    res.status(200).send(brands);
+    try {
+        const brands = await Brand.find();
+        res.status(200).send(brands);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({error: "cannot list brands"});
+    }
 });
 
 server.get('/api/type', async (req, res) => {
-    const types = await Type.find(); // TODO: add error handling
-
-    res.status(200).send(types);
+    try {
+        const types = await Type.find();
+        res.status(200).send(types);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({ error: "cannot list types" });
+    }
 });
 
 server.get('/api/location', async (req, res) => {
-    const locations = await Location.find(); // TODO: add error handling
-
-    res.status(200).send(locations);
+    try {
+        const locations = await Location.find();
+        res.status(200).send(locations);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({ error: "cannot list locations" });
+    }
 });
 
 server.get('/api/product', async (req, res) => {
-    const products = await Product.find(); // TODO: add error handling
-
-    res.status(200).send(products);
+    try {
+        const products = await Product.find();
+        res.status(200).send(products);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({ error: "cannot list products" });
+    }
 });
 
 server.post('/api/item/new', async (req, res) => {
@@ -122,15 +153,16 @@ server.post('/api/location/new', async (req, res) => {
         return;
     }
 
-    await created.save().catch(() => {
-        res
-            .status(422)
+    try {
+        await created.save();
+
+        console.log('saved new location');
+        res.status(201).send(created);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
             .send({ error: "duplicate location or other database problem" });
-    });
-
-    console.log('saved new location');
-
-    res.status(201).send(created);
+    }
 });
 
 server.post('/api/brand/new', async (req, res) => {
@@ -142,15 +174,16 @@ server.post('/api/brand/new', async (req, res) => {
         return;
     }
 
-    await created.save().catch(() => {
-        res
-            .status(422)
+    try {
+        await created.save();
+
+        console.log('saved new brand');
+        res.status(201).send(created);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
             .send({ error: "duplicate brand or other database problem" });
-    });
-
-    console.log('saved new brand');
-
-    res.status(201).send(created);
+    }
 });
 
 server.post('/api/type/new', async (req, res) => {
@@ -162,15 +195,16 @@ server.post('/api/type/new', async (req, res) => {
         return;
     }
 
-    await created.save().catch(() => {
-        res
-            .status(422)
+    try {
+        await created.save();
+
+        console.log('saved new type');
+        res.status(201).send(created);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
             .send({ error: "duplicate type or other database problem" });
-    });
-
-    console.log('saved new type');
-
-    res.status(201).send(created);
+    }
 });
 
 server.post('/api/product/new', async (req, res) => {
@@ -182,15 +216,16 @@ server.post('/api/product/new', async (req, res) => {
         return;
     }
 
-    await created.save().catch(() => {
-        res
-            .status(422)
+    try {
+        await created.save();
+
+        console.log('saved new product');
+        res.status(201).send(created);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
             .send({ error: "duplicate product or other database problem" });
-    });
-
-    console.log('saved new product');
-
-    res.status(201).send(created);
+    }
 });
 
 server.listen(4242, () => console.log('Server is running...'));

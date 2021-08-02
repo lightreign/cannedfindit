@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actions from './types';
+import { store } from "./index";
 
 const qs = require('qs');
 
@@ -8,16 +9,12 @@ const api = axios.create({
     timeout: 5000,
 });
 
-//// Add a response interceptor
-// axios.interceptors.response.use(function (response) {
-//     // Any status code that lie within the range of 2xx cause this function to trigger
-//     // Do something with response data
-//     return response;
-//   }, function (error) {
-//     // Any status codes that falls outside the range of 2xx cause this function to trigger
-//     // Do something with response error
-//     return Promise.reject(error);
-//   });
+api.interceptors.request.use(function (config) {
+    store.dispatch(clearNotifications());
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 export const listBrands = () => {
     return (dispatch) => {

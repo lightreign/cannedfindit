@@ -25,31 +25,50 @@ const locationSchemaDef = {
     name: {
         type: String,
         required: true,
-        unique: true
     }
 };
 
 const locationSchema = new Schema(locationSchemaDef);
 
-const typeSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    }
+locationSchema.index({
+    name: 1
+}, {
+    unique: true
 });
 
-const brandSchema = new Schema({
+const typeSchemaDef = {
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }
+};
+
+const typeSchema = new Schema(typeSchemaDef);
+
+typeSchema.index({
+    name: 1
+}, {
+    unique: true
+})
+
+const brandSchemaDef = {
+    name: {
+        type: String,
+        required: true
+    }
+};
+
+const brandSchema = new Schema(brandSchemaDef);
+
+brandSchema.index({
+   name: 1
+}, {
+    unique: true
 });
 
 const productSchemaDef = {
-    type: typeSchema,
-    brand: brandSchema,
+    type: typeSchemaDef,
+    brand: brandSchemaDef,
     weight: Number,
     volume: Number,
 };
@@ -66,7 +85,7 @@ productSchema.index({
 });
 
 const itemSchema = new Schema({
-    product: productSchema,
+    product: productSchemaDef,
     location: locationSchemaDef,
     expiry: {
         type: Date,
