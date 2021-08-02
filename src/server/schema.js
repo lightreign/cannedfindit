@@ -29,12 +29,7 @@ const locationSchemaDef = {
 };
 
 const locationSchema = new Schema(locationSchemaDef);
-
-locationSchema.index({
-    name: 1
-}, {
-    unique: true
-});
+locationSchema.path('name').index({ unique: true });
 
 const typeSchemaDef = {
     name: {
@@ -44,12 +39,7 @@ const typeSchemaDef = {
 };
 
 const typeSchema = new Schema(typeSchemaDef);
-
-typeSchema.index({
-    name: 1
-}, {
-    unique: true
-})
+typeSchema.path('name').index({ unique: true });
 
 const brandSchemaDef = {
     name: {
@@ -59,12 +49,7 @@ const brandSchemaDef = {
 };
 
 const brandSchema = new Schema(brandSchemaDef);
-
-brandSchema.index({
-   name: 1
-}, {
-    unique: true
-});
+brandSchema.path('name').index({ unique: true });
 
 const productSchemaDef = {
     type: typeSchemaDef,

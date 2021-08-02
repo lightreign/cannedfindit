@@ -11,14 +11,14 @@ export const ProductSelect = ({products, listProducts, setProduct}) => {
     return (
         <Form.Group controlId="form.product">
             <Form.Label>Product:</Form.Label>
-            <Form.Control as="select" onChange={setProduct} name="product">
+            <Form.Select onChange={setProduct} name="product">
                 <option key="" value="">-- Select --</option>
                 {products.map(product => (
                     <option key={product._id} value={JSON.stringify(product)}>
                         {product.brand.name} {product.type.name} {product.volume ? product.volume + 'ml' : product.weight + 'g' }
                     </option>
                 ))}
-            </Form.Control>
+            </Form.Select>
         </Form.Group>
     );
 };

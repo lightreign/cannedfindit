@@ -11,14 +11,14 @@ export const TypeSelect = ({types, listTypes, setProductType}) => {
     return (
         <Form.Group controlId="form.type">
             <Form.Label>Product Type:</Form.Label>
-            <Form.Control as="select" onChange={setProductType} name="type">
+            <Form.Select onChange={setProductType} name="type">
                 <option key="" value="">-- Select --</option>
                 {types.map(type => (
                     <option key={type._id} value={type.name}>
                         {type.name}
                     </option>
                 ))}
-            </Form.Control>
+            </Form.Select>
         </Form.Group>
     );
 };

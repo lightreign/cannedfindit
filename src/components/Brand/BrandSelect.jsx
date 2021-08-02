@@ -11,14 +11,14 @@ export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     return (
         <Form.Group controlId="form.brand">
             <Form.Label>Brand:</Form.Label>
-            <Form.Control as="select" onChange={setProductBrand} name="brand">
+            <Form.Select onChange={setProductBrand} name="brand">
                 <option key="" value="">-- Select --</option>
                 {brands.map(brand => (
                     <option key={brand._id} value={brand.name}>
                         {brand.name}
                     </option>
                 ))}
-            </Form.Control>
+            </Form.Select>
         </Form.Group>
     )
 };

@@ -11,14 +11,14 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
     return (
         <Form.Group controlId="form.location">
             <Form.Label>Location:</Form.Label>
-            <Form.Control as="select" onChange={setLocation} name="location">
+            <Form.Select onChange={setLocation} name="location">
                 <option key="" value="">-- Select --</option>
                 {locations.map(location => (
                     <option key={location._id} value={location.name}>
                         {location.name}
                     </option>
                 ))}
-            </Form.Control>
+            </Form.Select>
         </Form.Group>
     );
 };
