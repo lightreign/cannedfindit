@@ -59,10 +59,10 @@ export const ProductCreate = ({dispatch}) => {
                 <Col>
                     <Form.Group controlId="unit">
                         <Form.Label>Unit:</Form.Label>
-                        <Form.Control as="select" name="unit" onChange={e => setUnit(e.target.value)} defaultValue='g'>
+                        <Form.Select name="unit" onChange={e => setUnit(e.target.value)} defaultValue='g'>
                             <option value="g">grams</option>
                             <option value="ml">millilitres</option>
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
             </Row>

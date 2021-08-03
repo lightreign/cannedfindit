@@ -16,7 +16,9 @@ const ItemDetail = ({item}) => {
                 : <Alert variant="warning">
                     Item could not be found.
                 </Alert> }
+
             <Link to="/" className="btn btn-primary">Dashboard</Link>
+            <button className="btn btn-danger" disabled>Consume</button>
         </div>
     );
 };

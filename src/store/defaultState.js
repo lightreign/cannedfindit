@@ -1,4 +1,5 @@
 export const defaultState = {
+    version: "0.9.4",
     user: {
         name: "Family"
     },

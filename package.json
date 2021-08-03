@@ -1,6 +1,6 @@
 {
   "name": "cannedfindit",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "description": "Home food inventory management app",
   "main": "index.jsx",
   "scripts": {

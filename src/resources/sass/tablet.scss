@@ -1,0 +1,17 @@
+/**
+  Tablet css overrides
+ */
+
+@media screen and (min-device-width: $breakpoint-m) and (max-device-width: $breakpoint-lg) {
+  html {
+    font-size: 25px;
+  }
+
+  .content {
+    padding: 0 5rem;
+  }
+
+  select > option {
+    font-size: 0.7rem;
+  }
+}

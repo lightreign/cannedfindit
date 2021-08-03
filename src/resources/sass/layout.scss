@@ -14,12 +14,16 @@ div.nav {
   margin: 20px 0;
 }
 
-button.btn {
+.btn {
   margin-top: 1.2rem;
 
   & + & {
     margin-left: 0.6rem;
   }
+}
+
+select > option {
+  font-size: 0.5rem;
 }
 
 legend {

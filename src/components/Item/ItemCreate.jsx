@@ -35,6 +35,7 @@ export const ItemCreate = ({dispatch}) => {
             };
 
             dispatch(addItem(item, qty));
+            setQty(1);
 
             e.target.reset();
         } else {

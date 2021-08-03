@@ -31,3 +31,4 @@ Todos
 ---
 - favicon
 - set username/users
+- consume items

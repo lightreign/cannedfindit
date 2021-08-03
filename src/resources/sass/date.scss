@@ -1,0 +1,31 @@
+/**
+  Date picker related overrides
+ */
+
+@media screen and (max-width: $breakpoint-sm) {
+  body {
+    background-color: bisque !important;
+  }
+  .rdtPicker {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-m) {
+  .rdtPicker {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: $breakpoint-m) and (max-width: $breakpoint-lg) {
+  .rdtPicker {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: $breakpoint-lg) {
+  .rdtPicker {
+    width: 350px;
+  }
+}
+
