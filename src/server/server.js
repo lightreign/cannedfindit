@@ -1,4 +1,6 @@
+import process from 'process';
 import express from 'express';
+import winston from 'winston';
 import bodyParser from 'body-parser';
 import connectDatabase from './database';
 import { Item, Location, Brand, Type, Product } from "./schema";
@@ -11,6 +13,20 @@ server.use(
     express.static('dist'),
     apiMiddleware
 );
+
+const logger = winston.createLogger({
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+    ),
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({
+            filename: __dirname + '/../../server.log',
+            level: 'debug',
+        })
+    ]
+});
 
 async function apiMiddleware(req, res, next) {
     await connectDatabase();
@@ -59,7 +75,7 @@ server.get('/api/item', async (req, res) => {
 
         res.status(200).send(items);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({error: "cannot list items"});
     }
@@ -70,9 +86,9 @@ server.get('/api/item/:id', async (req, res) => {
         const item = await Item.findOne({ _id: req.params.id });
         res.status(200).send(item);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(404)
-            .send({error: "cannot find item"});
+            .send({ error: "cannot find item" });
     }
 });
 
@@ -81,9 +97,9 @@ server.get('/api/brand', async (req, res) => {
         const brands = await Brand.find();
         res.status(200).send(brands);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
-            .send({error: "cannot list brands"});
+            .send({ error: "cannot list brands" });
     }
 });
 
@@ -92,7 +108,7 @@ server.get('/api/type', async (req, res) => {
         const types = await Type.find();
         res.status(200).send(types);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "cannot list types" });
     }
@@ -103,7 +119,7 @@ server.get('/api/location', async (req, res) => {
         const locations = await Location.find();
         res.status(200).send(locations);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "cannot list locations" });
     }
@@ -114,7 +130,7 @@ server.get('/api/product', async (req, res) => {
         const products = await Product.find();
         res.status(200).send(products);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "cannot list products" });
     }
@@ -135,13 +151,14 @@ server.post('/api/item/new', async (req, res) => {
 
             await newItem.save();
             items.push(newItem);
+
+            logger.debug('saved item: ' + newItem._id);
         }
 
-        console.log('saved item');
         res.status(201).send(items);
 
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "Could not add item(s) due to database error" });
     }
@@ -159,10 +176,10 @@ server.post('/api/location/new', async (req, res) => {
     try {
         await created.save();
 
-        console.log('saved new location');
+        logger.debug('saved new location: ' + created.name);
         res.status(201).send(created);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "duplicate location or other database problem" });
     }
@@ -180,10 +197,10 @@ server.post('/api/brand/new', async (req, res) => {
     try {
         await created.save();
 
-        console.log('saved new brand');
+        logger.info('saved new brand: ' + created.name);
         res.status(201).send(created);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "duplicate brand or other database problem" });
     }
@@ -201,10 +218,10 @@ server.post('/api/type/new', async (req, res) => {
     try {
         await created.save();
 
-        console.log('saved new type');
+        logger.debug('saved new type: ' + created.name);
         res.status(201).send(created);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "duplicate type or other database problem" });
     }
@@ -222,10 +239,10 @@ server.post('/api/product/new', async (req, res) => {
     try {
         await created.save();
 
-        console.log('saved new product');
+        logger.debug('saved new product: ' + created._id);
         res.status(201).send(created);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "duplicate product or other database problem" });
     }
@@ -243,13 +260,33 @@ server.post('/api/item/consume', async (req, res) => {
         item.consumed = new Date();
         await item.save();
 
-        console.log('consumed item', item);
+        logger.debug('consumed item: ' + item._id);
         res.status(200).send(item);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(422)
             .send({ error: "could not consume item" });
     }
 });
 
-server.listen(4242, () => console.log('Server is running...'));
+server.post('/api/item/unconsume', async (req, res) => {
+    try {
+        const item = await Item.findOne({ _id: req.body.id });
+
+        item.consumed = null;
+        await item.save();
+
+        logger.debug('unconsumed item: ' + item._id);
+        res.status(200).send(item);
+    } catch (error) {
+        logger.error(error);
+        res.status(422)
+            .send({ error: "could not unconsume item" });
+    }
+});
+
+process.on('uncaughtException', (err) => {
+    logger.error(`${err.message} ${err.stack}`);
+});
+
+server.listen(4242, () => logger.info('Server is started...'));

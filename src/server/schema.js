@@ -28,7 +28,7 @@ const locationSchemaDef = {
     }
 };
 
-const locationSchema = new Schema(locationSchemaDef);
+const locationSchema = new Schema(locationSchemaDef, { timestamps: true });
 locationSchema.path('name').index({ unique: true });
 
 const typeSchemaDef = {
@@ -58,7 +58,7 @@ const productSchemaDef = {
     volume: Number,
 };
 
-const productSchema = new Schema(productSchemaDef);
+const productSchema = new Schema(productSchemaDef, { timestamps: true });
 
 productSchema.index({
     type: 1,
@@ -80,7 +80,7 @@ const itemSchema = new Schema({
         type: Date,
         required: false
     }
-});
+}, { timestamps: true });
 
 itemSchema.index({ 'product.type.name': 1 });
 itemSchema.index({ 'product.brand.name': 1 });

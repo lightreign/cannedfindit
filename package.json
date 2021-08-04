@@ -1,13 +1,13 @@
 {
   "name": "cannedfindit",
-  "version": "0.9.8",
+  "version": "1.0.0",
   "description": "Home food inventory management app",
   "main": "index.jsx",
   "scripts": {
     "test": "jest",
-    "dev:server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
-    "prod:server": "babel-node src/server/server.js > server.log",
-    "dev:bundler": "webpack -w --mode=development",
+    "dev:server": "NODE_ENV=development nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "prod:server": "babel-node src/server/server.js",
+    "dev:bundler": "NODE_ENV=development webpack -w --mode=development",
     "prod:bundler": "webpack --mode=production"
   },
   "author": "Adrian Pennington",
@@ -21,6 +21,7 @@
     "babel-loader": "^8.2.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.0.2",
+    "copy-webpack-plugin": "^9.0.1",
     "core-js": "^3.10.1",
     "css-loader": "^5.2.2",
     "express": "^4.17.1",
@@ -46,7 +47,8 @@
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
     "webpack": "^5.28.0",
-    "webpack-cli": "^4.5.0"
+    "webpack-cli": "^4.5.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

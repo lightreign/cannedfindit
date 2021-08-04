@@ -14,6 +14,7 @@ export const LIST_ITEMS = 'LIST_ITEMS';
 export const GET_ITEM = 'GET_ITEM';
 export const ADD_ITEMS = 'ADD_ITEMS';
 export const CONSUME_ITEM = 'CONSUME_ITEM';
+export const UNCONSUME_ITEM = 'UNCONSUME_ITEM';
 
 export const ADD_USER = 'ADD_USER';
 export const UPDATE_PAGER = 'UPDATE_PAGER';

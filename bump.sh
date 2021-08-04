@@ -9,6 +9,6 @@ fi
 
 version=$1
 
-npm version --no-commit-hooks $version
+npm version --allow-same-version --no-git-tag-version --no-commit-hooks $version
 cat src/store/defaultState.js | perl -pe 's/version: "[0-9.]+"/version: "'${version}'"/' | tee src/store/defaultState.js 1> /dev/null
 

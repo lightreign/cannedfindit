@@ -24,6 +24,8 @@ export function itemReducer(items = defaultState.items, action) {
             return items.filter(item => {
                 return item._id !== action.item._id;
             });
+        case actions.UNCONSUME_ITEM:
+            return [...items, action.item];
     }
 
     return items;
@@ -127,6 +129,7 @@ export function notificationReducer(notification = defaultState.notification, ac
 export function itemDetailReducer(item = defaultState.item, action) {
     switch (action.type) {
         case actions.CONSUME_ITEM:
+        case actions.UNCONSUME_ITEM:
         case actions.GET_ITEM:
             item = new Item(action.item);
     }

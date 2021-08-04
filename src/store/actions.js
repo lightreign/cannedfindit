@@ -319,3 +319,29 @@ export const consumeItem = (id) => {
         });
     };
 }
+
+export const unconsumeItem = (id) => {
+    return (dispatch) => {
+        return api.post('/item/unconsume', {
+            id: id
+        }).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.UNCONSUME_ITEM,
+                item: data
+            });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Item was unconsumed, phew!'
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot unconsume item due to error, oh dear',
+            });
+        });
+    };
+}

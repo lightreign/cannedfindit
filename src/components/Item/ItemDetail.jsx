@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
-import { Alert } from "react-bootstrap-v5";
 import { Link } from "react-router-dom";
-import { consumeItem, getItem } from "../../store/actions";
-import {ItemExpiry} from "./ItemExpiry";
+import { consumeItem, unconsumeItem, getItem } from "../../store/actions";
+import { ItemExpiry } from "./ItemExpiry";
 
-const ItemDetail = ({itemId, item, getItem, consume}) => {
+const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
@@ -21,16 +20,25 @@ const ItemDetail = ({itemId, item, getItem, consume}) => {
                     <legend>Item</legend>
                     <h4>{item.product.brand.name} {item.product.type.name}</h4>
                     <p>Location: {item.location.name}</p>
-                    <p><ItemExpiry item={item} label={'Expiry:'}/></p>
+                    <ItemExpiry item={item} label={'Expires:'}/>
                     {item.consumed &&
-                        <h4 className="text-danger">Item Consumed: {item.consumedDateString()}</h4>}
+                        <div className="consumed">
+                            <h4 className="text-danger">Item Consumed: {item.consumedDateString()}</h4>
+                        </div>
+                    }
                 </div>
             }
 
             <Link to="/" className="btn btn-primary">Dashboard</Link>
-            <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, item._id)} } disabled={!item._id || submitted || item.consumed}>
-                Consume
-            </button>
+            {!item.consumed ?
+                <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, item._id)} } disabled={!item._id || submitted}>
+                    Consume
+                </button>
+                :
+                <button className="btn btn-danger" onClick={e => { unconsume(e, setSubmitted, item._id)} } disabled={!item._id || submitted}>
+                    Oops, unconsume!
+                </button>
+            }
         </div>
     );
 };
@@ -60,6 +68,16 @@ const mapDispatchToProps = (dispatch) => {
             setSubmitted(true);
 
             dispatch(consumeItem(id));
+
+            setSubmitted(false);
+        },
+        unconsume(e, setSubmitted, id) {
+            e.preventDefault();
+            setSubmitted(true);
+
+            dispatch(unconsumeItem(id));
+
+            setSubmitted(false);
         }
     }
 };

@@ -2,13 +2,19 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   plugins: [
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
     new MomentLocalesPlugin(),
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({ analyzerMode: isDevelopment ? 'server' : 'disabled' }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './src/resources/images/favicon.ico' },
+      ]
+    })
   ],
   resolve: {
     extensions: ['.js','.jsx', '.scss']
