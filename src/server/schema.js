@@ -76,7 +76,16 @@ const itemSchema = new Schema({
         type: Date,
         required: true
     },
+    consumed: {
+        type: Date,
+        required: false
+    }
 });
+
+itemSchema.index({ 'product.type.name': 1 });
+itemSchema.index({ 'product.brand.name': 1 });
+itemSchema.index({ 'location.name': 1 });
+itemSchema.index({ expiry: 1 });
 
 // Models
 export const User = mongoose.model('User', userSchema);

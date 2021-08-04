@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ItemExpiry = ({item}) => {
+export const ItemExpiry = ({item, label=''}) => {
     let expiryClass = '';
 
     if (item.isExpired()) {
@@ -12,7 +12,7 @@ export const ItemExpiry = ({item}) => {
     }
 
     return (
-        <div className={expiryClass}>{item.expiryAsString()}</div>
+        <div className={expiryClass}>{label} {item.expiryDateString()}</div>
     );
 }
 

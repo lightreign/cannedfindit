@@ -13,10 +13,18 @@ class Item {
         }
 
         this.expiry = new Date(this.expiry);
+
+        if (this.consumed) {
+            this.consumed = new Date(this.consumed);
+        }
     }
 
-    expiryAsString() {
+    expiryDateString() {
         return this.expiry.toLocaleDateString();
+    }
+
+    consumedDateString() {
+        return this.consumed ? this.consumed.toLocaleDateString() : null;
     }
 
     isExpired() {

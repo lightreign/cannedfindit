@@ -18,6 +18,7 @@ export const store = createStore(
         brands: reducer.brandReducer,
         products: reducer.productReducer,
         pager: reducer.pagerReducer,
+        item: reducer.itemDetailReducer,
         notification: reducer.notificationReducer,
     }),
     composeWithDevTools(applyMiddleware(thunk, logger))

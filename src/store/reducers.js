@@ -19,6 +19,11 @@ export function itemReducer(items = defaultState.items, action) {
             });
 
             return [...items, ...action.items];
+
+        case actions.CONSUME_ITEM:
+            return items.filter(item => {
+                return item._id !== action.item._id;
+            });
     }
 
     return items;
@@ -117,4 +122,14 @@ export function notificationReducer(notification = defaultState.notification, ac
     }
 
     return notification;
+}
+
+export function itemDetailReducer(item = defaultState.item, action) {
+    switch (action.type) {
+        case actions.CONSUME_ITEM:
+        case actions.GET_ITEM:
+            item = new Item(action.item);
+    }
+
+    return item;
 }

@@ -40,13 +40,16 @@ server.get(/^(?!\/?api).+$/, (req, res) => {
 server.get('/api/item', async (req, res) => {
     const limit = parseInt(req.query.perPage);
     const skip = req.query.page > 1 ? limit * (req.query.page - 1) : 0;
-    const filter = req.query.search || null;
+    const filter = req.query.search || {};
 
     if (filter) {
         Object.keys(filter).map(key => {
            filter[key] = new RegExp(filter[key], 'i');
         });
     }
+
+    // Do not show consumed items
+    filter.consumed = null;
 
     try {
         const count = await Item.countDocuments(filter);
@@ -64,12 +67,12 @@ server.get('/api/item', async (req, res) => {
 
 server.get('/api/item/:id', async (req, res) => {
     try {
-        const item = await Item.find({'_id' :req.params.id });
+        const item = await Item.findOne({ _id: req.params.id });
         res.status(200).send(item);
     } catch (error) {
         console.error(error);
-        res.status(422)
-            .send({error: "cannot show item"});
+        res.status(404)
+            .send({error: "cannot find item"});
     }
 });
 
@@ -225,6 +228,27 @@ server.post('/api/product/new', async (req, res) => {
         console.error(error);
         res.status(422)
             .send({ error: "duplicate product or other database problem" });
+    }
+});
+
+server.post('/api/item/consume', async (req, res) => {
+    const item = await Item.findOne({ _id: req.body.id });
+
+    if (!item) {
+        res.status(404).send();
+        return;
+    }
+
+    try {
+        item.consumed = new Date();
+        await item.save();
+
+        console.log('consumed item', item);
+        res.status(200).send(item);
+    } catch (error) {
+        console.error(error);
+        res.status(422)
+            .send({ error: "could not consume item" });
     }
 });
 

@@ -140,7 +140,7 @@ export const getItem = (id) => {
             dispatch({
                 type: actions.API_ERROR,
                 error: error,
-                userMessage: 'Cannot display inventory item due to server error',
+                userMessage: 'Item does not exist or there was an error retrieving the item',
             });
         });
     };
@@ -293,3 +293,29 @@ export const clearNotifications = () => {
         });
     };
 };
+
+export const consumeItem = (id) => {
+    return (dispatch) => {
+        return api.post('/item/consume', {
+            id: id
+        }).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.CONSUME_ITEM,
+                item: data
+            });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'Item consumed, yum yum'
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot consume item due to error',
+            });
+        });
+    };
+}

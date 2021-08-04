@@ -1,5 +1,5 @@
 export const defaultState = {
-    version: "0.9.4",
+    version: "0.9.8",
     user: {
         name: "Family"
     },
@@ -13,6 +13,7 @@ export const defaultState = {
     types: [],
     products: [],
     items: [],
+    item: {},
     locations: [],
     notification: {
         notification: '',
