@@ -29,5 +29,5 @@ You can now access app on port 4242
 
 Todos
 ---
-- favicon
 - set username/users
+

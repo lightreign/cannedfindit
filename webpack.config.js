@@ -12,7 +12,7 @@ module.exports = {
     new BundleAnalyzerPlugin({ analyzerMode: isDevelopment ? 'server' : 'disabled' }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: './src/resources/images/favicon.ico' },
+        { from: './src/resources/images/*', to: '[name][ext]' },
       ]
     })
   ],

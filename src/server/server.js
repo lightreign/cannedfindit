@@ -176,7 +176,7 @@ server.post('/api/location/new', async (req, res) => {
     try {
         await created.save();
 
-        logger.debug('saved new location: ' + created.name);
+        logger.info('saved new location: ' + created.name);
         res.status(201).send(created);
     } catch (error) {
         logger.error(error);
@@ -218,7 +218,7 @@ server.post('/api/type/new', async (req, res) => {
     try {
         await created.save();
 
-        logger.debug('saved new type: ' + created.name);
+        logger.info('saved new type: ' + created.name);
         res.status(201).send(created);
     } catch (error) {
         logger.error(error);
@@ -286,7 +286,7 @@ server.post('/api/item/unconsume', async (req, res) => {
 });
 
 process.on('uncaughtException', (err) => {
-    logger.error(`${err.message} ${err.stack}`);
+    logger.error(err.stack);
 });
 
 server.listen(4242, () => logger.info('Server is started...'));

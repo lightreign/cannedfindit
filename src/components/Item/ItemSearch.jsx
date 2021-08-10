@@ -5,6 +5,7 @@ import { listItems } from "../../store/actions";
 
 export const ItemSearch = () => {
     const [productType, setProductType] = useState('');
+    const [searched, setSearched] = useState(true);
     const dispatch = useDispatch();
 
     const searchItems = (e) => {
@@ -16,18 +17,30 @@ export const ItemSearch = () => {
             e.target.reset();
         }
 
-        dispatch(listItems({'product.type.name': productType}));
+        setSearched(true);
+
+        dispatch(listItems({'product.type.name': productType}, 1));
     }
+
+    const searchChange = e => {
+        setSearched(false);
+        setProductType(e.target.value);
+    };
+
+    const onClear = () => {
+        setSearched(false);
+        setProductType('');
+    };
 
     return (
         <Form id="locationForm" onSubmit={searchItems}>
             <Form.Group controlId="searchItemProductType">
                 <Form.Label>Search</Form.Label>
-                <Form.Control name="search" onChange={(e) => { setProductType(e.target.value) }} />
+                <Form.Control name="search" onChange={searchChange} />
             </Form.Group>
 
-            <Button variant="primary" type="submit">Search</Button>
-            <Button variant="secondary" type="submit" onClick={() => { setProductType('') }}>Clear</Button>
+            <Button variant="primary" type="submit" disabled={searched}>Search</Button>
+            <Button variant="secondary" type="submit" onClick={onClear}>Clear</Button>
         </Form>
     );
 }
