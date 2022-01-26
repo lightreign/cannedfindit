@@ -33,7 +33,7 @@ export const ItemSearch = () => {
     };
 
     return (
-        <Form id="locationForm" onSubmit={searchItems}>
+        <Form id="searchForm" onSubmit={searchItems}>
             <Form.Group controlId="searchItemProductType">
                 <Form.Label>Search</Form.Label>
                 <Form.Control name="search" onChange={searchChange} />
