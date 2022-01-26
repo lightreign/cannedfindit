@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemSearch Can search items 1`] = `
+<form
+  className=""
+  id="searchForm"
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      className="form-label"
+      htmlFor="searchItemProductType"
+    >
+      Search
+    </label>
+    <input
+      className="form-control"
+      id="searchItemProductType"
+      name="search"
+      onChange={[Function]}
+    />
+  </div>
+  <button
+    className="btn btn-primary"
+    disabled={true}
+    type="submit"
+  >
+    Search
+  </button>
+  <button
+    className="btn btn-secondary"
+    disabled={false}
+    onClick={[Function]}
+    type="submit"
+  >
+    Clear
+  </button>
+</form>
+`;

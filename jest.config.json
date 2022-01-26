@@ -1,0 +1,6 @@
+{
+    "name": "cannedfindit",
+    "testMatch": [
+        "<rootDir>/test/unit/**"
+    ]
+}
