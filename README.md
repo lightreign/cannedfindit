@@ -4,11 +4,11 @@
 
 Dependencies
 ---
-- MongoDB 4.0+
+- MongoDB 4.0+ (installed locally)
 - Node 14.3+ & npm 17.x+
 - Raspberry Pi 3 or above (if running on a Pi, see [below](#raspberry-pi))
 
-The rest of app dependencies are handled by npm.
+The rest of app dependencies including React are handled by npm.
 
 Installation
 ---
@@ -42,3 +42,8 @@ CPU in your Pi. This excludes Raspberry Pi 2 or below. In addition to a 64-bit C
 a 64-bit OS such as Ubuntu.
 
 Steps on how to do this are found in: https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/
+
+Hosting / Cloud
+---
+At this stage Cannedfindit is not suitable to run on publicly available servers.
+Please only run this application in your local network.

@@ -1,6 +1,6 @@
 {
     "name": "cannedfindit",
     "testMatch": [
-        "<rootDir>/test/unit/**"
+        "<rootDir>/test/unit/**/*.(spec|test).js"
     ]
 }

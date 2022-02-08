@@ -1,13 +1,8 @@
-import axios from 'axios';
+import api from "./api";
 import * as actions from './types';
 import { store } from "./index";
 
 const qs = require('qs');
-
-const api = axios.create({
-    baseURL: '/api',
-    timeout: 5000,
-});
 
 api.interceptors.request.use(function (config) {
     store.dispatch(clearNotifications());
