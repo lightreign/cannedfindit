@@ -45,11 +45,13 @@ export const ItemCreate = ({dispatch}) => {
         setSubmitting(false);
     };
 
+    const inputProps = { 'data-testid': 'itemExpiry' };
+
     return (
-        <Form id="itemCreateForm" onSubmit={createItem}>
+        <Form id="itemCreateForm" onSubmit={createItem} role="ItemForm">
             <legend>Create an Item</legend>
 
-            <ConnectedProductSelect setProduct={e => setProduct(JSON.parse(e.target.value))}/>
+            <ConnectedProductSelect setProduct={e => setProduct(JSON.parse(e.target.value))} data-testid="productSelect"/>
 
             <Form.Group controlId="expiry">
                 <Form.Label>Expiry:</Form.Label>
@@ -58,14 +60,15 @@ export const ItemCreate = ({dispatch}) => {
                     onChange={setExpiry}
                     timeFormat={false}
                     closeOnSelect={true}
+                    inputProps={inputProps}
                 />
             </Form.Group>
 
-            <ConnectedLocationSelect setLocation={e => setLocation(e.target.value)}/>
+            <ConnectedLocationSelect setLocation={e => setLocation(e.target.value)} data-testid="locationSelect"/>
 
             <Form.Group controlId="qty">
                 <Form.Label>Quantity:</Form.Label>
-                <Form.Control name="qty" type="number" onChange={e => setQty(parseInt(e.target.value))} defaultValue="1" step="1" min="1" max="10" />
+                <Form.Control name="qty" type="number" onChange={e => setQty(parseInt(e.target.value))} defaultValue="1" step="1" min="1" max="10" data-testid="qtyInput"/>
             </Form.Group>
 
             <Button variant="primary" disabled={submitting} type="submit">Add Item</Button>

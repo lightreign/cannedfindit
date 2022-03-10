@@ -10,7 +10,7 @@ export const Pager = ({page, perPage, itemCount, fetchData}) => {
         let items = [];
         const numPages = Math.ceil(itemCount / perPage);
 
-        // Dont show pagination if only one page
+        // Don't show pagination if only one page
         if (numPages === 1) {
             setPages([]);
             return;
@@ -31,7 +31,7 @@ export const Pager = ({page, perPage, itemCount, fetchData}) => {
     };
 
     return (
-        <div>
+        <div role="Pager">
             <Pagination>
                 {pages.map(number => (
                     <Pagination.Item key={number} active={number === active} activeLabel="" onClick={() => setPage(number) }>

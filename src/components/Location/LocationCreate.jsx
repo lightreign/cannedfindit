@@ -20,12 +20,12 @@ export const LocationCreate = ({dispatch}) => {
     };
 
     return (
-        <Form id="locationForm" onSubmit={createLocation}>
+        <Form id="locationForm" onSubmit={createLocation} role="LocationForm">
             <legend>Create an Item Location</legend>
 
             <Form.Group controlId="location">
                 <Form.Label>Add a New Location:</Form.Label>
-                <Form.Control name="location" onChange={e => setLocation(e.target.value)} required />
+                <Form.Control name="location" data-testid="locationInput" onChange={e => setLocation(e.target.value)} required />
             </Form.Group>
 
             <Button variant="danger" disabled={submitting} type="submit">Add Location</Button>

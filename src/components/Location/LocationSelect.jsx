@@ -9,9 +9,9 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
     }, []);
 
     return (
-        <Form.Group controlId="form.location">
+        <Form.Group controlId="form.location" role="locationSelect">
             <Form.Label>Location:</Form.Label>
-            <Form.Select onChange={setLocation} name="location">
+            <Form.Select onChange={setLocation} name="location" data-testid="locationSelect">
                 <option key="" value="">-- Select --</option>
                 {locations.map(location => (
                     <option key={location._id} value={location.name}>

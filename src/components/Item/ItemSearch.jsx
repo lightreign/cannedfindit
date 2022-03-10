@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap-v5";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { listItems } from "../../store/actions";
 
-export const ItemSearch = () => {
+export const ItemSearch = ({dispatch}) => {
     const [productType, setProductType] = useState('');
     const [searched, setSearched] = useState(true);
-    const dispatch = useDispatch();
 
     const searchItems = (e) => {
         e.preventDefault();
@@ -33,10 +32,10 @@ export const ItemSearch = () => {
     };
 
     return (
-        <Form id="searchForm" onSubmit={searchItems}>
+        <Form id="searchForm" onSubmit={searchItems} role="SearchForm">
             <Form.Group controlId="searchItemProductType">
                 <Form.Label>Search</Form.Label>
-                <Form.Control name="search" onChange={searchChange} />
+                <Form.Control name="search" onChange={searchChange} data-testid="search"/>
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={searched}>Search</Button>
@@ -44,4 +43,14 @@ export const ItemSearch = () => {
         </Form>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        items: state.items,
+        pager: state.pager,
+    };
+}
+
+export const ConnectedItemSearch = connect(mapStateToProps)(ItemSearch);
 

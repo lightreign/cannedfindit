@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { consumeItem, unconsumeItem, getItem } from "../../store/actions";
 import { ItemExpiry } from "./ItemExpiry";
 
-const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
+export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
     }, []);
 
     return (
-        <div>
+        <div role="ItemDetail">
             {item._id &&
                 <div>
                     <legend>Item</legend>
@@ -31,11 +31,11 @@ const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
 
             <Link to="/" className="btn btn-primary">Dashboard</Link>
             {!item.consumed ?
-                <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, item._id)} } disabled={!item._id || submitted}>
+                <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, item._id)} } disabled={!item._id || submitted} data-testid="btnConsume">
                     Consume
                 </button>
                 :
-                <button className="btn btn-danger" onClick={e => { unconsume(e, setSubmitted, item._id)} } disabled={!item._id || submitted}>
+                <button className="btn btn-danger" onClick={e => { unconsume(e, setSubmitted, item._id)} } disabled={!item._id || submitted} data-testid="btnUnconsume">
                     Oops, unconsume!
                 </button>
             }

@@ -11,7 +11,7 @@ export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     return (
         <Form.Group controlId="form.brand">
             <Form.Label>Brand:</Form.Label>
-            <Form.Select onChange={setProductBrand} name="brand">
+            <Form.Select onChange={setProductBrand} name="brand" data-testid="brandSelect">
                 <option key="" value="">-- Select --</option>
                 {brands.map(brand => (
                     <option key={brand._id} value={brand.name}>

@@ -9,9 +9,9 @@ export const ProductSelect = ({products, listProducts, setProduct}) => {
     }, []);
 
     return (
-        <Form.Group controlId="form.product">
+        <Form.Group controlId="form.product" role="productSelect">
             <Form.Label>Product:</Form.Label>
-            <Form.Select onChange={setProduct} name="product">
+            <Form.Select onChange={setProduct} name="product" data-testid="productSelect">
                 <option key="" value="">-- Select --</option>
                 {products.map(product => (
                     <option key={product._id} value={JSON.stringify(product)}>

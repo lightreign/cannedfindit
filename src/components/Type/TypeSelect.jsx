@@ -9,9 +9,9 @@ export const TypeSelect = ({types, listTypes, setProductType}) => {
     }, []);
 
     return (
-        <Form.Group controlId="form.type">
+        <Form.Group controlId="form.type" role="TypeSelectForm">
             <Form.Label>Product Type:</Form.Label>
-            <Form.Select onChange={setProductType} name="type">
+            <Form.Select onChange={setProductType} name="type" data-testid="typeSelect">
                 <option key="" value="">-- Select --</option>
                 {types.map(type => (
                     <option key={type._id} value={type.name}>

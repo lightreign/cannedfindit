@@ -5,7 +5,7 @@ import { listItems } from "../../store/actions";
 import { Table } from "react-bootstrap-v5";
 import { ConnectedPager } from "../Pager";
 import { ItemExpiry } from "./ItemExpiry";
-import { ItemSearch } from "./ItemSearch";
+import { ConnectedItemSearch } from "./ItemSearch";
 
 export const ItemList = ({items, listItems}) => {
     useEffect(() => {
@@ -14,9 +14,9 @@ export const ItemList = ({items, listItems}) => {
 
     return (
     <div>
-        <ItemSearch />
+        <ConnectedItemSearch />
         <legend>Item Inventory</legend>
-        <Table striped bordered hover>
+        <Table striped bordered hover role="ItemList">
             <thead>
                 <tr>
                     <th>Name</th>

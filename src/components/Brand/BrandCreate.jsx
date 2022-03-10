@@ -20,12 +20,12 @@ export const BrandCreate = ({dispatch}) => {
     };
 
     return (
-        <Form id="brandCreateForm" onSubmit={createBrand}>
+        <Form id="brandCreateForm" onSubmit={createBrand} role="BrandForm">
             <legend>Create a Product Brand</legend>
 
             <Form.Group controlId="brand">
                 <Form.Label>New Brand:</Form.Label>
-                <Form.Control name="brand" onChange={e => setBrand(e.target.value)} required />
+                <Form.Control name="brand" data-testid="brandInput" onChange={e => setBrand(e.target.value)} required />
             </Form.Group>
 
             <Button type="submit" disabled={submitting} className="btn btn-warning">Add Brand</Button>

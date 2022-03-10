@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {addErrorNotification, addProduct, addType} from "../../store/actions";
+import { addErrorNotification, addProduct } from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedTypeSelect } from "../Type/TypeSelect";
 import { ConnectedBrandSelect } from "../Brand/BrandSelect";
@@ -43,7 +43,7 @@ export const ProductCreate = ({dispatch}) => {
     };
 
     return (
-        <Form id="productCreateForm" onSubmit={createProduct}>
+        <Form id="productCreateForm" onSubmit={createProduct} role="ProductForm">
             <legend>Add a Product</legend>
 
             <ConnectedBrandSelect setProductBrand={e => setBrand(e.target.value)}/>
@@ -53,13 +53,13 @@ export const ProductCreate = ({dispatch}) => {
                 <Col>
                     <Form.Group controlId="weightVolume">
                         <Form.Label>Weight / Volume:</Form.Label>
-                        <Form.Control name="mass" onChange={e => setMass(e.target.value)}/>
+                        <Form.Control name="mass" data-testid="massInput" onChange={e => setMass(e.target.value)}/>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="unit">
                         <Form.Label>Unit:</Form.Label>
-                        <Form.Select name="unit" onChange={e => setUnit(e.target.value)} defaultValue='g'>
+                        <Form.Select name="unit" data-testid="unitSelect" onChange={e => setUnit(e.target.value)} defaultValue='g'>
                             <option value="g">grams</option>
                             <option value="ml">millilitres</option>
                         </Form.Select>

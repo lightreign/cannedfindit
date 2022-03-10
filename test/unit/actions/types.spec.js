@@ -5,7 +5,7 @@ import axios from "../../../src/store/api";
 
 import { addType, listTypes } from "../../../src/store/actions";
 import { LIST_TYPES, ADD_TYPE, NOTIFY_SUCCESS} from "../../../src/store/types";
-import {mockCreateResponse} from "../util";
+import {mockCreateResponse} from "action-utils";
 
 const axiosMock = new MockAdapter(axios);
 

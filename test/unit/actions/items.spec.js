@@ -13,7 +13,7 @@ import {
     UNCONSUME_ITEM,
     UPDATE_PAGER
 } from "../../../src/store/types";
-import {mockCreateResponse} from "../util";
+import {mockCreateResponse} from "action-utils";
 
 const axiosMock = new MockAdapter(axios);
 

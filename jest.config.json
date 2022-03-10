@@ -2,5 +2,9 @@
     "name": "cannedfindit",
     "testMatch": [
         "<rootDir>/test/unit/**/*.(spec|test).js"
+    ],
+    "moduleDirectories": [
+        "node_modules",
+        "test/utils"
     ]
 }

@@ -20,12 +20,12 @@ export const TypeCreate = ({dispatch}) => {
     };
 
     return (
-        <Form id="typeCreateForm" onSubmit={createType}>
+        <Form id="typeCreateForm" onSubmit={createType} role="TypeForm">
             <legend>Add a Product Type</legend>
 
             <Form.Group controlId="type">
                 <Form.Label>Enter New Type:</Form.Label>
-                <Form.Control name="type" onChange={e => setType(e.target.value)} required />
+                <Form.Control name="type" data-testid="typeInput" onChange={e => setType(e.target.value)} required />
             </Form.Group>
 
             <Button variant="dark" disabled={submitting} type="submit">Add Type</Button>

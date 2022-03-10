@@ -1,5 +1,5 @@
 /*
-    Handy test utilities
+    Action test utilities
 */
 
 export const mockCreateResponse = (request, id) => {
