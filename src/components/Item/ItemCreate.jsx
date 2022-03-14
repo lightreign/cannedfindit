@@ -13,7 +13,7 @@ export const ItemCreate = ({dispatch}) => {
     const [qty, setQty] = useState(1);
     const [submitting, setSubmitting] = useState(false);
 
-    const maxQty = 10;
+    const maxQty = 12;
 
     const createItem = (e) => {
         e.preventDefault();
@@ -47,6 +47,9 @@ export const ItemCreate = ({dispatch}) => {
 
     const inputProps = { 'data-testid': 'itemExpiry' };
 
+    const now = new Date();
+    const oneYearFromNow = now.setFullYear(now.getFullYear() + 1);
+
     return (
         <Form id="itemCreateForm" onSubmit={createItem} role="ItemForm">
             <legend>Create an Item</legend>
@@ -61,6 +64,7 @@ export const ItemCreate = ({dispatch}) => {
                     timeFormat={false}
                     closeOnSelect={true}
                     inputProps={inputProps}
+                    initialViewDate={oneYearFromNow}
                 />
             </Form.Group>
 
