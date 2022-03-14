@@ -136,3 +136,20 @@ export function itemDetailReducer(item = defaultState.item, action) {
 
     return item;
 }
+
+export function userReducer(user = defaultState.user, action) {
+    switch (action.type) {
+        case actions.GET_USER:
+            if (!action.user.id) {
+                user = { id: 0 };
+            } else {
+                user = action.user;
+            }
+
+            break;
+        case actions.UPDATE_USER:
+            user = action.user;
+    }
+
+    return user;
+}

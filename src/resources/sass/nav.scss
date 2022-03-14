@@ -1,28 +1,35 @@
 /**
   Nav styles
  */
-.nav-item .navbar-brand.logo {
-  color: red;
-  font-size: 1.5rem;
-  font-family: Bangers, Helvetica, serif;
-  letter-spacing: 2px;
-
-  &:hover {
-    color: darkred;
+nav {
+  &.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  span.material-icons {
-    vertical-align: middle;
-    font-size: inherit;
+  .navbar-brand.logo {
+    color: red;
+    font-size: 1.5rem;
+    font-family: Bangers, Helvetica, serif;
+    letter-spacing: 2px;
+
+    &:hover {
+      color: red;
+    }
+
+    span.material-icons {
+      vertical-align: middle;
+      font-size: inherit;
+    }
   }
-}
 
-.nav-item:not(:first-child) {
-  margin-top: 5px;
-}
+  .nav-item:not(.nav-icon) {
+    margin-top: 5px;
+  }
 
-.nav-link {
-  color: white;
-  font-family: LuckiestGuy, Helvetica, serif;
-  letter-spacing: 1px;
+  .nav-link {
+    color: white;
+    font-family: LuckiestGuy, Helvetica, serif;
+    letter-spacing: 1px;
+  }
 }

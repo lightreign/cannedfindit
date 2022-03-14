@@ -5,12 +5,13 @@ let newBrand = {
     name: "Newgate"
 };
 
-test('should return the initial state', () => {
-    expect(brandReducer(undefined, {})).toEqual([]);
-});
+describe('brand reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(brandReducer(undefined, {})).toEqual([]);
+    });
 
-test('should add a brand', () => {
-    expect(brandReducer([], { type: actions.ADD_BRAND, brand: newBrand }))
-        .toEqual([ newBrand ] );
+    test('should add a brand', () => {
+        expect(brandReducer([], {type: actions.ADD_BRAND, brand: newBrand}))
+            .toEqual([newBrand]);
+    });
 });
-

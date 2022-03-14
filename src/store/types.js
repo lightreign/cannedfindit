@@ -16,7 +16,8 @@ export const ADD_ITEMS = 'ADD_ITEMS';
 export const CONSUME_ITEM = 'CONSUME_ITEM';
 export const UNCONSUME_ITEM = 'UNCONSUME_ITEM';
 
-export const ADD_USER = 'ADD_USER';
+export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_PAGER = 'UPDATE_PAGER';
 
 export const NOTIFY_SUCCESS = 'NOTIFY_SUCCESS';

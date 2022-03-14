@@ -12,11 +12,13 @@ let newProduct = {
     volume: 300
 };
 
-test('should return the initial state', () => {
-    expect(productReducer(undefined, {})).toEqual([]);
-});
+describe('product reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(productReducer(undefined, {})).toEqual([]);
+    });
 
-test('should add a product', () => {
-    expect(productReducer([], { type: actions.ADD_PRODUCT, product: newProduct }))
-        .toEqual([ newProduct ] );
+    test('should add a product', () => {
+        expect(productReducer([], {type: actions.ADD_PRODUCT, product: newProduct}))
+            .toEqual([newProduct]);
+    });
 });

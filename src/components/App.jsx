@@ -12,6 +12,7 @@ import { ConnectedBrandCreate } from "./Brand/BrandCreate";
 import { ConnectedProductCreate } from "./Product/ProductCreate";
 import { ConnectedLocationCreate } from "./Location/LocationCreate";
 import { ConnectedNotificationBar } from "./Notification/Notifications";
+import { ConnectedUserForm } from "./User";
 import { Error } from "./Error/404";
 
 export const App = () => (
@@ -28,6 +29,7 @@ export const App = () => (
                     <Route exact path="/brand/create" component={ConnectedBrandCreate}/>
                     <Route exact path="/product/create" component={ConnectedProductCreate}/>
                     <Route exact path="/location/create" component={ConnectedLocationCreate}/>
+                    <Route exact path="/user" component={ConnectedUserForm}/>
                     <Route component={Error}/>
                 </Switch>
             </div>

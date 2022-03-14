@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk';
 import { createLogger } from "redux-logger";
-import { defaultState } from "./defaultState";
 import * as reducer from "./reducers";
 
 const logger = createLogger();
@@ -14,9 +13,6 @@ if (process.env.NODE_ENV === `development`) {
 
 export const store = createStore(
     combineReducers({
-        user(user = defaultState.user) {
-            return user;
-        },
         items: reducer.itemReducer,
         types: reducer.typeReducer,
         locations: reducer.locationReducer,
@@ -25,6 +21,7 @@ export const store = createStore(
         pager: reducer.pagerReducer,
         item: reducer.itemDetailReducer,
         notification: reducer.notificationReducer,
+        user: reducer.userReducer,
     }),
     composeWithDevTools(applyMiddleware(...middlewares))
 );

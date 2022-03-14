@@ -5,12 +5,13 @@ let newType = {
     name: "Garbanzo Beans"
 };
 
-test('should return the initial state', () => {
-    expect(typeReducer(undefined, {})).toEqual([]);
-});
+describe('product type reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(typeReducer(undefined, {})).toEqual([]);
+    });
 
-test('should add a type', () => {
-    expect(typeReducer([], { type: actions.ADD_TYPE, productType: newType }))
-        .toEqual([ newType ] );
+    test('should add a type', () => {
+        expect(typeReducer([], {type: actions.ADD_TYPE, productType: newType}))
+            .toEqual([newType]);
+    });
 });
-

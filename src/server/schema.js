@@ -2,23 +2,15 @@ import mongoose, { Schema } from "mongoose";
 
 // Schema
 const userSchema = new Schema({
-    firstname: {
+    id: Number,
+    name: {
         type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    lastLogin: Date,
+        required: false
+    }
 });
 
 const locationSchemaDef = {

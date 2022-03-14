@@ -340,3 +340,48 @@ export const unconsumeItem = (id) => {
         });
     };
 }
+
+export const getUser = (id) => {
+    return (dispatch) => {
+        return api.get('/user/' + id).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.GET_USER,
+                user: data
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Unable to get user details',
+            });
+        });
+    };
+}
+
+export const updateUser = (user) => {
+    return (dispatch) => {
+        return api.put('/user', {
+            user: user
+        }).then(response => {
+            return response.data
+        }).then(data => {
+            dispatch({
+                type: actions.UPDATE_USER,
+                user: data
+            });
+
+            dispatch({
+                type: actions.NOTIFY_SUCCESS,
+                message: 'User was updated'
+            });
+        }).catch(error => {
+            dispatch({
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Unable to update User, is the server down?',
+            });
+        });
+    };
+}

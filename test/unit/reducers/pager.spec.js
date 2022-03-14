@@ -9,17 +9,18 @@ const action = {
     itemCount: "30"
 };
 
-test('should return the initial state', () => {
-    expect(pagerReducer({}, {})).toEqual({});
-});
+describe('pager reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(pagerReducer({}, {})).toEqual({});
+    });
 
-test('should update pager', () => {
-    expect(pagerReducer({}, action))
-        .toEqual({
-            filter: "test",
-            page: 1,
-            perPage: 20,
-            itemCount: 30
-        });
+    test('should update pager', () => {
+        expect(pagerReducer({}, action))
+            .toEqual({
+                filter: "test",
+                page: 1,
+                perPage: 20,
+                itemCount: 30
+            });
+    });
 });
-

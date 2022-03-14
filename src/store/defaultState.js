@@ -1,8 +1,6 @@
 export const defaultState = {
     version: "1.2.0",
-    user: {
-        name: "Family"
-    },
+    user: {},
     pager: {
         filter: {},
         page: 1,

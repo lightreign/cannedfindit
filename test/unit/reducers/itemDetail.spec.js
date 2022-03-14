@@ -19,12 +19,13 @@ const item = {
     expiry: null,
 };
 
-test('should return the initial state', () => {
-    expect(itemDetailReducer(undefined, {})).toEqual({});
-});
+describe('item detail reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(itemDetailReducer(undefined, {})).toEqual({});
+    });
 
-test('should return item object', () => {
-    expect(itemDetailReducer({}, { type: actions.GET_ITEM, item: item }))
-        .toEqual(new Item( item ));
+    test('should return item object', () => {
+        expect(itemDetailReducer({}, {type: actions.GET_ITEM, item: item}))
+            .toEqual(new Item(item));
+    });
 });
-

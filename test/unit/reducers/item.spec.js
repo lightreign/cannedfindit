@@ -39,19 +39,21 @@ let newItems = [{
     expiry: null,
 }];
 
-test('should return the initial state', () => {
-    expect(itemReducer(undefined, {})).toEqual([]);
-});
+describe('item reducer tests', () => {
+    test('should return the initial state', () => {
+        expect(itemReducer(undefined, {})).toEqual([]);
+    });
 
-test('should add an item', () => {
-    expect(itemReducer([], { type: actions.ADD_ITEMS, items: newItems }))
-        .toEqual(newItems.map((item) => new Item(item) ) );
-});
+    test('should add an item', () => {
+        expect(itemReducer([], {type: actions.ADD_ITEMS, items: newItems}))
+            .toEqual(newItems.map((item) => new Item(item)));
+    });
 
-test('should consume an item', () => {
-    expect(itemReducer(items, { type: actions.CONSUME_ITEM, item: items[0] })).toEqual([]);
-});
+    test('should consume an item', () => {
+        expect(itemReducer(items, {type: actions.CONSUME_ITEM, item: items[0]})).toEqual([]);
+    });
 
-test('can unconsume an item', () => {
-    expect(itemReducer([], { type: actions.UNCONSUME_ITEM, item: items[0] })).toEqual(items);
+    test('can unconsume an item', () => {
+        expect(itemReducer([], {type: actions.UNCONSUME_ITEM, item: items[0]})).toEqual(items);
+    });
 });

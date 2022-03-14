@@ -3,7 +3,7 @@ import express from 'express';
 import winston from 'winston';
 import bodyParser from 'body-parser';
 import connectDatabase from './database';
-import { Item, Location, Brand, Type, Product } from "./schema";
+import { Item, Location, Brand, Type, Product, User } from "./schema";
 
 const server = express();
 
@@ -282,6 +282,45 @@ server.post('/api/item/unconsume', async (req, res) => {
         logger.error(error);
         res.status(422)
             .send({ error: "could not unconsume item" });
+    }
+});
+
+server.get('/api/user/:id', async (req, res) => {
+    try {
+        const user = await User.findOne({ id: req.params.id });
+        res.status(200).send(user);
+    } catch (error) {
+        logger.error(error);
+        res.status(404)
+            .send({ error: "cannot find user" });
+    }
+});
+
+server.put('/api/user', async (req, res) => {
+    let user;
+
+    try {
+        user = await User.findOne({ id: 1 });
+        user.name = req.body.user.name;
+    } catch (error) {
+        user = new User({ id: 1, ...req.body.user });
+    }
+
+    let error = user.validateSync();
+    if (error) {
+        res.status(422).send(error.errors);
+        return;
+    }
+
+    try {
+        await user.save();
+
+        logger.info('updated user: ' + user.name);
+        res.status(201).send(user);
+    } catch (error) {
+        logger.error(error);
+        res.status(422)
+            .send({ error: "database problem when trying to update user" });
     }
 });
 
