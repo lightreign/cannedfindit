@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 import { addLocation } from "../../store/actions";
 import { connect } from "react-redux";
 import {Button, Form} from "react-bootstrap-v5";
@@ -31,7 +32,11 @@ export const LocationCreate = ({dispatch}) => {
             <Button variant="danger" disabled={submitting} type="submit">Add Location</Button>
         </Form>
     );
-}
+};
+
+LocationCreate.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

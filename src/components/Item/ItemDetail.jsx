@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { consumeItem, unconsumeItem, getItem } from "../../store/actions";
@@ -41,6 +42,14 @@ export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
             }
         </div>
     );
+};
+
+ItemDetail.propTypes = {
+    itemId: PropTypes.string,
+    item: PropTypes.object.isRequired,
+    getItem: PropTypes.func.isRequired,
+    consume: PropTypes.func.isRequired,
+    unconsume: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {

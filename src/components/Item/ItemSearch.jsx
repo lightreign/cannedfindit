@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Button, Form } from "react-bootstrap-v5";
 import { connect } from "react-redux";
 import { listItems } from "../../store/actions";
@@ -42,7 +43,11 @@ export const ItemSearch = ({dispatch}) => {
             <Button variant="secondary" type="submit" onClick={onClear}>Clear</Button>
         </Form>
     );
-}
+};
+
+ItemSearch.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

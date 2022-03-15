@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {Alert, Button, Form} from "react-bootstrap-v5";
+import { Alert, Button, Form } from "react-bootstrap-v5";
 import { getUser, updateUser } from "../store/actions";
 
 export const User = ({user, getUser, updateUser}) => {
@@ -44,6 +45,12 @@ export const User = ({user, getUser, updateUser}) => {
         </div>
     );
 }
+
+User.propTypes = {
+    user: PropTypes.object.isRequired,
+    getUser: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

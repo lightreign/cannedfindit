@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listLocations } from "../../store/actions";
 import {Form} from "react-bootstrap-v5";
@@ -21,6 +22,12 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
             </Form.Select>
         </Form.Group>
     );
+};
+
+LocationSelect.propTypes = {
+    locations: PropTypes.array.isRequired,
+    listLocations: PropTypes.func.isRequired,
+    setLocation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

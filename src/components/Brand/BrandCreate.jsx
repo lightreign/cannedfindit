@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { addBrand } from "../../store/actions";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap-v5";
@@ -32,6 +33,10 @@ export const BrandCreate = ({dispatch}) => {
         </Form>
     );
 }
+
+BrandCreate.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

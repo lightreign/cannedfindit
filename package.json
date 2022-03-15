@@ -33,6 +33,7 @@
     "moment-locales-webpack-plugin": "^1.2.0",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.2",
+    "prop-types": "^15.8.1",
     "qs": "^6.7.0",
     "react": "^17.0.2",
     "react-bootstrap-v5": "^1.4.0",

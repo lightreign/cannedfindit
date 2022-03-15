@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 import { addType } from "../../store/actions";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap-v5";
@@ -32,6 +33,10 @@ export const TypeCreate = ({dispatch}) => {
         </Form>
     );
 }
+
+TypeCreate.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

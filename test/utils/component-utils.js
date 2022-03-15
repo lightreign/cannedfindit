@@ -33,7 +33,7 @@ const state = {
     }],
     items: [
         new Item({
-            _id: 1,
+            _id: "1",
             product: {
                 type: {
                     name: "Sweetcorn"

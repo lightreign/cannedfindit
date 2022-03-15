@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Datetime from 'react-datetime';
 import { addErrorNotification, addItem } from "../../store/actions";
 import { connect } from "react-redux";
@@ -79,6 +80,10 @@ export const ItemCreate = ({dispatch}) => {
         </Form>
     );
 }
+
+ItemCreate.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

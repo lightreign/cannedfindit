@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Pagination } from "react-bootstrap-v5";
 
@@ -42,6 +43,13 @@ export const Pager = ({page, perPage, itemCount, fetchData}) => {
         </div>
     );
 };
+
+Pager.propTypes = {
+    page: PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired,
+    itemCount: PropTypes.number.isRequired,
+    fetchData: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => {
     return {

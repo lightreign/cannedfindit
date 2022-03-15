@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listProducts } from "../../store/actions";
 import { Form } from "react-bootstrap-v5";
@@ -21,6 +22,12 @@ export const ProductSelect = ({products, listProducts, setProduct}) => {
             </Form.Select>
         </Form.Group>
     );
+};
+
+ProductSelect.propTypes = {
+    products: PropTypes.array.isRequired,
+    listProducts: PropTypes.func.isRequired,
+    setProduct: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

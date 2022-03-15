@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { listItems } from "../../store/actions";
@@ -45,6 +46,11 @@ export const ItemList = ({items, listItems}) => {
         <ConnectedPager fetchData={listItems}/>
     </div>
 )};
+
+ItemList.propTypes = {
+    items: PropTypes.array.isRequired,
+    listItems: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {

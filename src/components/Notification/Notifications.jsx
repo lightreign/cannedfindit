@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
+import PropTypes from "prop-types";
 import { Alert } from "react-bootstrap-v5";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { clearNotifications } from "../../store/actions";
-
 
 export const Notification = ({notification, clearNotifications, variant = "danger", show = false}) => {
     const location = useLocation();
@@ -18,6 +18,13 @@ export const Notification = ({notification, clearNotifications, variant = "dange
         </Alert>
     );
 }
+
+Notification.propTypes = {
+    notification: PropTypes.string.isRequired,
+    clearNotifications: PropTypes.func.isRequired,
+    variant: PropTypes.string,
+    show: PropTypes.bool
+};
 
 const mapStateToProps = (state) => {
     return {

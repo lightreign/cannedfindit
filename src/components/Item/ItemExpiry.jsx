@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const ItemExpiry = ({item, label=''}) => {
     let expiryClass = '';
@@ -16,3 +17,7 @@ export const ItemExpiry = ({item, label=''}) => {
     );
 }
 
+ItemExpiry.propTypes = {
+    item: PropTypes.object.isRequired,
+    label: PropTypes.string
+};

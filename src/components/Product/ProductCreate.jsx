@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { addErrorNotification, addProduct } from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedTypeSelect } from "../Type/TypeSelect";
@@ -71,6 +72,10 @@ export const ProductCreate = ({dispatch}) => {
         </Form>
     );
 }
+
+ProductCreate.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
     return {
