@@ -44,6 +44,12 @@ server.get(/^(?!\/?api).+$/, (req, res) => {
       <head>
         <title>CannedFindIt!</title>
         <link rel="stylesheet" href="/bundle.css">
+        <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+        <link href="/apple-touch-icon-167x167.png" rel="apple-touch-icon" sizes="167x167" />
+        <link href="/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+        <link href="/icon-hires.png" rel="icon" sizes="192x192" />
+        <link href="/icon.png" rel="icon" sizes="128x128" />
       </head>
       <body>
         <div id="mountNode"></div>
