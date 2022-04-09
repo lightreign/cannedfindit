@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Pagination } from "react-bootstrap-v5";
 
-export const Pager = ({page, perPage, itemCount, fetchData}) => {
+export const Pager = ({page, perPage, total, fetchData}) => {
     const [pages, setPages] = useState([]);
     const [active, setActive] = useState(page);
 
     useEffect(() => {
         let items = [];
-        const numPages = Math.ceil(itemCount / perPage);
+        const numPages = Math.ceil(total / perPage);
 
         // Don't show pagination if only one page
         if (numPages === 1) {
@@ -22,11 +22,11 @@ export const Pager = ({page, perPage, itemCount, fetchData}) => {
         }
 
         setPages(items);
-    }, [itemCount]);
+    }, [total]);
 
     const setPage = (number) => {
         if (number !== active) {
-            fetchData(null, number);
+            fetchData(null, number, perPage);
             setActive(number);
         }
     };
@@ -47,16 +47,26 @@ export const Pager = ({page, perPage, itemCount, fetchData}) => {
 Pager.propTypes = {
     page: PropTypes.number.isRequired,
     perPage: PropTypes.number.isRequired,
-    itemCount: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
     fetchData: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapItemStateToProps = (state) => {
     return {
-        page: state.pager.page,
-        perPage: state.pager.perPage,
-        itemCount: state.pager.itemCount,
+        page: state.pagers.item.page ?? 1,
+        perPage: state.pagers.item.perPage ?? 20,
+        total: state.pagers.item.total ?? 0,
     };
 };
 
-export const ConnectedPager = connect(mapStateToProps)(Pager);
+const mapProductItemStateToProps = (state) => {
+    return {
+        page: state.pagers.productItem.page ?? 1,
+        perPage: state.pagers.productItem.perPage ?? 20,
+        total: state.pagers.productItem.total ?? 0,
+    };
+};
+
+export const ConnectedItemPager = connect(mapItemStateToProps)(Pager);
+
+export const ConnectedProductItemPager = connect(mapProductItemStateToProps)(Pager);

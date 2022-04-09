@@ -64,6 +64,9 @@ productSchema.index({
 const itemSchema = new Schema({
     product: productSchemaDef,
     location: locationSchemaDef,
+    description: {
+        type: String
+    },
     expiry: {
         type: Date,
         required: true

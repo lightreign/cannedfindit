@@ -4,7 +4,7 @@ import { Button, Form } from "react-bootstrap-v5";
 import { connect } from "react-redux";
 import { listItems } from "../../store/actions";
 
-export const ItemSearch = ({dispatch}) => {
+export const ItemSearch = ({dispatch, changeMode}) => {
     const [productType, setProductType] = useState('');
     const [searched, setSearched] = useState(true);
 
@@ -18,6 +18,8 @@ export const ItemSearch = ({dispatch}) => {
         }
 
         setSearched(true);
+
+        changeMode('list');
 
         dispatch(listItems({'product.type.name': productType}, 1));
     }
@@ -46,7 +48,8 @@ export const ItemSearch = ({dispatch}) => {
 };
 
 ItemSearch.propTypes = {
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    changeMode: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

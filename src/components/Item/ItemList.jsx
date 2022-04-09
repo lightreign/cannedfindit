@@ -1,62 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { listItems } from "../../store/actions";
-import { Table } from "react-bootstrap-v5";
-import { ConnectedPager } from "../Pager";
-import { ItemExpiry } from "./ItemExpiry";
+import { listItems, listProductItems } from "../../store/actions";
+import { ButtonGroup, ToggleButton } from "react-bootstrap-v5";
 import { ConnectedItemSearch } from "./ItemSearch";
+import { ItemTable } from "./ItemTable";
+import { ProductItemTable } from "../Product/ProductItemTable";
 
-export const ItemList = ({items, listItems}) => {
+export const ItemList = ({items, listItems, productItems, listProductItems}) => {
     useEffect(() => {
         listItems();
+        listProductItems();
     }, []);
+
+    const [selectedMode, setSelectedMode] = useState('group');
+
+    const modes = [
+        { name: 'view_stream', value: 'group' },
+        { name: 'list', value: 'list' },
+    ];
 
     return (
     <div>
-        <ConnectedItemSearch />
-        <legend>Item Inventory</legend>
-        <Table striped bordered hover role="ItemList">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Expires</th>
-                </tr>
-            </thead>
-            <tbody>
-                {items.map(item => {
-                    let expiryClass = '';
-
-                    if (item.isExpired()) {
-                        expiryClass = 'table-danger';
-                    }
-
-                    return (
-                        <tr key={item._id} className={expiryClass}>
-                            <td><Link to={`/item/id/${item._id}`}>{item.product.brand.name} {item.product.type.name}</Link></td>
-                            <td>{item.location.name}</td>
-                            <td><ItemExpiry item={item}/></td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </Table>
-        <ConnectedPager fetchData={listItems}/>
+        <ConnectedItemSearch changeMode={setSelectedMode}/>
+        <div>
+            <legend>Item Inventory</legend>
+            <div className='float-end'>
+                <ButtonGroup className="list-select mb-2">
+                    {modes.map((mode, idx) => (
+                        <ToggleButton
+                            key={idx}
+                            id={`mode-${idx}`}
+                            type="radio"
+                            variant="secondary"
+                            name="radio"
+                            value={mode.value}
+                            data-testid={mode.value}
+                            checked={selectedMode === mode.value}
+                            onChange={(e) => setSelectedMode(e.currentTarget.value)}
+                        >
+                            <span className="material-icons">{mode.name}</span>
+                        </ToggleButton>
+                    ))}
+                </ButtonGroup>
+            </div>
+        </div>
+        { selectedMode === 'group' ?
+            <ProductItemTable
+                productItems={productItems}
+                listProductItems={listProductItems}
+                listItems={listItems}
+                changeMode={setSelectedMode}
+            /> :
+            <ItemTable items={items} listItems={listItems}/>
+        }
     </div>
 )};
 
 ItemList.propTypes = {
     items: PropTypes.array.isRequired,
-    listItems: PropTypes.func.isRequired
+    listItems: PropTypes.func.isRequired,
+    productItems: PropTypes.array.isRequired,
+    listProductItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
         items: state.items,
-        pager: state.pager,
+        productItems: state.productItems
     };
 }
 
@@ -64,6 +75,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         listItems(search, page, perPage) {
             dispatch(listItems(search, page, perPage));
+        },
+        listProductItems(search, page, perPage) {
+            dispatch(listProductItems(search, page, perPage));
         }
     }
 };

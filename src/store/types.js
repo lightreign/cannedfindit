@@ -6,6 +6,7 @@ export const ADD_TYPE = 'ADD_TYPE';
 
 export const LIST_PRODUCTS = 'LIST_PRODUCTS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const LIST_PRODUCT_ITEM_COUNT = 'LIST_PRODUCT_ITEM_COUNT';
 
 export const LIST_LOCATIONS = 'LIST_LOCATIONS';
 export const ADD_LOCATION = 'ADD_LOCATION';

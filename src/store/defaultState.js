@@ -1,15 +1,24 @@
 export const defaultState = {
-    version: "1.2.0",
+    version: "1.3.0",
     user: {},
-    pager: {
-        filter: {},
-        page: 1,
-        perPage: 20,
-        itemCount: 0,
+    pagers: {
+        item: {
+            filter: {},
+            page: 1,
+            perPage: 20,
+            total: 0,
+        },
+        productItem: {
+            filter: {},
+            page: 1,
+            perPage: 20,
+            total: 0,
+        }
     },
     brands: [],
     types: [],
     products: [],
+    productItems: [],
     items: [],
     item: {},
     locations: [],
