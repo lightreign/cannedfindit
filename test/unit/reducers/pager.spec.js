@@ -4,9 +4,10 @@ import { pagerReducer } from "../../../src/store/reducers";
 const action = {
     type: actions.UPDATE_PAGER,
     filter: "test",
+    pager: 'item',
     page: 1,
     perPage: 20,
-    itemCount: "30"
+    total: "30"
 };
 
 describe('pager reducer tests', () => {
@@ -17,10 +18,12 @@ describe('pager reducer tests', () => {
     test('should update pager', () => {
         expect(pagerReducer({}, action))
             .toEqual({
-                filter: "test",
-                page: 1,
-                perPage: 20,
-                itemCount: 30
+                item: {
+                    filter: "test",
+                    page: 1,
+                    perPage: 20,
+                    total: 30
+                }
             });
     });
 });

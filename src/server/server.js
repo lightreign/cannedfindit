@@ -100,7 +100,7 @@ server.get('/api/item/:id', async (req, res) => {
 
 server.get('/api/brand', async (req, res) => {
     try {
-        const brands = await Brand.find();
+        const brands = await Brand.find({}, null, { sort: { 'name': 1 } });
         res.status(200).send(brands);
     } catch (error) {
         logger.error(error);
@@ -111,7 +111,7 @@ server.get('/api/brand', async (req, res) => {
 
 server.get('/api/type', async (req, res) => {
     try {
-        const types = await Type.find();
+        const types = await Type.find({}, null, { sort: { 'name': 1 } });
         res.status(200).send(types);
     } catch (error) {
         logger.error(error);
@@ -133,12 +133,59 @@ server.get('/api/location', async (req, res) => {
 
 server.get('/api/product', async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({}, null, { sort: { 'brand.name': 1 } });
         res.status(200).send(products);
     } catch (error) {
         logger.error(error);
         res.status(422)
             .send({ error: "cannot list products" });
+    }
+});
+
+server.get('/api/product/item/count', async (req, res) => {
+    const limit = parseInt(req.query.perPage);
+    const skip = req.query.page > 1 ? limit * (req.query.page - 1) : 0;
+
+    const pipeline = [
+        {
+            '$project': {
+                _id: 0,
+                description: {'$concat': ['$product.brand.name', ' ', '$product.type.name']},
+                productType: "$product.type.name"
+            }
+        },
+        {
+            '$group': {
+                _id: "$productType",
+                count: { $sum: 1 }
+            }
+        },
+        {
+            '$sort': {
+                _id: 1,
+            }
+        }
+    ];
+
+    try {
+        const total = await Item.aggregate([ ...pipeline, { $count: 'count' } ]);
+        res.header('X-Total-Count', total.shift().count);
+
+        if (skip) {
+            pipeline.push({ '$skip': skip });
+        }
+
+        if (limit) {
+            pipeline.push({ '$limit': limit });
+        }
+
+        const counts = await Item.aggregate(pipeline);
+
+        res.status(200).send(counts);
+    } catch (error) {
+        logger.error(error);
+        res.status(422)
+            .send({ error: "cannot list products item counts" });
     }
 });
 

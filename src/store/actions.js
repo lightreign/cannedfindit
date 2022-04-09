@@ -87,15 +87,51 @@ export const listProducts = () => {
     };
 };
 
+export const listProductItems = (search, page = null, perPage = null) => {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        const params = {
+            page: page || state.pagers.productItem.page,
+            perPage: perPage || state.pagers.productItem.perPage
+        };
+
+        return api.get('/product/item/count?' + qs.stringify(params)).then(response => {
+            return response
+        }).then(response => {
+            dispatch({
+                type: actions.LIST_PRODUCT_ITEM_COUNT,
+                productItems: response.data,
+            });
+
+            dispatch({
+                type: actions.UPDATE_PAGER,
+                pager: 'productItem',
+                filter: search,
+                page: page,
+                perPage: perPage,
+                total: response.headers['x-total-count'],
+            });
+
+        }).catch(error => {
+            dispatch({
+                type: actions.API_ERROR,
+                error: error,
+                userMessage: 'Cannot list product item counts',
+            });
+        });
+    };
+};
+
 export const listItems = (search = '', page = null, perPage = null) => {
     return (dispatch, getState) => {
         const state = getState();
 
-        search = search || state.pager.filter;
-        page = page ||  state.pager.page;
-        perPage = perPage || state.pager.perPage;
+        search = search || state.pagers.item.filter;
+        page = page ||  state.pagers.item.page;
+        perPage = perPage || state.pagers.item.perPage;
 
-        const params = {search: search, page: page, perPage: perPage};
+        const params = { search: search, page: page, perPage: perPage };
 
         return api.get('/item?'+ qs.stringify(params)).then(response => {
             return response
@@ -107,10 +143,11 @@ export const listItems = (search = '', page = null, perPage = null) => {
 
             dispatch({
                 type: actions.UPDATE_PAGER,
+                pager: 'item',
                 filter: search,
                 page: page,
                 perPage: perPage,
-                itemCount: response.headers['x-total-count'],
+                total: response.headers['x-total-count'],
             });
         }).catch(error => {
             dispatch({

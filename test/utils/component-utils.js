@@ -50,11 +50,25 @@ const state = {
             expiry: '2022-03-10 00:00:00',
         } )
     ],
-    pager: {
-        filter: {},
-        page: 1,
-        perPage: 20,
-        itemCount: 0,
+    productItems: [
+        {
+            _id: 'Sweetcorn',
+            count: 1,
+        }
+    ],
+    pagers: {
+        item: {
+            filter: {},
+            page: 1,
+            perPage: 20,
+            itemCount: 0,
+        },
+        productItem: {
+            filter: {},
+            page: 1,
+            perPage: 20,
+            itemCount: 0,
+        }
     }
 };
 
@@ -64,7 +78,7 @@ const reducers = {
     locations: () => { return state.locations },
     products: () => { return state.products },
     items: () => { return state.items },
-    pager: () => { return state.pager },
+    pagers: () => { return state.pagers },
 }
 
 export const store = configureStore({ reducer: reducers, state });

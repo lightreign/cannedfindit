@@ -75,18 +75,20 @@ export function productReducer(products = defaultState.products, action) {
     return products;
 }
 
-export function pagerReducer(pager = defaultState.pager, action) {
+export function pagerReducer(pagers = defaultState.pagers, action) {
     switch (action.type) {
         case actions.UPDATE_PAGER:
-            pager = {
+
+
+            pagers[action.pager] = {
                 filter: action.filter,
                 page: action.page,
                 perPage: action.perPage,
-                itemCount: parseInt(action.itemCount)
+                total: parseInt(action.total)
             };
     }
 
-    return pager;
+    return Object.assign({}, pagers);
 }
 
 export function notificationReducer(notification = defaultState.notification, action) {
@@ -152,4 +154,13 @@ export function userReducer(user = defaultState.user, action) {
     }
 
     return user;
+}
+
+export function productItemsReducer(productItems = defaultState.productItems, action) {
+    switch (action.type) {
+        case actions.LIST_PRODUCT_ITEM_COUNT:
+            productItems = action.productItems;
+    }
+
+    return productItems;
 }

@@ -29,6 +29,7 @@ export const ItemCreate = ({dispatch}) => {
         if (product && location && expiry) {
             const item = {
                 product: product,
+                description: product.brand.name + ' ' + product.type.name,
                 location: {
                     name: location
                 },

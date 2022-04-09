@@ -11,7 +11,7 @@ describe("Pager component", () => {
 
         const { getByRole } = render(
             <Provider store={store}>
-                <Pager page={1} perPage={20} itemCount={5} fetchData={listItem}/>
+                <Pager page={1} perPage={20} total={5} fetchData={listItem}/>
             </Provider>
         );
 
@@ -24,7 +24,7 @@ describe("Pager component", () => {
 
         const { getByRole } = render(
             <Provider store={store}>
-                <Pager page={1} perPage={20} itemCount={55} fetchData={listItem}/>
+                <Pager page={1} perPage={20} total={55} fetchData={listItem}/>
             </Provider>
         );
 
@@ -38,7 +38,7 @@ describe("Pager component", () => {
 
         const { getByText } = render(
             <Provider store={store}>
-                <Pager page={1} perPage={20} itemCount={55} fetchData={listItem}/>
+                <Pager page={1} perPage={20} total={55} fetchData={listItem}/>
             </Provider>
         );
 
