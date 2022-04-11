@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { addType } from "../../store/actions";
+import { addErrorNotification, addType } from "../../store/actions";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap-v5";
 
@@ -15,6 +15,8 @@ export const TypeCreate = ({dispatch}) => {
         if (type) {
             dispatch(addType({ name: type }));
             e.target.reset();
+        } else {
+            dispatch(addErrorNotification('Product Type name cannot be empty.'));
         }
 
         setSubmitting(false);
@@ -26,7 +28,7 @@ export const TypeCreate = ({dispatch}) => {
 
             <Form.Group controlId="type">
                 <Form.Label>Enter New Type:</Form.Label>
-                <Form.Control name="type" data-testid="typeInput" onChange={e => setType(e.target.value)} required />
+                <Form.Control name="type" data-testid="typeInput" onChange={e => setType(e.target.value)} />
             </Form.Group>
 
             <Button variant="dark" disabled={submitting} type="submit">Add Type</Button>

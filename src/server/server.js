@@ -148,20 +148,25 @@ server.get('/api/product/item/count', async (req, res) => {
 
     const pipeline = [
         {
-            '$project': {
+            $match: {
+               consumed: { '$in': [ null, false ] }
+            }
+        },
+        {
+            $project: {
                 _id: 0,
                 description: {'$concat': ['$product.brand.name', ' ', '$product.type.name']},
                 productType: "$product.type.name"
             }
         },
         {
-            '$group': {
+            $group: {
                 _id: "$productType",
                 count: { $sum: 1 }
             }
         },
         {
-            '$sort': {
+            $sort: {
                 _id: 1,
             }
         }

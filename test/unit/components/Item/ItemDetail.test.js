@@ -5,6 +5,7 @@ import { fireEvent, render } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { store, server, getPreloadedState } from "component-utils";
 import { ItemDetail } from "../../../../src/components/Item/ItemDetail";
+import Item from "../../../../src/models/Item";
 
 describe("ItemDetail component", () => {
     beforeAll(() => server.listen());
@@ -13,6 +14,7 @@ describe("ItemDetail component", () => {
 
     it("Displays an item", () => {
         const item = getPreloadedState().items[0];
+        const model = new Item(item);
 
         const { getByRole } = render(
             <BrowserRouter>
@@ -23,11 +25,11 @@ describe("ItemDetail component", () => {
         );
 
         const list = getByRole('ItemDetail');
-        expect(list).toHaveTextContent(item.product.type.name);
-        expect(list).toHaveTextContent(item.product.brand.name);
-        expect(list).toHaveTextContent(item.location.name);
+        expect(list).toHaveTextContent(model.product.type.name);
+        expect(list).toHaveTextContent(model.product.brand.name);
+        expect(list).toHaveTextContent(model.location.name);
         expect(list).toHaveTextContent('Expires');
-        expect(list).toHaveTextContent(item.expiryDateString());
+        expect(list).toHaveTextContent(model.expiryDateString());
         expect(list).not.toHaveTextContent('Item Consumed:');
     });
 

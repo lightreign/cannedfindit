@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { consumeItem, unconsumeItem, getItem } from "../../store/actions";
 import { ItemExpiry } from "./ItemExpiry";
+import Item from "../../models/Item";
 
 export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
     const [submitted, setSubmitted] = useState(false);
@@ -14,29 +15,31 @@ export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
         }
     }, []);
 
+    const model = new Item(item);
+
     return (
         <div role="ItemDetail">
-            {item._id &&
+            {model._id &&
                 <div>
                     <legend>Item</legend>
-                    <h4>{item.product.brand.name} {item.product.type.name}</h4>
-                    <p>Location: {item.location.name}</p>
-                    <ItemExpiry item={item} label={'Expires:'}/>
-                    {item.consumed &&
+                    <h4>{model.product.brand.name} {model.product.type.name}</h4>
+                    <p>Location: {model.location.name}</p>
+                    <ItemExpiry item={model} label={'Expires:'}/>
+                    {model.consumed &&
                         <div className="consumed">
-                            <h4 className="text-danger">Item Consumed: {item.consumedDateString()}</h4>
+                            <h4 className="text-danger">Item Consumed: {model.consumedDateString()}</h4>
                         </div>
                     }
                 </div>
             }
 
             <Link to="/" className="btn btn-primary">Dashboard</Link>
-            {!item.consumed ?
-                <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, item._id)} } disabled={!item._id || submitted} data-testid="btnConsume">
+            {!model.consumed ?
+                <button className="btn btn-danger" onClick={e => { consume(e, setSubmitted, model._id)} } disabled={!model._id || submitted} data-testid="btnConsume">
                     Consume
                 </button>
                 :
-                <button className="btn btn-danger" onClick={e => { unconsume(e, setSubmitted, item._id)} } disabled={!item._id || submitted} data-testid="btnUnconsume">
+                <button className="btn btn-danger" onClick={e => { unconsume(e, setSubmitted, model._id)} } disabled={!model._id || submitted} data-testid="btnUnconsume">
                     Oops, unconsume!
                 </button>
             }

@@ -1,6 +1,5 @@
 import * as actions from "../../../src/store/types";
 import { itemDetailReducer } from "../../../src/store/reducers";
-import Item from "../../../src/models/Item";
 
 const item = {
     product: {
@@ -26,6 +25,6 @@ describe('item detail reducer tests', () => {
 
     test('should return item object', () => {
         expect(itemDetailReducer({}, {type: actions.GET_ITEM, item: item}))
-            .toEqual(new Item(item));
+            .toEqual(item);
     });
 });

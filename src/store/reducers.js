@@ -1,21 +1,15 @@
 import * as actions from "./types";
 import { defaultState } from "./defaultState";
-import Item from "../models/Item";
 
 export function itemReducer(items = defaultState.items, action) {
     switch (action.type) {
         case actions.LIST_ITEMS:
-            action.items = action.items.map(item => {
-                item = new Item(item);
-                return item;
-            });
-
             return action.items;
 
         case actions.ADD_ITEMS:
             action.items = action.items.map(item => {
                 item.expiry = new Date(item.expiry);
-                return new Item(item);
+                return item;
             });
 
             return [...items, ...action.items];
@@ -133,7 +127,7 @@ export function itemDetailReducer(item = defaultState.item, action) {
         case actions.CONSUME_ITEM:
         case actions.UNCONSUME_ITEM:
         case actions.GET_ITEM:
-            item = new Item(action.item);
+            item = action.item;
     }
 
     return item;

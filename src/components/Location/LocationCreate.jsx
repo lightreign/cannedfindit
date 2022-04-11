@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { addLocation } from "../../store/actions";
+import { addErrorNotification, addLocation } from "../../store/actions";
 import { connect } from "react-redux";
-import {Button, Form} from "react-bootstrap-v5";
+import { Button, Form } from "react-bootstrap-v5";
 
 export const LocationCreate = ({dispatch}) => {
     const [location, setLocation] = useState('');
@@ -15,6 +15,8 @@ export const LocationCreate = ({dispatch}) => {
         if (location) {
             dispatch(addLocation({ name: location }));
             e.target.reset();
+        } else {
+            dispatch(addErrorNotification('Location name cannot be empty.'));
         }
 
         setSubmitting(false);
@@ -26,7 +28,7 @@ export const LocationCreate = ({dispatch}) => {
 
             <Form.Group controlId="location">
                 <Form.Label>Add a New Location:</Form.Label>
-                <Form.Control name="location" data-testid="locationInput" onChange={e => setLocation(e.target.value)} required />
+                <Form.Control name="location" data-testid="locationInput" onChange={e => setLocation(e.target.value)} />
             </Form.Group>
 
             <Button variant="danger" disabled={submitting} type="submit">Add Location</Button>

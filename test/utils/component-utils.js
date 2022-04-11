@@ -4,7 +4,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import Item from "../../src/models/Item";
 
 const state = {
     brands: [ {
@@ -32,7 +31,7 @@ const state = {
         name: 'Garage'
     }],
     items: [
-        new Item({
+        {
             _id: "1",
             product: {
                 type: {
@@ -48,7 +47,7 @@ const state = {
                 name: "Storage Cupboard"
             },
             expiry: '2022-03-10 00:00:00',
-        } )
+        }
     ],
     productItems: [
         {

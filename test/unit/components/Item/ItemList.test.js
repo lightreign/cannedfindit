@@ -11,7 +11,7 @@ describe("ItemList component", () => {
     afterEach(() => server.resetHandlers());
     afterAll(() => server.close());
 
-    it("Lists items", () => {
+    it("Lists view toggle buttons and product items view", () => {
         const items = getPreloadedState().items;
         const productItems = getPreloadedState().productItems;
         const listItems = jest.fn();
@@ -25,18 +25,40 @@ describe("ItemList component", () => {
             </BrowserRouter>
         );
 
-        let list = getByRole('ProductItemList');
-        expect(list).toHaveTextContent(items[0].product.type.name);
         expect(listProductItems).toHaveBeenCalled();
 
-        // Go to list mode
-        const listBtn = getByTestId('list')
+        const groupBtn = getByTestId('group');
+        const listBtn = getByTestId('list');
+
+        expect(groupBtn).toBeDefined();
+        expect(listBtn).toBeDefined();
+
+        let table = getByRole('ProductItemList');
+        expect(table).toHaveTextContent(items[0].product.type.name);
+    });
+
+    it("changes component view when buttons toggled", () => {
+        const items = getPreloadedState().items;
+        const productItems = getPreloadedState().productItems;
+        const listItems = jest.fn();
+        const listProductItems = jest.fn();
+
+        const { getByRole, getByTestId } = render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <ItemList items={items} listItems={listItems} productItems={productItems} listProductItems={listProductItems}/>
+                </Provider>
+            </BrowserRouter>
+        );
+
+        // Switch to view ItemTable component
+        const listBtn = getByTestId('list');
         fireEvent.click(listBtn);
 
-        list = getByRole('ItemList');
-        expect(list).toHaveTextContent(items[0].product.type.name);
-        expect(list).toHaveTextContent(items[0].product.brand.name);
-        expect(list).toHaveTextContent(items[0].location.name);
+        const table = getByRole('ItemTable');
+        expect(table).toHaveTextContent(items[0].product.type.name);
+        expect(table).toHaveTextContent(items[0].product.brand.name);
+        expect(table).toHaveTextContent(items[0].location.name);
         expect(listItems).toHaveBeenCalled();
     });
 });
