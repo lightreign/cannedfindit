@@ -6,7 +6,7 @@ import { listItems } from "../../store/actions";
 
 export const ItemSearch = ({dispatch, changeMode}) => {
     const [productType, setProductType] = useState('');
-    const [searched, setSearched] = useState(true);
+    const [searched, setSearched] = useState(false);
 
     const searchItems = (e) => {
         e.preventDefault();
@@ -42,7 +42,7 @@ export const ItemSearch = ({dispatch, changeMode}) => {
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={searched}>Search</Button>
-            <Button variant="secondary" type="submit" onClick={onClear}>Clear</Button>
+            <Button variant="secondary" type="submit" onClick={onClear} disabled={!searched || !productType.length}>Clear</Button>
         </Form>
     );
 };
