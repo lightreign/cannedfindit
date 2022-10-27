@@ -42,3 +42,13 @@ legend {
 .list-select {
   margin-top: -2.5rem;
 }
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}

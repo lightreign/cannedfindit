@@ -4,9 +4,16 @@ import { Button, Form } from "react-bootstrap-v5";
 import { connect } from "react-redux";
 import { listItems } from "../../store/actions";
 
-export const ItemSearch = ({dispatch, changeMode}) => {
-    const [productType, setProductType] = useState('');
-    const [searched, setSearched] = useState(false);
+export const ItemSearch = ({dispatch, changeMode, search}) => {
+    const searchTerms = Object.values(search);
+    const term = searchTerms.length ? searchTerms[0] : '';
+
+    const [productType, setProductType] = useState(term);
+    const [searched, setSearched] = useState(searchTerms.length);
+
+    if (term) {
+        changeMode('list');
+    }
 
     const searchItems = (e) => {
         e.preventDefault();
@@ -21,7 +28,13 @@ export const ItemSearch = ({dispatch, changeMode}) => {
 
         changeMode('list');
 
-        dispatch(listItems({'product.type.name': productType}, 1));
+        dispatch(
+            listItems({
+                'product.type.name': productType,
+                'product.brand.name': productType
+                },
+                1)
+        );
     }
 
     const searchChange = e => {
@@ -38,7 +51,7 @@ export const ItemSearch = ({dispatch, changeMode}) => {
         <Form id="searchForm" onSubmit={searchItems} role="SearchForm">
             <Form.Group controlId="searchItemProductType">
                 <Form.Label>Search</Form.Label>
-                <Form.Control name="search" onChange={searchChange} data-testid="search"/>
+                <Form.Control name="search" onChange={searchChange} data-testid="search" defaultValue={term}/>
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={searched}>Search</Button>
@@ -49,7 +62,8 @@ export const ItemSearch = ({dispatch, changeMode}) => {
 
 ItemSearch.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    changeMode: PropTypes.func.isRequired
+    changeMode: PropTypes.func.isRequired,
+    search: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

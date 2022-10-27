@@ -6,7 +6,9 @@ import { LinkContainer } from "react-router-bootstrap";
 export const Navigation = () => (
     <Navbar expand="lg" bg="dark" variant="dark" sticky="top">
         <Container fluid className="content">
-            <Navbar.Brand className="logo">C<span className="material-icons">home</span>nnedFindIt!</Navbar.Brand>
+            <Navbar.Brand className="logo">
+                <a href="/">C<span className="material-icons">home</span>nnedFindIt!</a>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
                 <Nav defaultActiveKey="/" className="me-auto">

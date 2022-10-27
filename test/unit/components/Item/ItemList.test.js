@@ -14,13 +14,14 @@ describe("ItemList component", () => {
     it("Lists view toggle buttons and product items view", () => {
         const items = getPreloadedState().items;
         const productItems = getPreloadedState().productItems;
+        const search = {};
         const listItems = jest.fn();
         const listProductItems = jest.fn();
 
         const { getByRole, getByTestId } = render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <ItemList items={items} listItems={listItems} productItems={productItems} listProductItems={listProductItems}/>
+                    <ItemList items={items} listItems={listItems} productItems={productItems} currentSearch={search} listProductItems={listProductItems}/>
                 </Provider>
             </BrowserRouter>
         );
@@ -42,11 +43,12 @@ describe("ItemList component", () => {
         const productItems = getPreloadedState().productItems;
         const listItems = jest.fn();
         const listProductItems = jest.fn();
+        const search = {};
 
         const { getByRole, getByTestId } = render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <ItemList items={items} listItems={listItems} productItems={productItems} listProductItems={listProductItems}/>
+                    <ItemList items={items} listItems={listItems} productItems={productItems} listProductItems={listProductItems} currentSearch={search}/>
                 </Provider>
             </BrowserRouter>
         );

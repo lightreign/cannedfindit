@@ -62,22 +62,31 @@ server.get(/^(?!\/?api).+$/, (req, res) => {
 server.get('/api/item', async (req, res) => {
     const limit = parseInt(req.query.perPage);
     const skip = req.query.page > 1 ? limit * (req.query.page - 1) : 0;
-    const filter = req.query.search || {};
+    const filter = req.query.search || null;
+    let search = {};
 
     if (filter) {
+        const terms = [];
+
         Object.keys(filter).map(key => {
-           filter[key] = new RegExp(filter[key], 'i');
+            terms.push({ [key]: new RegExp(filter[key], 'i') });
         });
+
+        search = { '$or': terms };
     }
 
     // Do not show consumed items
-    filter.consumed = null;
+    search.consumed = null;
 
     try {
         const count = await Item.countDocuments(filter);
         res.header('X-Total-Count', count);
 
-        const items = await Item.find(filter, null, { skip: skip, limit: limit, sort: { expiry: 1 } });
+        const items = await Item.find(
+            search,
+            null,
+            { skip: skip, limit: limit, sort: { expiry: 1 }
+            });
 
         res.status(200).send(items);
     } catch (error) {
@@ -197,6 +206,11 @@ server.get('/api/product/item/count', async (req, res) => {
 server.post('/api/item/new', async (req, res) => {
     const qty = req.body.qty || 1;
     const items = [];
+
+    if (qty > 20) {
+        res.status(400).send({ error: 'quantity is above 20, this is not allowed.' });
+        return;
+    }
 
     try {
         for (let i = 1; i <= qty; i++) {

@@ -67,6 +67,9 @@ describe("ItemDetail component", () => {
 
         const list = getByRole('ItemDetail');
         expect(list).toHaveTextContent('Oops, unconsume!');
+        expect(list).toHaveTextContent('Location');
+        expect(list).toHaveTextContent('Date Stored');
+        expect(list).toHaveTextContent('Expires');
 
         fireEvent.click(getByTestId('btnUnconsume'));
         expect(unconsume).toHaveBeenCalled();

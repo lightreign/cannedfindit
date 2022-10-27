@@ -7,11 +7,12 @@ nav {
     padding-bottom: 0;
   }
 
-  .navbar-brand.logo {
+  .navbar-brand.logo a {
     color: red;
     font-size: 1.5rem;
     font-family: Bangers, Helvetica, serif;
     letter-spacing: 2px;
+    text-decoration: none;
 
     &:hover {
       color: red;

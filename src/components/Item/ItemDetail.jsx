@@ -23,6 +23,7 @@ export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
                 <div>
                     <legend>Item</legend>
                     <h4>{model.product.brand.name} {model.product.type.name}</h4>
+                    <p>Date Stored: {model.packedDateString() || 'Not Known'}</p>
                     <p>Location: {model.location.name}</p>
                     <ItemExpiry item={model} label={'Expires:'}/>
                     {model.consumed &&

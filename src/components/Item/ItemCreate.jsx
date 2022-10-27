@@ -74,7 +74,7 @@ export const ItemCreate = ({dispatch}) => {
 
             <Form.Group controlId="qty">
                 <Form.Label>Quantity:</Form.Label>
-                <Form.Control name="qty" type="number" onChange={e => setQty(parseInt(e.target.value))} defaultValue="1" step="1" min="1" max="10" inputMode="decimal" data-testid="qtyInput"/>
+                <Form.Control name="qty" type="number" onChange={e => setQty(parseInt(e.target.value))} defaultValue="1" step="1" min="1" max="20" inputMode="decimal" data-testid="qtyInput"/>
             </Form.Group>
 
             <Button variant="primary" disabled={submitting} type="submit">Add Item</Button>

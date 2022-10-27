@@ -7,9 +7,9 @@ import { ConnectedItemSearch } from "./ItemSearch";
 import { ItemTable } from "./ItemTable";
 import { ProductItemTable } from "../Product/ProductItemTable";
 
-export const ItemList = ({items, listItems, productItems, listProductItems}) => {
+export const ItemList = ({items, listItems, currentSearch, productItems, listProductItems}) => {
     useEffect(() => {
-        listItems();
+        listItems(currentSearch);
         listProductItems();
     }, []);
 
@@ -22,7 +22,7 @@ export const ItemList = ({items, listItems, productItems, listProductItems}) => 
 
     return (
     <div>
-        <ConnectedItemSearch changeMode={setSelectedMode}/>
+        <ConnectedItemSearch changeMode={setSelectedMode} search={currentSearch}/>
         <div>
             <legend>Item Inventory</legend>
             <div className='float-end'>
@@ -60,6 +60,7 @@ export const ItemList = ({items, listItems, productItems, listProductItems}) => 
 ItemList.propTypes = {
     items: PropTypes.array.isRequired,
     listItems: PropTypes.func.isRequired,
+    currentSearch: PropTypes.object.isRequired,
     productItems: PropTypes.array.isRequired,
     listProductItems: PropTypes.func.isRequired,
 };
@@ -67,7 +68,8 @@ ItemList.propTypes = {
 const mapStateToProps = (state) => {
     return {
         items: state.items,
-        productItems: state.productItems
+        productItems: state.productItems,
+        currentSearch: state.pagers.item.filter
     };
 }
 

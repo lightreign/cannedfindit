@@ -14,6 +14,10 @@ class Item {
 
         this.expiry = new Date(this.expiry);
 
+        if (this.createdAt) {
+            this.createdAt = new Date(this.createdAt);
+        }
+
         if (this.consumed) {
             this.consumed = new Date(this.consumed);
         }
@@ -25,6 +29,10 @@ class Item {
 
     consumedDateString() {
         return this.consumed ? this.consumed.toLocaleDateString() : null;
+    }
+
+    packedDateString() {
+        return this.createdAt ? this.createdAt.toLocaleDateString() : null;
     }
 
     isExpired() {

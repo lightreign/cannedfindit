@@ -13,10 +13,11 @@ describe("ItemSearch component", () => {
     it("Searches items", () => {
         const searchItems = jest.fn();
         const changeMode = jest.fn();
+        const search = {};
 
         const { getByRole, getByTestId } = render(
             <Provider store={store}>
-                <ItemSearch dispatch={searchItems} changeMode={changeMode}/>
+                <ItemSearch dispatch={searchItems} changeMode={changeMode} search={search}/>
             </Provider>
         );
 
