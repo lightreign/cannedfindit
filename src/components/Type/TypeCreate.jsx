@@ -13,7 +13,7 @@ export const TypeCreate = ({dispatch}) => {
         setSubmitting(true);
 
         if (type) {
-            dispatch(addType({ name: type }));
+            dispatch(addType({ name: type.trim() }));
             e.target.reset();
         } else {
             dispatch(addErrorNotification('Product Type name cannot be empty.'));

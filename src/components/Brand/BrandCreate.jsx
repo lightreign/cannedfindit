@@ -13,7 +13,7 @@ export const BrandCreate = ({dispatch}) => {
         setSubmitting(true);
 
         if (brand) {
-            dispatch(addBrand({ name: brand }));
+            dispatch(addBrand({ name: brand.trim() }));
             e.target.reset();
         } else {
             dispatch(addErrorNotification('Brand name cannot be empty.'));

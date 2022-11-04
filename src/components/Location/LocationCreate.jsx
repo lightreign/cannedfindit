@@ -13,7 +13,7 @@ export const LocationCreate = ({dispatch}) => {
         setSubmitting(true);
 
         if (location) {
-            dispatch(addLocation({ name: location }));
+            dispatch(addLocation({ name: location.trim() }));
             e.target.reset();
         } else {
             dispatch(addErrorNotification('Location name cannot be empty.'));

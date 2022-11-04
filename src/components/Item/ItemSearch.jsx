@@ -39,7 +39,7 @@ export const ItemSearch = ({dispatch, changeMode, search}) => {
 
     const searchChange = e => {
         setSearched(false);
-        setProductType(e.target.value);
+        setProductType(e.target.value.trim());
     };
 
     const onClear = () => {

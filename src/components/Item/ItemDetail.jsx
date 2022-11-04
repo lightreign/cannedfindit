@@ -23,14 +23,23 @@ export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
                 <div>
                     <legend>Item</legend>
                     <h4>{model.product.brand.name} {model.product.type.name}</h4>
-                    <p>Date Stored: {model.packedDateString() || 'Not Known'}</p>
-                    <p>Location: {model.location.name}</p>
-                    <ItemExpiry item={model} label={'Expires:'}/>
-                    {model.consumed &&
-                        <div className="consumed">
-                            <h4 className="text-danger">Item Consumed: {model.consumedDateString()}</h4>
-                        </div>
-                    }
+
+                    <section className="itemDetails">
+                        {model.product.weight ?
+                            <p>Weight: {model.product.weight}g</p>
+                            :
+                            <p>Volume: {model.product.volume}ml</p>
+                        }
+
+                        <p>Date Stored: {model.packedDateString() || 'Not Known'}</p>
+                        <p>Location: {model.location.name}</p>
+                        <ItemExpiry item={model} label={'Expires:'}/>
+                        {model.consumed &&
+                            <div className="consumed">
+                                <h4 className="text-danger">Item Consumed: {model.consumedDateString()}</h4>
+                            </div>
+                        }
+                    </section>
                 </div>
             }
 
