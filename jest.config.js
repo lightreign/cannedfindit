@@ -1,12 +1,12 @@
 module.exports = {
-    "name": "cannedfindit",
-    "testMatch": [
+    testMatch: [
         "<rootDir>/test/unit/**/*.(spec|test).js"
     ],
-    "moduleDirectories": [
+    moduleDirectories: [
         "node_modules",
         "test/utils"
     ],
+    testEnvironment: "jsdom",
     transformIgnorePatterns: ['node_modules/(?!(axios|axios-mock-adapter)/)'],
     transform: {
         '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
