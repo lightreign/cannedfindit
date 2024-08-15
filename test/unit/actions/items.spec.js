@@ -63,7 +63,7 @@ describe("item actions", () => {
 
         expect(store.getActions()).toEqual([
             { type: LIST_ITEMS, items: response },
-            { type: UPDATE_PAGER, filter: "Tomato", pager: 'item', total: 1, page: 1, perPage: 20 }
+            { type: UPDATE_PAGER, filter: "Tomato", pager: 'item', total: "1", page: 1, perPage: 20 }
         ]);
     });
 
