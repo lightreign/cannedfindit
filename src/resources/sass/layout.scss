@@ -56,3 +56,21 @@ input[type=number] {
 .itemDetails {
   padding: 20px 0;
 }
+
+.autocomplete {
+  position: relative;
+
+  input {
+    width: 100%;
+  }
+
+  .dropdown {
+    // background-color: $dropdownbg;
+    border-radius: 0 0 2px 2px;
+    padding: 5px;
+    position: absolute;
+    top: 30px;
+    left : 0;
+    width: 100%;
+  }
+}
