@@ -2,7 +2,7 @@
     Component test utilities
 */
 import { configureStore } from "@reduxjs/toolkit";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
 const state = {
@@ -87,20 +87,20 @@ export const getPreloadedState = () => {
 };
 
 const handlers = [
-    rest.get('/api/type', (req, res, ctx) => {
-        return res(ctx.json(state.types))
+    http.get('/api/type', () => {
+        return HttpResponse.json(state.types);
     }),
-    rest.get('/api/location', (req, res, ctx) => {
-        return res(ctx.json(state.locations))
+    http.get('/api/location', () => {
+        return HttpResponse.json(state.locations);
     }),
-    rest.get('/api/brand', (req, res, ctx) => {
-        return res(ctx.json(state.brands))
+    http.get('/api/brand', () => {
+        return HttpResponse.json(state.brands);
     }),
-    rest.get('/api/product', (req, res, ctx) => {
-        return res(ctx.json(state.products))
+    http.get('/api/product', () => {
+        return HttpResponse.json(state.products);
     }),
-    rest.get('/api/item', (req, res, ctx) => {
-        return res(ctx.json(state.items))
+    http.get('/api/item', () => {
+        return HttpResponse.json(state.items);
     })
 ];
 

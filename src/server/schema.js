@@ -17,6 +17,7 @@ const locationSchemaDef = {
     name: {
         type: String,
         required: true,
+        index: true,
     }
 };
 
@@ -36,7 +37,8 @@ typeSchema.path('name').index({ unique: true });
 const brandSchemaDef = {
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true,
     }
 };
 
@@ -44,8 +46,15 @@ const brandSchema = new Schema(brandSchemaDef);
 brandSchema.path('name').index({ unique: true });
 
 const productSchemaDef = {
-    type: typeSchemaDef,
-    brand: brandSchemaDef,
+    type: {
+        type: typeSchema,
+        required: true,
+        index: true,
+    },
+    brand: {
+        type: brandSchema,
+        required: true,
+    },
     weight: Number,
     volume: Number,
 };
@@ -62,14 +71,21 @@ productSchema.index({
 });
 
 const itemSchema = new Schema({
-    product: productSchemaDef,
-    location: locationSchemaDef,
+    product: {
+        type: productSchema,
+        required: true,
+    },
+    location: {
+        type: locationSchema,
+        required: true,
+    },
     description: {
         type: String
     },
     expiry: {
         type: Date,
-        required: true
+        required: true,
+        index: true,
     },
     consumed: {
         type: Date,
@@ -77,10 +93,7 @@ const itemSchema = new Schema({
     }
 }, { timestamps: true });
 
-itemSchema.index({ 'product.type.name': 1 });
-itemSchema.index({ 'product.brand.name': 1 });
-itemSchema.index({ 'location.name': 1 });
-itemSchema.index({ expiry: 1 });
+console.log(itemSchema);
 
 // Models
 export const User = mongoose.model('User', userSchema);

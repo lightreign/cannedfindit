@@ -6,7 +6,7 @@ module.exports = {
         "node_modules",
         "test/utils"
     ],
-    testEnvironment: "jsdom",
+    testEnvironment: "jest-fixed-jsdom",
     transformIgnorePatterns: ['node_modules/(?!(axios|axios-mock-adapter)/)'],
     transform: {
         '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
