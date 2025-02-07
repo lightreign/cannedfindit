@@ -218,7 +218,7 @@ server.post('/api/item/new', async (req, res) => {
 
             let error = newItem.validateSync();
             if (error) {
-                throw new Error('Item has invalid data');
+                throw new Error(error);
             }
 
             await newItem.save();
