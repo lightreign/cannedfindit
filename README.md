@@ -9,7 +9,7 @@
 Dependencies
 ---
 - MongoDB 4.0+ (installed locally)
-- Node 14.3+ & npm 17.x+
+- Node 18+
 - Raspberry Pi 3 or above (if running on a Pi, see [below](#raspberry-pi))
 
 The rest of app dependencies including React are handled by npm.
@@ -45,6 +45,8 @@ Raspberry Pi
 You can run this app on a Raspberry Pi (as I do) but due to limitations with MongoDB 4 you must be running 64-bit Arm
 CPU in your Pi. This excludes Raspberry Pi 2 or below. In addition to a 64-bit CPU requirement you must also use 
 a 64-bit OS such as Ubuntu.
+
+NOTE: Raspberry Pi 3 does not support MongoDB 5 or above
 
 Steps on how to do this are found in: https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/
 
