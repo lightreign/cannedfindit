@@ -4,6 +4,12 @@
 
 [![Build Status](https://app.travis-ci.com/lightreign/cannedfindit.svg?branch=master)](https://app.travis-ci.com/lightreign/cannedfindit)
 
+<p align="center">
+    <a href="https://github.com/lightreign/cannedfindit/actions">
+        <img alt="Build" src="https://img.shields.io/github/actions/workflow/status/lightreign/cannedfindit/tests.yml?branch=master" />
+    </a>
+</p>
+
 ![Main Page][2]
 
 Dependencies
