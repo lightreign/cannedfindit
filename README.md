@@ -44,9 +44,25 @@ You can now access app with your browser on port 4242
 [1]: logo.png
 [2]: main.png
 
+Docker
+---
+If you have docker installed simply run:
+
+```
+docker compose up -d
+```
+
+This will spin up two containers:
+
+- cannedfindit: the main app container
+
+- mongodb: using MongoDB 6.0, data is stored in a persistent volume `inventory`
+
+By default the app is available on port 4444, Enjoy!
+
 Raspberry Pi
 ---
-You can run this app on a Raspberry Pi (as I do) but due to limitations with MongoDB 4 you must be running 64-bit Arm
+You can run this app on a Raspberry Pi but due to limitations with MongoDB 4 you must be running 64-bit Arm
 CPU in your Pi. This excludes Raspberry Pi 2 or below. In addition to a 64-bit CPU requirement you must also use 
 a 64-bit OS such as Ubuntu.
 

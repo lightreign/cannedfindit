@@ -1,0 +1,25 @@
+services:
+  cannedfindit:
+    container_name: cannedfindit
+    image: cannedfindit
+    build:
+      dockerfile: ./.build/Dockerfile
+    hostname: cannedfindit
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URI: "mongodb://root:canfindit!@mongodb:27017/inventory?authSource=admin"
+    ports:
+      - 4444:4242
+
+  mongodb:
+    image: mongo:6.0.26-jammy
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: canfindit!
+    volumes:
+      - inventory:/data/db
+volumes:
+  inventory:
