@@ -47,7 +47,7 @@ export const ProductCreate = ({dispatch}) => {
         <Form id="productCreateForm" onSubmit={createProduct} role="ProductForm">
             <legend>Add a Product</legend>
 
-            <ConnectedBrandSelect setProductBrand={e => setBrand(e.target.value)}/>
+            <ConnectedBrandSelect setProductBrand={brand => setBrand(brand)}/>
             <ConnectedTypeSelect setProductType={e => setType(e.target.value)}/>
 
             <Row>

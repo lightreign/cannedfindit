@@ -93,8 +93,6 @@ const itemSchema = new Schema({
     }
 }, { timestamps: true });
 
-console.log(itemSchema);
-
 // Models
 export const User = mongoose.model('User', userSchema);
 export const Type = mongoose.model('Type', typeSchema);

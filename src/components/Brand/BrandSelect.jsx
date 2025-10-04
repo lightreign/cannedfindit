@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listBrands } from "../../store/actions";
 import { Form } from "react-bootstrap-v5";
+import { Autocomplete } from "../Autocomplete";
 
 export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     useEffect(() => {
@@ -12,14 +13,7 @@ export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     return (
         <Form.Group controlId="form.brand">
             <Form.Label>Brand:</Form.Label>
-            <Form.Select onChange={setProductBrand} name="brand" data-testid="brandSelect">
-                <option key="" value="">-- Select --</option>
-                {brands.map(brand => (
-                    <option key={brand._id} value={brand.name}>
-                        {brand.name}
-                    </option>
-                ))}
-            </Form.Select>
+            <Autocomplete list={brands} setValue={setProductBrand} />
         </Form.Group>
     )
 };

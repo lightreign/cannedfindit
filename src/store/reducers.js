@@ -72,8 +72,6 @@ export function productReducer(products = defaultState.products, action) {
 export function pagerReducer(pagers = defaultState.pagers, action) {
     switch (action.type) {
         case actions.UPDATE_PAGER:
-
-
             pagers[action.pager] = {
                 filter: action.filter,
                 page: action.page,
