@@ -70,7 +70,7 @@ export const ItemCreate = ({dispatch}) => {
                 />
             </Form.Group>
 
-            <ConnectedLocationSelect setLocation={e => setLocation(e.target.value)} data-testid="locationSelect"/>
+            <ConnectedLocationSelect setLocation={location => setLocation(location)} data-testid="locationSelect"/>
 
             <Form.Group controlId="qty">
                 <Form.Label>Quantity:</Form.Label>
