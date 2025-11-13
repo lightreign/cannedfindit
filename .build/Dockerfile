@@ -1,6 +1,6 @@
 FROM node:trixie-slim
 
-RUN mkdir -p /opt/cannedfindit/{src,dist}
+RUN mkdir -p /opt/cannedfindit
 COPY ./src /opt/cannedfindit/src
 COPY ./*.js* /opt/cannedfindit
 
