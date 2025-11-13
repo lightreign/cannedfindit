@@ -3,23 +3,21 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listProducts } from "../../store/actions";
 import { Form } from "react-bootstrap-v5";
+import { Autocomplete } from "../Autocomplete";
 
 export const ProductSelect = ({products, listProducts, setProduct}) => {
     useEffect(() => {
         listProducts();
     }, []);
 
+    const lineEntry = (entry) => (
+        `${entry.brand.name} ${entry.type.name} ${entry.volume ? entry.volume + 'ml' : entry.weight + 'g' }`
+    );
+
     return (
         <Form.Group controlId="form.product" role="productSelect">
             <Form.Label>Product:</Form.Label>
-            <Form.Select onChange={setProduct} name="product" data-testid="productSelect">
-                <option key="" value="">-- Select --</option>
-                {products.map(product => (
-                    <option key={product._id} value={JSON.stringify(product)}>
-                        {product.brand.name} {product.type.name} {product.volume ? product.volume + 'ml' : product.weight + 'g' }
-                    </option>
-                ))}
-            </Form.Select>
+            <Autocomplete list={products} setValue={setProduct} lineEntry={lineEntry} selectJson testId="productSelect" />
         </Form.Group>
     );
 };

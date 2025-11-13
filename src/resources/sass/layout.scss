@@ -78,6 +78,7 @@ input[type=number] {
     width: 99.8%;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
+    z-index: 3;
 
     .item {
       &:hover {

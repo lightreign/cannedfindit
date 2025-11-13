@@ -56,7 +56,7 @@ export const ItemCreate = ({dispatch}) => {
         <Form id="itemCreateForm" onSubmit={createItem} role="ItemForm">
             <legend>Create an Item</legend>
 
-            <ConnectedProductSelect setProduct={e => setProduct(JSON.parse(e.target.value))} data-testid="productSelect"/>
+            <ConnectedProductSelect setProduct={productJson => setProduct(JSON.parse(productJson))}/>
 
             <Form.Group controlId="expiry">
                 <Form.Label>Expiry:</Form.Label>
@@ -70,7 +70,7 @@ export const ItemCreate = ({dispatch}) => {
                 />
             </Form.Group>
 
-            <ConnectedLocationSelect setLocation={location => setLocation(location)} data-testid="locationSelect"/>
+            <ConnectedLocationSelect setLocation={location => setLocation(location)}/>
 
             <Form.Group controlId="qty">
                 <Form.Label>Quantity:</Form.Label>

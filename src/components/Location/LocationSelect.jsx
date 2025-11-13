@@ -13,7 +13,7 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
     return (
         <Form.Group controlId="form.location" role="locationSelect">
             <Form.Label>Location:</Form.Label>
-            <Autocomplete list={locations} setValue={setLocation} />
+            <Autocomplete list={locations} setValue={setLocation} testId="locationSelect" />
         </Form.Group>
     );
 };

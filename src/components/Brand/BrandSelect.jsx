@@ -13,7 +13,7 @@ export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     return (
         <Form.Group controlId="form.brand">
             <Form.Label>Brand:</Form.Label>
-            <Autocomplete list={brands} setValue={setProductBrand} />
+            <Autocomplete list={brands} setValue={setProductBrand} testId="brandSelect" />
         </Form.Group>
     )
 };

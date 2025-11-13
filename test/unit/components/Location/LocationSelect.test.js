@@ -15,8 +15,8 @@ describe("LocationSelect component", () => {
 
         const select = getByTestId('locationSelect');
 
-        fireEvent.change(select, { target: { value: locations[0].name } });
-        expect(getByRole('option', {name: locations[0].name}).selected).toBe(true);
+        fireEvent.focus(select);
+        fireEvent.click(getByRole('option', {name: locations[0].name}));
 
         expect(selectLocation).toBeCalledTimes(1);
         expect(listLocations).toBeCalled();
