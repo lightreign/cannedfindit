@@ -1,6 +1,7 @@
 services:
   cannedfindit:
     container_name: cannedfindit
+    restart: unless-stopped
     image: cannedfindit
     build:
       dockerfile: ./.build/Dockerfile

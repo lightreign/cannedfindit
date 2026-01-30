@@ -1,0 +1,12 @@
+# The Raspberry Pi 3 does not support the ARM v8.2-A architecture and won't run versions above 4.4.18,
+# you will also probably need to build the cannedfindit container on a different machine
+# and copy the container to the Pi3 either by using `docker save` and copying the file over or by using a local container registry
+
+services:
+  mongodb:
+    image: mongo:4.4.18@sha256:766daf21cc3bdcd2f9cf0265473ce1d81c3712e4e625fd1ea72e626ed1378d72
+  cannedfindit:
+    build:
+      context: "."
+      platforms:
+        - linux/arm64
