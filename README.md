@@ -62,13 +62,19 @@ By default the app is available on port 4444, Enjoy!
 
 Raspberry Pi
 ---
-You can run this app on a Raspberry Pi but due to limitations with MongoDB 4 you must be running 64-bit Arm
-CPU in your Pi. This excludes Raspberry Pi 2 or below. In addition to a 64-bit CPU requirement you must also use 
+You can run this app on a Raspberry Pi but due to limitations with MongoDB 4+ you must be running 64-bit Arm
+CPU in your Pi. This excludes Raspberry Pi 2 or below. In addition to a 64-bit CPU requirement you must also be using 
 a 64-bit OS such as Ubuntu.
 
-NOTE: Raspberry Pi 3 does not support MongoDB 5 or above
+NOTE: Raspberry Pi 3 does not support MongoDB 5 or above, I've included a handy docker compose override file for those users. 
 
-Steps on how to do this are found in: https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/
+Run on your Pi 3:
+
+```
+cp docker-compose.override.yml.rpi3 docker-compose.override.yml
+```
+
+Then follow the steps in the docker install.
 
 Hosting / Cloud
 ---
