@@ -39,7 +39,7 @@ describe("ProductCreate component", () => {
         const brandSelect = getByTestId(form, 'brandSelect');
 
         fireEvent.change(typeSelect, { target: { value: preloadedState.types[0].name } });
-        // fireEvent.change(brandSelect, { target: { value: preloadedState.brands[0].name } });
+
         fireEvent.focus(brandSelect);
         fireEvent.click(getByRole('option', {name: preloadedState.brands[0].name}));
 

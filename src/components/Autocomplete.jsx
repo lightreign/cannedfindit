@@ -26,7 +26,7 @@ export const Autocomplete = ({list, setValue, lineEntry, selectJson = false, tes
 
         setSearch(item.innerText);
 
-        selectJson ? setValue(item.attributes['data-json'].value) : setValue(item.innerText);
+        selectJson ? setValue(item.attributes['data-json'].value) : setValue(item.innerText ?? item.textContent);
         hideList();
     };
 
