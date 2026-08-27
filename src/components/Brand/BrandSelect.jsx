@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listBrands } from "../../store/actions";
-import { Form } from "react-bootstrap-v5";
+import { Form } from "react-bootstrap";
 
 export const BrandSelect = ({brands, listBrands, setProductBrand}) => {
     useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listItems, listProductItems } from "../../store/actions";
-import { ButtonGroup, ToggleButton } from "react-bootstrap-v5";
+import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import { ConnectedItemSearch } from "./ItemSearch";
 import { ItemTable } from "./ItemTable";
 import { ProductItemTable } from "../Product/ProductItemTable";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Pagination } from "react-bootstrap-v5";
+import { Pagination } from "react-bootstrap";
 
 export const Pager = ({page, perPage, total, fetchData}) => {
     const [pages, setPages] = useState([]);

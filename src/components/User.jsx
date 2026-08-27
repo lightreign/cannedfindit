@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Alert, Button, Form } from "react-bootstrap-v5";
+import { Alert, Button, Form } from "react-bootstrap";
 import { getUser, updateUser } from "../store/actions";
 
 export const User = ({user, getUser, updateUser}) => {

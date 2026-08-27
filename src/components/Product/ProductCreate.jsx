@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addErrorNotification, addProduct } from "../../store/actions";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { ConnectedTypeSelect } from "../Type/TypeSelect";
 import { ConnectedBrandSelect } from "../Brand/BrandSelect";
-import { Button, Col, Form, Row } from "react-bootstrap-v5";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import ProductScan from "../Product/ProductScan";
+import { clearBarcode } from "../../store/barcodeSlice";
 
 export const ProductCreate = ({dispatch}) => {
     const [type, setType] = useState('');
@@ -12,6 +14,19 @@ export const ProductCreate = ({dispatch}) => {
     const [mass, setMass] = useState('');
     const [unit, setUnit] = useState('g');
     const [submitting, setSubmitting] = useState(false);
+    const [showScanner, setShowScanner] = useState(false);
+
+    const barcode = useSelector(
+        (state) => state.barcode.value
+    );
+
+    useEffect(() => {
+        if (!barcode) return;
+
+        console.log("Barcode received:", barcode);
+        setShowScanner(false);
+
+    }, [barcode, dispatch]);
 
     const createProduct = (e) => {
         e.preventDefault();
@@ -26,6 +41,7 @@ export const ProductCreate = ({dispatch}) => {
                 brand: {
                     name: brand
                 },
+                barcode: barcode,
             };
 
             if (unit === 'ml') {
@@ -36,6 +52,8 @@ export const ProductCreate = ({dispatch}) => {
 
             dispatch(addProduct(product));
             e.target.reset();
+
+            dispatch(clearBarcode());
         } else {
             dispatch(addErrorNotification('Product information is missing, please enter details'));
         }
@@ -50,6 +68,22 @@ export const ProductCreate = ({dispatch}) => {
             <ConnectedBrandSelect setProductBrand={e => setBrand(e.target.value)}/>
             <ConnectedTypeSelect setProductType={e => setType(e.target.value)}/>
 
+            <Row>
+                <Col>
+                    <p>
+                        <Button
+                            variant="warning"
+                            onClick={() => setShowScanner(true)}
+                        >
+                            Link to Barcode
+                        </Button>
+                    </p>
+                </Col>
+                <Col>
+                    Barcode: &quot;{barcode}&quot;
+                </Col>
+            </Row>
+            
             <Row>
                 <Col>
                     <Form.Group controlId="weightVolume">
@@ -69,6 +103,11 @@ export const ProductCreate = ({dispatch}) => {
             </Row>
 
             <Button type="submit" disabled={submitting} className="btn btn-primary">Add Product</Button>
+
+            <ProductScan
+                show={showScanner}
+                onClose={() => setShowScanner(false)}
+            />
         </Form>
     );
 }

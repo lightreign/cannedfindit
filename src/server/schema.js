@@ -57,6 +57,7 @@ const productSchemaDef = {
     },
     weight: Number,
     volume: Number,
+    barcode: String,
 };
 
 const productSchema = new Schema(productSchemaDef, { timestamps: true });

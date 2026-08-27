@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Form } from "react-bootstrap-v5";
+import { Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { listItems } from "../../store/actions";
 

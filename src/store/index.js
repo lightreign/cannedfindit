@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk';
 import { createLogger } from "redux-logger";
 import * as reducer from "./reducers";
+import barcodeReducer from "./barcodeSlice";
 
 const logger = createLogger();
 const middlewares = [ thunk ];
@@ -23,6 +24,7 @@ export const store = createStore(
         item: reducer.itemDetailReducer,
         notification: reducer.notificationReducer,
         user: reducer.userReducer,
+        barcode: barcodeReducer,
     }),
     composeWithDevTools(applyMiddleware(...middlewares))
 );

@@ -74,3 +74,14 @@ input[type=number] {
     width: 100%;
   }
 }
+
+.sr-only {
+  display: none;
+}
+
+.modal-header {
+  .close {
+    background: transparent;
+    border: none;
+  }
+}

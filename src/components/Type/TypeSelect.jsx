@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listTypes } from "../../store/actions";
-import { Form } from "react-bootstrap-v5";
+import { Form } from "react-bootstrap";
 
 export const TypeSelect = ({types, listTypes, setProductType}) => {
     useEffect(() => {

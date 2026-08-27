@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { addErrorNotification, addLocation } from "../../store/actions";
 import { connect } from "react-redux";
-import { Button, Form } from "react-bootstrap-v5";
+import { Button, Form } from "react-bootstrap";
 
 export const LocationCreate = ({dispatch}) => {
     const [location, setLocation] = useState('');

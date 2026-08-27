@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import { Alert } from "react-bootstrap-v5";
+import { Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { clearNotifications } from "../../store/actions";

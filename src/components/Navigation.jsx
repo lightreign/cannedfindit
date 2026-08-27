@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Navbar, Nav, Container } from "react-bootstrap-v5";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export const Navigation = () => (

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ItemExpiry } from "./ItemExpiry";
-import { Table } from "react-bootstrap-v5";
+import { Table } from "react-bootstrap";
 import { ConnectedItemPager } from "../Pager";
 import Item from "../../models/Item";
 
