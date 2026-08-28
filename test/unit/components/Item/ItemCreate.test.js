@@ -38,8 +38,19 @@ describe("ItemCreate component", () => {
         const productSelect = getByTestId(form, 'productSelect');
         const locationSelect = getByTestId(form, 'locationSelect');
 
-        fireEvent.change(productSelect, { target: { value: JSON.stringify(preloadedState.products[0]) } });
-        fireEvent.change(locationSelect, { target: { value: preloadedState.locations[0].name } });
+
+        const productDesc = [
+            preloadedState.products[0].brand.name,
+            preloadedState.products[0].type.name,
+            preloadedState.products[0].weight + 'g',
+        ].join(' ');
+
+        fireEvent.focus(productSelect);
+        fireEvent.click(getByRole('option', {name: productDesc}));
+
+        fireEvent.focus(locationSelect);
+        fireEvent.click(getByRole('option', {name: preloadedState.locations[0].name }));
+
         fireEvent.input(getByTestId(form, 'itemExpiry'), { target: { value: '08/03/2022' } });
         fireEvent.submit(form);
 

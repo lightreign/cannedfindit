@@ -17,8 +17,8 @@ describe("ProductSelect component", () => {
         const select = getByTestId('productSelect');
         const productOption = products[0].brand.name + ' ' + products[0].type.name + ' ' + products[0].weight + 'g';
 
-        fireEvent.change(select, { target: { value: JSON.stringify(products[0]) } });
-        expect(getByRole('option', { name: productOption }).selected).toBe(true);
+        fireEvent.focus(select);
+        fireEvent.click(getByRole('option', {name: productOption}));
 
         expect(selectProduct).toBeCalledTimes(1);
         expect(listProducts).toBeCalled();
