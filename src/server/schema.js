@@ -17,12 +17,10 @@ const locationSchemaDef = {
     name: {
         type: String,
         required: true,
-        index: true,
     }
 };
 
-const locationSchema = new Schema(locationSchemaDef, { timestamps: true });
-locationSchema.path('name').index({ unique: true });
+const itemLocationSchema = new Schema(locationSchemaDef, { timestamps: true });
 
 const typeSchemaDef = {
     name: {
@@ -31,28 +29,24 @@ const typeSchemaDef = {
     }
 };
 
-const typeSchema = new Schema(typeSchemaDef);
-typeSchema.path('name').index({ unique: true });
+const productTypeSchema = new Schema(typeSchemaDef);
 
 const brandSchemaDef = {
     name: {
         type: String,
         required: true,
-        index: true,
     }
 };
 
-const brandSchema = new Schema(brandSchemaDef);
-brandSchema.path('name').index({ unique: true });
+const productBrandSchema = new Schema(brandSchemaDef);
 
 const productSchemaDef = {
     type: {
-        type: typeSchema,
+        type: productTypeSchema,
         required: true,
-        index: true,
     },
     brand: {
-        type: brandSchema,
+        type: productBrandSchema,
         required: true,
     },
     weight: Number,
@@ -60,24 +54,15 @@ const productSchemaDef = {
     barcode: String,
 };
 
-const productSchema = new Schema(productSchemaDef, { timestamps: true });
-
-productSchema.index({
-    type: 1,
-    brand: 1,
-    weight: 1,
-    volume: 1,
-}, {
-    unique: true
-});
+const itemProductSchema = new Schema(productSchemaDef, { timestamps: true });
 
 const itemSchema = new Schema({
     product: {
-        type: productSchema,
+        type: itemProductSchema,
         required: true,
     },
     location: {
-        type: locationSchema,
+        type: itemLocationSchema,
         required: true,
     },
     description: {
@@ -93,6 +78,25 @@ const itemSchema = new Schema({
         required: false
     }
 }, { timestamps: true });
+
+const typeSchema = new Schema(typeSchemaDef, { timestamps: true });
+typeSchema.index({ name: 1 }, { unique: true });
+
+const brandSchema = new Schema(brandSchemaDef, { timestamps: true });
+brandSchema.index({ name: 1 }, { unique: true });
+
+const locationSchema = new Schema(locationSchemaDef, { timestamps: true });
+locationSchema.index({ name: 1 }, { unique: true });
+
+const productSchema = new Schema(productSchemaDef, { timestamps: true });
+productSchema.index({
+    type: 1,
+    brand: 1,
+    weight: 1,
+    volume: 1,
+}, {
+    unique: true
+});
 
 // Models
 export const User = mongoose.model('User', userSchema);
