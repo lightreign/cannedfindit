@@ -131,7 +131,7 @@ export const listItems = (search = '', page = null, perPage = null) => {
         page = page ||  state.pagers.item.page;
         perPage = perPage || state.pagers.item.perPage;
 
-        const params = { search: search, page: page, perPage: perPage };
+        const params = { search, page, perPage };
 
         return api.get('/item?'+ qs.stringify(params)).then(response => {
             return response

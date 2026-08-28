@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, Form } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { listItems } from "../../store/actions";
+import ProductScan from "../Product/ProductScan";
+import { clearBarcode } from "../../store/barcodeSlice";
 
 export const ItemSearch = ({dispatch, changeMode, search}) => {
     const searchTerms = Object.values(search);
@@ -10,6 +12,30 @@ export const ItemSearch = ({dispatch, changeMode, search}) => {
 
     const [productType, setProductType] = useState(term);
     const [searched, setSearched] = useState(searchTerms.length);
+    const [showScanner, setShowScanner] = useState(false);
+
+    const barcode = useSelector(
+        (state) => state.barcode.value
+    );
+
+    useEffect(() => {
+        if (!barcode) return;
+
+        console.log("Barcode received:", barcode);
+        setShowScanner(false);
+
+        setSearched(true);
+        changeMode('list');
+
+        dispatch(
+            listItems({
+                    'product.barcode': barcode,
+                }, 1
+            )
+        );
+
+        dispatch(clearBarcode());
+    }, [barcode, dispatch]);
 
     if (term) {
         changeMode('list');
@@ -30,10 +56,11 @@ export const ItemSearch = ({dispatch, changeMode, search}) => {
 
         dispatch(
             listItems({
-                'product.type.name': productType,
-                'product.brand.name': productType
+                    'product.type.name': productType,
+                    'product.brand.name': productType,
                 },
-                1)
+                1
+            )
         );
     }
 
@@ -56,6 +83,12 @@ export const ItemSearch = ({dispatch, changeMode, search}) => {
 
             <Button variant="primary" type="submit" disabled={searched}>Search</Button>
             <Button variant="secondary" type="submit" onClick={onClear} disabled={!searched || !productType.length}>Clear</Button>
+            <Button variant="warning" onClick={() => setShowScanner(true)}>Scan</Button>
+
+            <ProductScan
+                show={showScanner}
+                onClose={() => setShowScanner(false)}
+            />
         </Form>
     );
 };

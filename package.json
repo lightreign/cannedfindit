@@ -23,7 +23,7 @@
     "axios": "^1.7.4",
     "babel-loader": "^8.2.2",
     "body-parser": "^1.19.0",
-    "bootstrap": "^5.0.2",
+    "bootstrap": "^5.3.8",
     "copy-webpack-plugin": "^14.0.0",
     "core-js": "^3.10.1",
     "css-loader": "^5.2.2",

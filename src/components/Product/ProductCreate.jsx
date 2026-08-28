@@ -80,7 +80,7 @@ export const ProductCreate = ({dispatch}) => {
                     </p>
                 </Col>
                 <Col>
-                    Barcode: &quot;{barcode}&quot;
+                    {barcode && <p className="mt-4">Barcode: {barcode}</p>}
                 </Col>
             </Row>
             

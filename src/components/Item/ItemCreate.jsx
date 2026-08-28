@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Datetime from 'react-datetime';
 import { addErrorNotification, addItem } from "../../store/actions";
 import { connect } from "react-redux";
 import { ConnectedLocationSelect } from "../Location/LocationSelect";
 import { ConnectedProductSelect } from "../Product/ProductSelect";
-import ProductScan from "../Product/ProductScan";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { clearBarcode } from "../../store/barcodeSlice";
+import { Button, Form } from "react-bootstrap";
 
 export const ItemCreate = ({dispatch}) => {
     const [product, setProduct] = useState();
@@ -16,25 +13,8 @@ export const ItemCreate = ({dispatch}) => {
     const [location, setLocation] = useState('');
     const [qty, setQty] = useState(1);
     const [submitting, setSubmitting] = useState(false);
-    const [showScanner, setShowScanner] = useState(false);
 
     const maxQty = 12;
-
-    const barcode = useSelector(
-        (state) => state.barcode.value
-    );
-
-    useEffect(() => {
-        if (!barcode) return;
-
-        console.log("Barcode received:", barcode);
-
-        // e.g. find a product by barcode, and place it in the form, write a new api for it
-
-        setShowScanner(false);
-
-        dispatch(clearBarcode());
-  }, [barcode, dispatch]);
 
     const createItem = (e) => {
         e.preventDefault();
@@ -78,19 +58,6 @@ export const ItemCreate = ({dispatch}) => {
 
             <ConnectedProductSelect setProduct={e => setProduct(JSON.parse(e.target.value))} data-testid="productSelect"/>
 
-            <Row>
-                <Col>
-                    <p>
-                        <Button
-                            variant="warning"
-                            onClick={() => setShowScanner(true)}
-                        >
-                            Scan Item
-                        </Button>
-                    </p>
-                </Col>
-            </Row>
-
             <Form.Group controlId="expiry">
                 <Form.Label>Expiry:</Form.Label>
                 <Datetime
@@ -111,11 +78,6 @@ export const ItemCreate = ({dispatch}) => {
             </Form.Group>
 
             <Button variant="primary" disabled={submitting} type="submit">Add Item</Button>
-
-             <ProductScan
-                show={showScanner}
-                onClose={() => setShowScanner(false)}
-            />
         </Form>
     );
 }

@@ -9,7 +9,6 @@ function ProductScan({ show, onClose }) {
     const dispatch = useDispatch();
 
     const handleScan = (barcode) => {
-        console.log("Scanned:", barcode);
         dispatch(barcodeScanned(barcode));
     };
 
