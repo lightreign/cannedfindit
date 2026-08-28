@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { listLocations } from "../../store/actions";
 import {Form} from "react-bootstrap";
+import { Autocomplete } from "../Autocomplete";
 
 export const LocationSelect = ({locations, listLocations, setLocation}) => {
     useEffect(() => {
@@ -12,14 +13,7 @@ export const LocationSelect = ({locations, listLocations, setLocation}) => {
     return (
         <Form.Group controlId="form.location" role="locationSelect">
             <Form.Label>Location:</Form.Label>
-            <Form.Select onChange={setLocation} name="location" data-testid="locationSelect">
-                <option key="" value="">-- Select --</option>
-                {locations.map(location => (
-                    <option key={location._id} value={location.name}>
-                        {location.name}
-                    </option>
-                ))}
-            </Form.Select>
+            <Autocomplete list={locations} setValue={setLocation} testId="locationSelect" />
         </Form.Group>
     );
 };

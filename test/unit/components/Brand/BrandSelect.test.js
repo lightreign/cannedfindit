@@ -15,8 +15,8 @@ describe("BrandSelect component", () => {
 
         const select = getByTestId('brandSelect');
 
-        fireEvent.change(select, { target: { value: brands[0].name } });
-        expect(getByRole('option', {name: brands[0].name}).selected).toBe(true);
+        fireEvent.focus(select);
+        fireEvent.click(getByRole('option', {name: brands[0].name}));
 
         expect(selectBrand).toBeCalledTimes(1);
         expect(listBrands).toBeCalled();

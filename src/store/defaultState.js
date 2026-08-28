@@ -1,5 +1,5 @@
 export const defaultState = {
-    version: "1.4.2",
+    version: "1.6.0",
     user: {},
     pagers: {
         item: {
