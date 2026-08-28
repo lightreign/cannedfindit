@@ -31,6 +31,10 @@ export const ItemDetail = ({itemId, item, getItem, consume, unconsume}) => {
                             <p>Volume: {model.product.volume}ml</p>
                         }
 
+                        {model.product.barcode &&
+                            <p>Barcode: {model.product.barcode}</p>
+                        }
+
                         <p>Date Stored: {model.packedDateString() || 'Not Known'}</p>
                         <p>Location: {model.location.name}</p>
                         <ItemExpiry item={model} label={'Expires:'}/>

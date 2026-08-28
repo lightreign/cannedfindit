@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Form } from "react-bootstrap-v5";
+import { Form } from "react-bootstrap";
 
 export const Autocomplete = ({list, setValue, lineEntry, selectJson = false, testId = 'data-autocomplete'}) => {
     const [search, setSearch] = useState('');
