@@ -53,7 +53,7 @@ export const ProductCreate = ({dispatch}) => {
             dispatch(addProduct(product));
             e.target.reset();
 
-            dispatch(clearBarcode());
+            barcode && dispatch(clearBarcode());
         } else {
             dispatch(addErrorNotification('Product information is missing, please enter details'));
         }

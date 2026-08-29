@@ -27,4 +27,5 @@ export const defaultState = {
         type: null,
         variant: null
     },
+    barcode: null,
 };

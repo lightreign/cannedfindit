@@ -4,6 +4,7 @@ import { fireEvent, render } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { store, server } from "component-utils";
 import { ItemSearch } from "../../../../src/components/Item/ItemSearch";
+import { barcodeScanned } from "../../../../src/store/barcodeSlice";
 
 describe("ItemSearch component", () => {
     beforeAll(() => server.listen());
@@ -23,6 +24,24 @@ describe("ItemSearch component", () => {
 
         fireEvent.input(getByTestId('search'), { target: { value: 'Beans' } });
         fireEvent.submit(getByRole('SearchForm'));
+
+        expect(searchItems).toHaveBeenCalled();
+    });
+
+    it("searches by barcode", () => {
+        const searchItems = jest.fn();
+        const changeMode = jest.fn();
+        const search = {};
+
+        store.dispatch(
+            barcodeScanned("5012345678900")
+        );
+
+        render(
+            <Provider store={store}>
+                <ItemSearch dispatch={searchItems} changeMode={changeMode} search={search}/>
+            </Provider>
+        );
 
         expect(searchItems).toHaveBeenCalled();
     });

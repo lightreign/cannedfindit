@@ -13,7 +13,7 @@ function ProductScan({ show, onClose }) {
     };
 
     return (
-        <Modal show={show} onHide={onClose} fullscreen="sm-down" centered>
+        <Modal show={show} onHide={onClose} fullscreen="sm-down">
             <Modal.Header closeButton>
                 <Modal.Title>Scan Product</Modal.Title>
             </Modal.Header>

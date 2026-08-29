@@ -4,6 +4,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
+import barcodeReducer from "../../src/store/barcodeSlice";
 
 const state = {
     brands: [ {
@@ -42,6 +43,7 @@ const state = {
                 },
                 weight: 270,
                 volume: null,
+                barcode: "5012345678900"
             },
             location: {
                 name: "Storage Cupboard"
@@ -68,6 +70,9 @@ const state = {
             perPage: 20,
             itemCount: 0,
         }
+    },
+    barcode: {
+        value: null,
     }
 };
 
@@ -78,6 +83,7 @@ const reducers = {
     products: () => { return state.products },
     items: () => { return state.items },
     pagers: () => { return state.pagers },
+    barcode: barcodeReducer
 }
 
 export const store = configureStore({ reducer: reducers, state });
