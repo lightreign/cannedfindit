@@ -13,13 +13,30 @@
 Dependencies
 ---
 - MongoDB 4.0+ (installed locally)
-- Node 18+
+- Node 24+
 - Raspberry Pi 3 or above (if running on a Pi, see [below](#raspberry-pi))
 
 The rest of app dependencies including React are handled by npm.
 
-Installation
+Using Docker
 ---
+If you have docker installed simply run:
+
+```
+docker compose up -d
+```
+
+This will spin up two containers:
+
+- cannedfindit: the main app container
+
+- mongodb: using MongoDB 6.0, data is stored in a persistent volume `inventory`
+
+By default the app is available on port 4444, Enjoy!
+
+Local Installation
+---
+
 1. Install app dependencies
 ```
 npm install
@@ -44,22 +61,6 @@ You can now access app with your browser on port 4242
 [1]: logo.png
 [2]: main.png
 
-Docker
----
-If you have docker installed simply run:
-
-```
-docker compose up -d
-```
-
-This will spin up two containers:
-
-- cannedfindit: the main app container
-
-- mongodb: using MongoDB 6.0, data is stored in a persistent volume `inventory`
-
-By default the app is available on port 4444, Enjoy!
-
 Raspberry Pi
 ---
 You can run this app on a Raspberry Pi but due to limitations with MongoDB 4+ you must be running 64-bit Arm
@@ -79,7 +80,7 @@ Then follow the steps in the docker install.
 Hosting / Cloud
 ---
 At this stage Cannedfindit is not suitable to run on publicly available servers.
-Please only run this application in your local network.
+Please only run this application in your local network. Tailscale is awesome, use that.
 
 Explaining Data Model
 ---
