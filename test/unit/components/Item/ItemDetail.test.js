@@ -31,6 +31,7 @@ describe("ItemDetail component", () => {
         expect(list).toHaveTextContent('Expires');
         expect(list).toHaveTextContent(model.expiryDateString());
         expect(list).not.toHaveTextContent('Item Consumed:');
+        expect(list).toHaveTextContent(model.product.barcode);
     });
 
     it("Consumes an item", () => {
