@@ -19,7 +19,7 @@ function ProductScan({ show, onClose }) {
             </Modal.Header>
 
             <Modal.Body>
-                <Scanner onScan={handleScan} />
+                <Scanner active={show} onScan={handleScan} />
             </Modal.Body>
 
             <Modal.Footer>
